@@ -1,0 +1,1 @@
+web: gunicorn PBPD04.wsgi --log-file -
