@@ -24,7 +24,7 @@ HIVCenter memiliki visi untuk menghilangkan stereotip yang melekat pada sebagian
 
 HIVCenter memiliki fitur-fitur yang dapat memberikan pengetahuan seputar HIV kepada pengguna. Fitur-fitur tersebut diantaranya ada forum untuk pengguna dokter yang dapat memberikan postingan seputar informasi HIV. Fitur lainnya adalah forum untuk pengguna pasien guna saling bertukar pengalaman dan informasi seputar HIV. Selain fitur-fitur forum, terdapat juga fitur yang menampilkan daftar-daftar dari rumah sakit terdekat apabila pengguna membutuhkan info lokasi rumah sakit untuk melakukan pengecekan atau konsultasi kepada dokter terkait HIV. Fitur terakhir adalah fitur pengguna pasien untuk membuat reservasi atau booking kepada pengguna dokter untuk melakukan konsultasi atau pemeriksaan HIV. 
 
-Fitur-fitur tersebut disediakan sebagai upaya penyuluhan dan tindakan preventif HIV. Dengan adanya fitur-fitur yang disediakan pada (nama aplikasi) diharapkan dapat mengedukasi masyarakat tentang info seputar HIV, dapat mengubah stigma negatif masyarakat terhadap pengidap HIV, dan juga yang paling penting adalah dapat mengurangi kasus HIV yang ada di Indonesia. 
+Fitur-fitur tersebut disediakan sebagai upaya penyuluhan dan tindakan preventif HIV. Dengan adanya fitur-fitur yang disediakan pada HIVCenter diharapkan dapat mengedukasi masyarakat tentang info seputar HIV, dapat mengubah stigma negatif masyarakat terhadap pengidap HIV, dan juga yang paling penting adalah dapat mengurangi kasus HIV yang ada di Indonesia. 
 
 ## Daftar modul yang akan diimplementasikan
 
