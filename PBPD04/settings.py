@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
     'django.contrib.staticfiles',
     'Authentication',
     'Blogpost',
@@ -45,9 +48,6 @@ INSTALLED_APPS = [
     'Experience',
     'HIVCenter',
     'Map',
-    'tailwind',
-    'theme',
-    'django_browser_reload',
 ]
 
 TAILWIND_APP_NAME = 'theme'
