@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<head>
+    {% block meta %}
+    <title> Blogpost </title>
+    {% endblock meta %}
+</head>
+
+<body>
+{% block content %}  
+<h1> Blogpost </h1>
+
+<script>
+    function showData(){
+        $.get("/blogpost/json/", function(data){
+            
+        })
+    }
+    $(document).ready(function(){
+        showData()
+    })
+</script>
+{% endblock content %}
+</body>
