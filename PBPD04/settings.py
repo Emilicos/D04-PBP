@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 TAILWIND_APP_NAME = 'theme'
+TAILWIND_CSS_PATH = 'css/tailwind.css'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
