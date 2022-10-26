@@ -17,7 +17,7 @@ def show_experience_detail(request, id):
     return render(request, 'experience_detail.html', {'posts': post})
 
 def create_experience(request):
-    user_name = User.objects.get(username=request.user.username)    
+    # user_name = User.objects.get(username=request.user.username)    
     form = ExperienceForm()
     new_task = None
     if request.method == 'POST':
@@ -25,6 +25,7 @@ def create_experience(request):
         if form.is_valid():
             new_task = form.save(commit=False)
             new_task.user = request.user
+            new_task.username=request.user.username
             new_task.save()
         return HttpResponseRedirect(reverse("homepage:Experience:show_experience"))
         # return HttpResponseRedirect(reverse("todolist:show_todolist"))

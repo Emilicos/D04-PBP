@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HIVCenter.urls')),
     path('blogpost/', include('Blogpost.urls')),
+    path("experience/", include("Experience.urls" , namespace="Experience"))
 ]
