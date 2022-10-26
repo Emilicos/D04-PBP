@@ -17,7 +17,6 @@ def show_experience_detail(request, id):
     return render(request, 'experience_detail.html', {'posts': post})
 
 def create_experience(request):
-    # user_name = User.objects.get(username=request.user.username)    
     form = ExperienceForm()
     new_task = None
     if request.method == 'POST':
@@ -33,5 +32,5 @@ def create_experience(request):
     return render(request, 'experience-form.html', context)
 
 def show_experience_json(request):
-    experience = Experience.objects.filter(user=request.user)
+    experience = Experience.objects.all()
     return HttpResponse(serializers.serialize("json", experience), content_type="application/json")
