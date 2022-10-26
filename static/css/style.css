@@ -1,3 +1,4 @@
+
 .detail{
     display:flex;
     flex-direction:column;
@@ -15,12 +16,39 @@
     display:flex;
     flex-direction:column;
     align-items: center;
-    margin-top: 2em;
 }
 
 .form-container-1{
-    background-color: white;
     border-radius: 15px;
+}
+
+.form-apa input{
+  margin-right: 8px;
+  box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #fff;
+  width: 50%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  outline:none;
+  border:none;
+  border-radius: 12px;
+  background-color: #eae7dc;
+ 
+}
+
+.form-apa textarea{
+    margin-right: 8px;
+  box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #fff;
+  width: 50%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  outline:none;
+  border:none;
+  border-radius: 12px;
+  background-color: #eae7dc;
 }
 
 .dropdown{
