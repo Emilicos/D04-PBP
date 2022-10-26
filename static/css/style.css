@@ -12,6 +12,12 @@
     align-items: center;
 }
 
+.experience-detail{
+    display:flex;
+    flex-direction:row;
+    /* align-items: center; */
+}
+
 .experience-form-container{
     display:flex;
     flex-direction:column;
@@ -63,8 +69,11 @@
     height: 40px;
     background-color: #8e8d8a;
 }
-
-.card:hover{
+.card-experience{
+    background-color: white;
+    border-radius: 12px;
+}
+.card-experience:hover{
     transform: scale(1.1);
     transition: all linear 200ms;
     z-index: 1;
