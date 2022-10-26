@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+<style>
+
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+{% endblock meta %}
+
+{% block content %}
+
+<script>
+
+    // Show ALL previously booked appointment
+    function showBooking(data) {
+        for (i = 0; i < data.length; i++){
+            $(".card-collection").append(
+                // TODO: ADD CARDS
+                `<div id="${data[i].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
+                    <div class="card-header">Appointment #{data[i].pk}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Nama Dokter</h5>
+                        <img src="" alt="Doctor's Picture">
+                        <p class="card-text">Date: ${data[i].fields.date}</p>
+                        <p class="card-text">Time: ${data[i].fields.date}</p>
+                    </div>
+                    <div class="d-flex justify-content-center mx-3 mb-4">
+                        <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
+                    </div>
+                </div>`
+            )
+        }
+    }
+
+    // Append ONLY newly booked appointment
+    function showLastBooking(data) {
+        $(".card-collection").append(
+            // TODO: ADD CARDS
+            `<div id="${data[data.length-1].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
+                <div class="card-header">Appointment #${data[i].pk}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Nama Dokter</h5>
+                    <img src="" alt="Doctor's Picture">
+                    <p class="card-text">Date: ${data[data.length-1].fields.date}</p>
+                    <p class="card-text">Time: ${data[data.length-1].fields.date}</p>
+                </div>
+                <div class="d-flex justify-content-center mx-3 mb-4">
+                    <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
+                </div>
+            </div>`
+        )
+    }
+
+    // Append newly added task to card-collection
+    function submitForm() {
+        $.ajax({
+            type: "POST",
+            url: "{ % url 'Booking:add_booking' % }",
+            data:
+            {
+                doctor: $("#inputDoctor").val(),
+                date: $("#inputDate").val(),
+                time: $("#inputTime").val(),
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            dataType: "json",
+            success: function()
+            {
+                $.get("/booking/json", function(data) { showLastTask(data) })
+                $.get("/booking/json", function(data) { showMessage(data) })
+            },
+            error: function(error) { alert("Error happened") },
+        })
+        return false;   
+    }
+
+    // Delete (cancel) previously booked appointment
+    function deleteBooking(id) {
+        $.ajax({
+            type :"DELETE",
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            url :`/booking/delete/${id}`,
+            success: function(){ $(`#${id}`).remove() },
+            error: function(error){ alert("Error happened") },
+        })
+    }
+
+    // Show message on how many appointments user have booked
+    function showMessage(data) {
+        if (data.length == 0) {
+            $("#messageInfo").html("It seems like you haven't booked any appointment yet!");
+            $("#bookingButton").html("START BOOKING HERE");
+            $("#appointmentInfo").hide();
+        } else {
+            $("#messageInfo").html("You have " + data.length + " appointment(s) booked!");
+            $("#bookingButton").html("BOOK MORE APPOINTMENTS HERE");
+            $("#appointmentInfo").show();
+            $("#appointmentInfo").html("Upcoming appointments:");
+        }
+    }
+
+    function showDoctorChoices(data) {
+        for(i = 0; i < data.length; i++) {
+            $(".card-collection").append(
+                `<option value="data[i].pk">data[i].fields.name</option>`
+            )
+        }
+    }
+
+    // ya bgitulah hidup ini
+    // $(document).ready(function(){
+    //     $.get("/booking/json", function(data){ showMessage(data) })
+    //     $.get("/booking/json", function(data){ showBooking(data) })
+    //     $.get("/authentication/doctor_json", function(data){ showDoctor(data) })
+    // })
+
+    $(document).ready(function() {
+      
+        $("#bookingForm").hide();
+        $("#bookingButton").click(function() {
+            $("#bookingForm").show();
+        })
+        $("#closeButton").click(function() {
+            $("#bookingForm").hide();
+        })
+    })
+
+</script>
+
+<div class="mt-5 mb-3">
+    <h1 class="">Hello, <span class="">{{username}}</span>!</h1>
+    <p id="messageInfo" class="py-2">It seems like you haven't booked any appointment yet!</p>
+    <img src="ASSET DOKTER.png" alt="woi anjing lah">
+    <button id="bookingButton" type="button" class="btn btn-light border-dark px-5 shadow-sm">START BOOKING HERE</button>
+</div>
+
+<div id="bookingForm">
+    <div class="card border-dark shadow-lg my-3 d-flex justify-content-center w-50">
+        <div class="card-body">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <!-- ISI FORM DISINI -->
+
+                <!-- DATE -->
+                <div class="">
+                    <label for="inputDate" class="mx-3 my-3">Appointment Date</label>
+                    <input type="date" id="inputDate" class="form-control">
+                </div>
+
+                <!-- TIME -->
+                <div class="">
+                    <label for="inputTime" class="mx-3 my-3">Appointment Time</label>
+                    <input type="time" id="inputTime" class="form-control">
+                </div>
+
+                <!-- DOCTOR -->
+                <div class="">
+                    <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
+                    <select id="inputDoctor" class="form-select">
+                        <option value="tuyul">tuyul</option>
+                        <option value="babi">babi</option>
+                        <option value="anjing">anjing</option>
+                    </select>
+                </div>
+
+                <!-- BUTTON DAFTAR -->
+                <div class="mb-3 mt-5 d-grid">
+                    <button type="submit" class="btn border-dark mx-2 mb-3" value="Book" onclick="submitForm()">Book</button>
+                    <button type="button" class="btn border-dark mx-2" value="Close" id="closeButton">Close</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="appointmentInfo">
+    <h3 class="text-bold mt-4">Upcoming appointments:</h3>
+</div>
+
+<div class="card-collection">
+    <div id="${data[i].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
+        <div class="card-header">Appointment #{data[i].pk}</div>
+        <div class="card-body">
+            <h5 class="card-title">Nama Dokter</h5>
+            <img src="" alt="AAAAAAAAA">
+            <p class="card-text">Date: {data[i].fields.date}</p>
+            <p class="card-text">Time: {data[i].fields.date}</p>
+        </div>
+        <div class="d-flex justify-content-center mx-3 mb-4">
+            <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
