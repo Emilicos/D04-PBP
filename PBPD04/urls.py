@@ -20,5 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HIVCenter.urls')),
     path('blogpost/', include('Blogpost.urls')),
-    path("experience/", include("Experience.urls" , namespace="Experience"))
+<<<<<<< HEAD
+    path("experience/", include("Experience.urls" , namespace="Experience")),
+=======
+    path('feedback/', include('Feedback.urls')),
+>>>>>>> 2e3c615a7d8843453857d54aa90dc3b2e2d962d2
 ]

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Experience',
     'HIVCenter',
     'Map',
+    'Feedback',
 ]
 
 MIDDLEWARE = [
