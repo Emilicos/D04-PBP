@@ -36,10 +36,6 @@
     background-color: #8e8d8a;
 }
 
-
-
-
-
 .card:hover{
     transform: scale(1.1);
     transition: all linear 200ms;
@@ -48,5 +44,9 @@
     cursor: pointer;
 }
 
-
-
+.text-center{text-align: center;}
+.font-bold{font-weight: bold;}
+.flex{display: flex;}
+.flex-col{flex-direction: column;}
+.items-center{align-items: center;}
+.bg-red-500{background-color: red;}
