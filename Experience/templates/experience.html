@@ -39,7 +39,7 @@
     function makeCards(){
         let text= "";
         $.ajax({
-            url: "{% url 'homepage:Experience:show_experience_json' %}",
+            url: "{% url 'Experience:show_experience_json' %}",
             type: "GET",
             dataType: "json",
             success: function(data){

@@ -27,7 +27,7 @@ def create_experience(request):
             new_task.user = request.user
             new_task.username=request.user.username
             new_task.save()
-        return HttpResponseRedirect(reverse("homepage:Experience:show_experience"))
+        return HttpResponseRedirect(reverse("Experience:show_experience"))
         # return HttpResponseRedirect(reverse("todolist:show_todolist"))
     context = {'form': form}
     return render(request, 'experience-form.html', context)

@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+app_name="hivcenter"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HIVCenter.urls')),
     path('blogpost/', include('Blogpost.urls')),
     path("experience/", include("Experience.urls" , namespace="Experience")),
+<<<<<<< Updated upstream
     path('feedback/', include('Feedback.urls')),
+=======
+>>>>>>> Stashed changes
 ]
