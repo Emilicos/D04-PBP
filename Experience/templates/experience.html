@@ -1,23 +1,40 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<style>
+    body{
+        background-image:url(/static/images/background.png); 
+        object-fit: cover;
+        height: 100vh
+        background-position: center;
+        background-repeat:repeat-y;
+        background-size: cover;">
+    }
+</style>
 {% extends 'base.html' %}
 {% block content %}
-<div class="experience-container" style="text-align: center; background-image:url(/static/images/background.png)">
+<div class="experience-container" style="text-align: center; background-image:url(/static/images/background.png); 
+object-fit: cover;
+height: 100vh
+background-position: center;
+background-repeat:repeat-y;
+background-size: cover;">
     <div class="experience-header" >
         <img src="/static/images/asset1.png" style="width:50%;"></img>
         <h1 style="color:#e85a4f;"> Experience With HIV <h1>
     </div>
-    <div>
+    {% if user.is_authenticated %}
         <div class="container d-flex flex-wrap flex-row justify-content-center" id= "card-container" style="
         display: flex;
         width:auto;
         gap: 10px;
         gap: 10px 20px;
         row-gap: 10px;
-        column-gap: 20px;"> </div>
-    </div>
-    <button class= "btn-create"><a href="/experience/experience-form" style="font-size:13px; text-align:center;   text-decoration: none; margin-bottom:100px; color:white;
-        ">Add Experience</a></button>
+        column-gap: 20px;"> 
+        </div>
+        <button class= "btn-create" style="border-radius: 12px;"><a href="/experience/experience-form" style="font-size:13px; text-align:center;   text-decoration: none; margin-bottom:100px; color:white; font-weight: bold;
+            ">Add Experience</a></button>
+    {%else%}
+        <h6> Login to add and view experience! </h4>
+    {%endif%}
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -39,13 +56,13 @@
     function makeCards(){
         let text= "";
         $.ajax({
-            url: "{% url 'homepage:Experience:show_experience_json' %}",
+            url: "{% url 'Experience:show_experience_json' %}",
             type: "GET",
             dataType: "json",
             success: function(data){
                 for(let experience of data){
                     text+= `<div class= "card-container flex-wrap m-2 p-2 " >
-                        <div class="card" style="min-width:350px; max-width:350px; padding:10px; margin:2px;">
+                        <div class="card-experience" style="min-width:350px; max-width:350px; padding:10px; margin:2px;">
                             <div class="card-content">
                                 <h4 style="text-align:center; color: #e85a4f"><span class="card-title"> ${experience.fields.title}</span></h4>
                                 <p> _____ <p>
