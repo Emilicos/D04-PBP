@@ -216,6 +216,7 @@ html {
 .image{object-fit: cover; object-position: center; position: relative; max-width: 400px; width: 100%;}
 .test{margin-top: 200px;}
 .color-blue{color: #8e8d8a;}
+.color-white{color:white;}
 
 .about{
     color: rgb(68, 68, 68);
@@ -228,7 +229,7 @@ html {
     padding-bottom: 20px;
     position: relative;
     color: #37517e;
-  }
+}
   
   .about h2::before {
     content: "";
@@ -431,3 +432,119 @@ html {
         width:40%;
     }
 }
+
+#faq{
+    background-color: #e98074;
+    padding-bottom: 10px;
+}
+
+#faq h2{
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top:30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: white;
+}
+#faq h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+  }
+  
+  #faq h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #8e8d8a;
+    bottom: 0;
+    left: calc(50% - 20px);
+  }
+  .faq .faq-list {
+    padding: 0 100px;
+    margin-top: 50px;
+  }
+  
+  .faq .faq-list ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .faq .faq-list li+li {
+    margin-top: 15px;
+  }
+  
+  .faq .faq-list li {
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+  }
+  
+  .faq .faq-list a {
+    display: block;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 0 30px;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+
+  }
+  
+  .faq .faq-list .icon-help {
+    font-size: 24px;
+    position: absolute;
+    right: 0;
+    left: 20px;
+    color: #47b2e4;
+  }
+  
+  .faq .faq-list .icon-show,
+  .faq .faq-list .icon-close {
+    font-size: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .faq .faq-list p {
+    margin-bottom: 0;
+    padding: 10px 0 0 0;
+  }
+  
+  .faq .faq-list .icon-show {
+    display: none;
+  }
+  
+  .faq .faq-list a.collapsed {
+    color: #37517e;
+    transition: 0.3s;
+  }
+  
+  .faq .faq-list a.collapsed:hover {
+    color: #47b2e4;
+  }
+  
+  .faq .faq-list a.collapsed .icon-show {
+    display: inline-block;
+  }
+  
+  .faq .faq-list a.collapsed .icon-close {
+    display: none;
+  }
+
+ 
