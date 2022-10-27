@@ -5,29 +5,81 @@
 <title> HIVCenter </title>
 {% endblock meta %}
 
+<body>
 {% block content %}
-  <header id="header" class="fixed-top ">
-
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">HIVCenter</a>
-          <div class="dropdown">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Logout</a>
-                </li>
-              </ul>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+  <div>
+    <div class = "relative bg-main">
+      <div class = "relative top-0 flex justify-center">
+        <div class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
+          <div class = "hamnav flex items-center w-full">
+            <div class = "flex items-center">
+              <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/LOGO HIV.png"/> </a>
+              <a href = "/"> </a><h1 class = "judulnav text-white font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
             </div>
+            <div class = "flex list-none gap-x-8 items-center text-white font-bold text-2xl">
+              <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-white"> Blogpost </a>
+              <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-white"> Experience </a>
+              <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-white"> Booking </a>
+              <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Feedback </a>
+
+              <button class="navbar-toggler text-white hamburgernav cursor-pointer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                  <iconify-icon icon="fa-solid:bars"></iconify-icon></span>
+              </button>
+            </div>
+            
           </div>
         </div>
-      </nav>
-      
-  </header>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="bg-light shadow-3 p-4 box-shadow text-black flex flex-col gap-y-8">
+          <a href = "/blogpost/" class = "hamblogpost cursor-pointer text-decoration-none text-black font-bold"> Blogpost </a>
+          <a href = "/experience/"  class = "hamexperience cursor-pointer text-decoration-none text-black font-bold"> Experience </a>
+          <a href = "/booking/" class = "hambooking cursor-pointer text-decoration-none text-black font-bold"> Booking </a>
+          <a href = "/feedback/" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Feedback </a>        
+        </div>
+      </div>
+
+      <div class = "hero relative top-0 flex flex-col items-center justify-center h-full px-8" >
+        <div class = "hero1 flex flex-col-reverse w-full items-center">
+          <div class = "hero11 flex flex-col justify-center w-3per5">
+            <h1 class = "text-white font-bold"> Providing Best Help for HIV Infected Person </h1>
+            <h3 class = "text-grey my-4"> We are teams of talented doctors providing advices for the infected </h3>
+            <button class = "btnabout inline border-50px border-button bg-button text-white font-bold widthmin"> <a href="#about" class = "text-white text-decoration-none"> Get Started </a></button>
+          </div>
+          <div class = "w-2per5"><img class= "image cover center animated img-fluid" data-aos="zoom-in" data-aos-delay="200" src = "../../static/images/LOGO HIV.png"/></div>
+        </div>
+      </div>
+    </div>
+
+    <div id = "about" class = "relative about my-8">
+      <h2 class = "text-center font-bold color-blue about"> About us </h2>
+
+      <div class=  "flex justify-center my-8">
+        <div class = "div1 flex flex-col items-center w-full text-2xl max-w-1500px">
+          <div class = "div11 flex flex-col justify-center w-4per5">
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.</p>
+            <ul>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Duis aute irure dolor in reprehenderit in voluptate velit</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+            </ul>
+          </div>
+          <div class = "div12 flex flex-col w-4per5">
+            <p>
+              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+              culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <a href="#" class="btn-learn-more widthmin">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
+</body>
