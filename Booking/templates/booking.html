@@ -3,6 +3,13 @@
 {% block meta %}
 
 <style>
+    body {
+    height: 100vh;
+    }
+
+    body {
+    min-height: 100vh;
+    }
 
     div{
         display: flex;
@@ -11,63 +18,36 @@
     }
 
     .background-div{
-        background-color: #eeeee4;
+        background-color: #8e8d8a;
+    }
+
+    .zoom {
+      transition: transform .2s;
+    }
+    
+    .zoom:hover {
+      transform: scale(1.05);
+      box-shadow: 4px 4px 4px #cccccc;
     }
 
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
 
 {% endblock meta %}
 
 {% block content %}
 
 <script>
-
-    // Show ALL previously booked appointment
-    function showBooking(data) {
-        for (i = 0; i < data.length; i++){
-            $(".card-collection").append(
-                // TODO: ADD CARDS
-                `<div id="${data[i].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
-                    <div class="card-header">Appointment #${data[i].pk}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">${data[i].fields.doctor}</h5>                        
-                        <p class="card-text">Date: ${data[i].fields.date}</p>
-                        <p class="card-text">Time: ${data[i].fields.time}</p>
-                    </div>
-                    <div class="d-flex justify-content-center mx-3 mb-4">
-                        <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
-                    </div>
-                </div>`
-            )
-        }
-    }
-
-    // Append ONLY newly booked appointment
-    function showLastBooking(data) {
-        $(".card-collection").append(
-            // TODO: ADD CARDS
-            `<div id="${data[data.length-1].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
-                <div class="card-header">Appointment #${data[data.length-1].pk}</div>
-                <div class="card-body">
-                    <h5 class="card-title">${data[data.length-1].fields.doctor}</h5>
-                    <p class="card-text">Date: ${data[data.length-1].fields.date}</p>
-                    <p class="card-text">Time: ${data[data.length-1].fields.time}</p>
-                </div>
-                <div class="d-flex justify-content-center mx-3 mb-4">
-                    <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
-                </div>
-            </div>`
-        )
-    }
-
+    
     // Append newly added task to card-collection
     function submitForm() {
         $.ajax({
             type: "POST",
-            url: "{ % url 'Booking:add_booking' % }",
+            url: `/booking/add/`,
             data:
             {
                 doctor: $("#inputDoctor").val(),
@@ -78,7 +58,6 @@
             dataType: "json",
             success: function()
             {
-                $.get("/booking/json", function(data) { showLastTask(data) })
                 $.get("/booking/json", function(data) { showMessage(data) })
             },
             error: function(error) { alert("Error happened") },
@@ -92,7 +71,11 @@
             type :"DELETE",
             csrfmiddlewaretoken: "{{ csrf_token }}",
             url :`/booking/delete/${id}`,
-            success: function(){ $(`#${id}`).remove() },
+            success: function()
+            {
+                $(`#${id}`).remove();
+                $.get("/booking/json", function(data) { showMessage(data) })
+            },
             error: function(error){ alert("Error happened") },
         })
     }
@@ -102,50 +85,125 @@
         if (data.length == 0) {
             $("#messageInfo").html("It seems like you haven't booked any appointment yet!");
             $("#bookingButton").html("START BOOKING HERE");
-            $("#appointmentInfo").hide();
+            $("#appointmentList").hide();
+            $(".viewBooking").hide();
+
         } else {
             $("#messageInfo").html("You have " + data.length + " appointment(s) booked!");
             $("#bookingButton").html("BOOK MORE APPOINTMENTS HERE");
-            $("#appointmentInfo").show();
-            $("#appointmentInfo").html("Upcoming appointments:");
+            $("#appointmentList").show();
+            $(".viewBooking").show();   
         }
     }
 
-    // ya bgitulah hidup ini
-    // $(document).ready(function(){
-    //     $.get("/booking/json", function(data){ showMessage(data) })
-    //     $.get("/booking/json", function(data){ showBooking(data) })
-    // })
+    function searchDokter(){
+        getSearchDokter();
+        window.scrollTo(0, $(".card-collection").offset().top);
+    }
+
+    function getSearchDokter(){
+        let temp = "";
+        $.ajax({
+            url: `/booking/all/?search=${$("#search").val()}`,
+            type: "GET",
+            dataType: "json",
+            success: function(data){
+                if (data.length!=0) {
+
+                    for (let appointment of data){
+                        temp += `<div id="${appointment.pk}" class="card shadow mx-4 my-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
+                                    <div class="card-header">Appointment ${appointment.pk} ♡ </div>
+                                    <div class="card-body">
+                                        <p class="card-title lead">${appointment.fields.doctor}</p>
+                                        <p class="card-text lead">Date: ${appointment.fields.date}</p>
+                                        <p class="card-text lead">Time: ${appointment.fields.time}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-center mx-3 mb-4">
+                                        <a onclick="deleteBooking(${appointment.pk})" class="text-underline" style="color: #e85a4f;">Cancel Appointment</a>
+                                    </div>
+                                </div>`
+                    }
+
+                } else {
+                    temp = `<h1 class="text-bold lead pb-3">No appointment with this doctor is found :(</h1>`
+                }
+
+                $('.card-collection').html(temp);
+            },
+
+            error: function(data){ alert('Error Detected'); }
+        })
+    }
 
     $(document).ready(function() {
       
-        $("#bookingForm").hide();
+        $("#appointmentList").hide();
+
         $("#bookingButton").click(function() {
             $("#bookingForm").show();
         })
+
         $("#closeButton").click(function() {
             $("#bookingForm").hide();
         })
+
+        $.get("/booking/json", function(data){ showMessage(data) })
+        searchDokter();
+
+        var typed = new Typed('#typed', {
+            strings: [`{{username}}`],
+            typeSpeed: 120,
+            backSpeed: 120,
+            backDelay: 2000,
+            startDelay: 500,
+            loop: true,
+            });
+
+        var typed_two = new Typed('#typed_two', {
+            strings: ["Here is the list of your upcoming appointments!"],
+            typeSpeed: 120,
+            backSpeed: 120,
+            backDelay: 2000,
+            startDelay: 500,
+            loop: true,
+            });
+
+        var typed_three = new Typed('#typed_three', {
+            strings: ["♡ ♡"],
+            typeSpeed: 200,
+            backSpeed: 200,
+            backDelay: 200,
+            startDelay: 200,
+            loop: true,
+            });
+
+
     })
 
 </script>
 
 
-<div style="background-color:#eae7dc">
-    <div class="mt-5 mb-3">
-        <h1 class="">Hello, <span class="">{{username}}</span>!</h1>
-        <p id="messageInfo" class="pt-4">It seems like you haven't booked any appointment yet!</p>
-        <img src="/static/images/asset3.png" alt="">
-        <button id="bookingButton" type="button" class="btn btn-light border-dark px-5 shadow-sm">START BOOKING HERE</button>
+<div style="background-color:#d8c3a5; min-height: 100vh;">
+    
+    <div class="mb-3 flex-wrap flex-row justify-content-center" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
+        <img src="/static/images/asset3.png" alt="" style="width:40%;" class="d-md-block img-fluid mt-5">
+        
+        <div class="form-container-1 mt-5 ml-0" style="width:50%; text-align:center;">
+            <h1 class="display-4">Hello, <span id="typed"></span>!</h1>
+            <p id="messageInfo" class="py-2 lead">It seems like you haven't booked any appointment yet!</p>
+            <button id="bookingButton" type="button" class="btn px-5 mb-2 shadow-sm" style="background-color: #8e8d8a; color: #eae7dc" onClick="document.getElementById('bookingForm').scrollIntoView();">START BOOKING HERE</button>
+            <h3 class="viewBooking lead mb-2">or</h3>
+            <button id="viewButton" type="button" class="btn px-5 mb-2 shadow-sm viewBooking" style="background-color: #8e8d8a; color: #eae7dc" onClick="document.getElementById('appointmentList').scrollIntoView();">VIEW MY UPCOMING APPOINTMENTS</button>
+        </div>
     </div>
     
-    <div id="bookingForm">
-        <div class="card border-dark shadow-lg my-3 d-flex justify-content-center " style="width:500px;" >
+    <div id="bookingForm" style="background-image: linear-gradient(#d8c3a5); width: 100%;" class="my-5 py-5">
+        <h3 class="lead pt-5 mt-4 pb-2">Fill this form down here to book an appointment <span id="typed_three"></span></h3>
+        <div class="card  shadow-lg mb-0 d-flex justify-content-center" style="background-color: #eae7dc; width:500px;" >
             <div class="card-body">
                 <form method="POST" action="">
                     {% csrf_token %}
-                    <!-- ISI FORM DISINI -->
-    
+
                     <!-- DATE -->
                     <div class="">
                         <label for="inputDate" class="mx-3 my-3">Appointment Date</label>
@@ -162,41 +220,44 @@
                     <div class="">
                         <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
                         <select id="inputDoctor" class="form-select">
-                            { % for dokter in daftar_dokter  % }
-                                <option value="{{dokter.get_first_name()}} {{dokter.get_last_name()}}">
-                                    {{dokter.get_first_name()}} {{dokter.get_last_name()}}
-                                </option>
-                            { % endfor % }
+                            <option value="Cakrabirawa Hidayanto, Sp.Kk">Cakrabirawa Hidayanto, Sp.Kk</option>
+                            <option value="Danial Intan, Sp.Kk">Danial Intan, Sp.Kk</option>
+                            <option value="Fatimah Ratu, Sp.Kk">Fatimah Ratu, Sp.Kk</option>
+                            <option value="Ida Puspita, Sp.Kk">Ida Puspita, Sp.Kk</option>
+                            <option value="Rahayu Purwanti, Sp.Kk">Rahayu Purwanti, Sp.Kk</option>
                         </select>
                     </div>
     
                     <!-- BUTTON DAFTAR -->
                     <div class="mb-3 mt-5 d-grid">
-                        <button type="submit" class="btn border-dark mx-2 mb-3" value="Book" onclick="submitForm()">Book</button>
-                        <button type="button" class="btn border-dark mx-2" value="Close" id="closeButton">Close</button>
+                        <button type="submit" class="btn mx-2 mb-3" value="Book" onclick="submitForm()" style="background-color: #8e8d8a; color: #eae7dc">Book</button>
+                        <button type="button" class="btn mx-2" value="Close" id="closeButton" style="background-color: #8e8d8a; color: #eae7dc">Close</button>
                     </div>
     
                 </form>
             </div>
         </div>
     </div>
+
     
-    <div id="appointmentInfo">
-        <h3 class="text-bold mt-4">Upcoming appointments:</h3>
-    </div>
     
-    <div class="card-collection">
-        <div id="${data[i].pk}" class="card border mx-3 my-4 zoom" style="max-width: 18rem;">
-            <div class="card-header">Appointment #{data[i].pk}</div>
-            <div class="card-body">
-                <h5 class="card-title">Nama Dokter</h5>
-                <p class="card-text">Date: {data[i].fields.date}</p>
-                <p class="card-text">Time: {data[i].fields.date}</p>
+    <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
+        <div class="my-4 flex-wrap flex-row justify-content-center">
+            
+            <div class="form-container-1" style="width:600px; text-align:center;">
+                <h1 id="appointmentInfo" class="text-bold text-light display-5 pb-3"><span id="typed_two"></span></h1>
+                <small class="my-3 text-light">WANT TO SEARCH FOR A SPECIFIC DOCTOR?</small>
+                <div id="search-form" class="form-inline my-2 d-flex flex-row" >
+                    <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn m-2 my-sm-0" onclick="searchDokter()" style="background-color: #8e8d8a; color: #eae7dc">Search</button>
+                </div>
             </div>
-            <div class="d-flex justify-content-center mx-3 mb-4">
-                <a onclick="deleteBooking()" class="text-danger text-underline">Cancel Appointment</a>
-            </div>
+            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">
+                
         </div>
+        
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center"></div>
+        <br>
     </div>
         
 </div>

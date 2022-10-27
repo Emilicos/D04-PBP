@@ -11,7 +11,6 @@ from django.views.decorators.csrf import csrf_exempt
 def show_booking(request):
     context = {
         "username": request.user,
-        "daftar_dokter": Dokter.objects.all()
     }
     return render(request, "booking.html", context)
 
@@ -36,3 +35,7 @@ def delete_booking(request, id):
     booking.delete()
     return JsonResponse({ "Message": "Appointment Cancelled" }, status=200)
 
+def get_dokter_json(request):
+    dokter = request.GET.get('search')
+    list_dokter = Appointment.objects.filter(doctor__icontains=dokter)
+    return HttpResponse(serializers.serialize('json', list_dokter)) 
