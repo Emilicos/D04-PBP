@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class= "experience-form-container flex-wrap flex-row justify-content-center"  style="text-align: center; background-image:url(/static/images/background.png); 
+height: 100vh;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
+    <img src="/static/images/asset2.png" style="max-width:35%;" class="d-md-block"></img>
+
+    <div class="form-container-1 mt-5 ml-0" style="width:400px; text-align:center;">
+        <div class="header m-3">
+            <h3>Experience Form</h3>
+        </div>
+    
+        <div class="form-container form-input  flex-wrap flex-row m-4">
+            <form method="POST" action="" id="newForm">
+                {% csrf_token %}
+                {%for fm in form%}
+                    <div class="form-apa">
+                        <label>{{fm.label}}</label>
+                        <p>{{fm}}</p>
+                    </div>
+                {%endfor%}
+                <div class="tombol flex-col ">
+                    <input class="btn" type="submit" name="submit" value="Submit"/>
+                    <input class="btn" type="button" value="Go back!" onclick="history.back()">
+                </div>
+            </form>
+            
+    
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
