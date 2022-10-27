@@ -15,7 +15,7 @@
         <div class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
           <div class = "hamnav flex items-center w-full">
             <div class = "flex items-center">
-              <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/LOGO HIV.png"/> </a>
+              <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
               <a href = "/"> </a><h1 class = "judulnav text-white font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
             </div>
             <div class = "flex list-none gap-x-8 items-center text-white font-bold text-2xl">
@@ -47,39 +47,135 @@
         <div class = "hero1 flex flex-col-reverse w-full items-center">
           <div class = "hero11 flex flex-col justify-center w-3per5">
             <h1 class = "text-white font-bold"> Providing Best Help for HIV Infected Person </h1>
-            <h3 class = "text-grey my-4"> We are teams of talented doctors providing advices for the infected </h3>
+            <h3 class = "text-grey my-4" style= "color:white;"> We are here for you </h3>
             <button class = "btnabout inline border-50px border-button bg-button text-white font-bold widthmin"> <a href="#about" class = "text-white text-decoration-none"> Get Started </a></button>
           </div>
-          <div class = "w-2per5"><img class= "image cover center animated img-fluid" data-aos="zoom-in" data-aos-delay="200" src = "../../static/images/LOGO HIV.png"/></div>
+          <div class = "w-2per5"><img class= "image cover center animated img-fluid" data-aos="zoom-in" data-aos-delay="200" src = "../../static/images/hivtos.png"/></div>
         </div>
       </div>
     </div>
 
     <div id = "about" class = "relative about my-8">
+      <div class="text-center"><h2 id="support" >0</h2><h2>Support</h2></div>
+      <input type="image" class="center-block" onclick="myFunction()" style="width:40%; max-width:300px;" src="/static/images/asset2.png" />
+      <h4 class = "text-center font-bold color-blue about" style="padding-bottom:10px;"> Click to send support! </h2>
+
       <h2 class = "text-center font-bold color-blue about"> About us </h2>
 
       <div class=  "flex justify-center my-8">
         <div class = "div1 flex flex-col items-center w-full text-2xl max-w-1500px">
           <div class = "div11 flex flex-col justify-center w-4per5">
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.</p>
+            <p> HIVCenter memiliki visi untuk menghilangkan stereotip yang melekat pada 
+              sebagian besar masyarakat Indonesia mengenai ODHA sekaligus meningkatkan kesadaran akan 
+              pentingnya pencegahan penyakit menular seksual. Selain itu, HIVCenter juga berharap dengan 
+              adanya aplikasi ini, ODHA dapat merasa lebih diterima tanpa adanya stereotip dari masyarakat pada umumnya.</p>
+            <p> HIVCenter memiliki fitur-fitur yang dapat memberikan pengetahuan seputar HIV kepada pengguna yaitu :</p>
             <ul>
-              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
-              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Duis aute irure dolor in reprehenderit in voluptate velit</li>
-              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> Ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> forum untuk pengguna pasien guna saling bertukar pengalaman dan informasi seputar HIV</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> fitur pengguna pasien untuk membuat reservasi atau booking kepada pengguna dokter untuk melakukan konsultasi atau pemeriksaan HIV.</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> forum untuk pengguna yang dapat memberikan postingan seputar informasi HIV</li>
+              <li><iconify-icon icon="ri:check-double-line"></iconify-icon> forum untuk pengguna yang dapat memberikan feedback</li>
             </ul>
           </div>
           <div class = "div12 flex flex-col w-4per5">
             <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum.
+              Fitur-fitur tersebut disediakan sebagai upaya penyuluhan dan tindakan 
+              preventif HIV. Dengan adanya fitur-fitur yang disediakan pada HIVCenter 
+              diharapkan dapat mengedukasi masyarakat tentang info seputar HIV, dapat 
+              mengubah stigma negatif masyarakat terhadap pengidap HIV, dan juga yang 
+              paling penting adalah dapat mengurangi kasus HIV yang ada di Indonesia.
             </p>
             <a href="#" class="btn-learn-more widthmin">Learn More</a>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="faq relative bg-main" id="faq">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2 class = "text-center font-bold color-white about">Misconceptions about HIV</h2>
+          <h6 class = "text-center font-bold color-white"> Misinformation and a lack of knowledge around HIV continues to perpetuate stigma. One way </h6>
+          <h6 class = "text-center font-bold color-white"> to help educate and shift these attitudes is to shine a light on some of the myths around HIV today.</h6>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">HIV is the same as AIDS <i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  Although it's been decades since the beginning of the pandemic, at times media outlets still do not draw the distinction between HIV 
+                  (Human Immunodeficiency Syndrome) and AIDS (Acquired Immunodeficiency Syndrome). These days thanks to advances in HIV treatment, most 
+                  people with HIV will never have AIDS. A person who starts HIV treatment early after testing positive can live a near normal life without 
+                  their HIV ever progressing to AIDS.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">HIV can be transferred by kissing<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  It's extremely unlikely you will contract HIV from kissing as HIV is not spread the saliva. If the person you are kissing has sore or bleeding gums then there is an elevated risk, but overall transmission through kissing is extremely rare.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">You can tell by looking if someone has HIV<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  There is no definite way to tell by looking at someone if they have HIV or not. Guys who have HIV and are on treatment will look like HIV negative individuals. While some people show some symptoms from the infection this is highly different for each guy, so there is no way of knowing.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">I'm HIV-positive. My life is over<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  In the early years, when the disease was epidemic, the death rate from AIDS was extremely high. But today's drugs allow people who have HIV or even AIDS to live much longer, normal, and productive lives. If you start drug treatment right away and take it correctly, it's possible you won't ever develop AIDS. And you may live as long as you would have without the virus.
+                  HIV could make you more likely to get diseases like cancer, heart disease, and kidney disease. So protect yourself with a healthy lifestyle. And tell your doctor about any other health problems you have. HIV drugs can interfere with other medications and make some conditions harder to control</p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="500">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Now that I have HIV, I can't have kids<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  You may be able to safely have children. Doctors can help you take steps to lower or remove the chance that you'll pass the virus to your partner during conception. If you're pregnant, your doctor will give you HIV drugs to protect you and your baby. The baby may also be given medication after birth.</p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+    </div>
+
+  
+  
+
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script>
+      function myFunction(){
+        var element = document.getElementById('support');
+        var value = element.innerHTML;
+        ++value;
+        console.log(value)
+        document.getElementById('support').innerHTML = value;
+        localStorage.setItem('support', value)
+      }
+
+      function myFunction2(){
+        document.getElementById('support').innerHTML = localStorage.getItem('mynumber');
+      }
+
+      $(document).ready(function(){
+        myFunction2();
+      })
+    </script>
 {% endblock content %}
 </body>
