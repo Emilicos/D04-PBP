@@ -56,6 +56,10 @@
     </div>
 
     <div id = "about" class = "relative about my-8">
+      <div class="text-center"><h2 id="support" >0</h2><h2>Support</h2></div>
+      <input type="image" class="center-block" onclick="myFunction()" style="width:40%; max-width:300px;" src="/static/images/tangan2.png" />
+      <h4 class = "text-center font-bold color-blue about" style="padding-bottom:10px;"> Click to send support! </h2>
+
       <h2 class = "text-center font-bold color-blue about"> About us </h2>
 
       <div class=  "flex justify-center my-8">
@@ -99,7 +103,7 @@
         <div class="faq-list">
           <ul>
             <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Hiv is the same as AIDS <i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">HIV is the same as AIDS <i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
               <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
                 <p>
                   Although it's been decades since the beginning of the pandemic, at times media outlets still do not draw the distinction between HIV 
@@ -138,7 +142,7 @@
             </li>
 
             <li data-aos="fade-up" data-aos-delay="500">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Now that I have HIV, I can’t have kids<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Now that I have HIV, I can't have kids<i class="bx bx-chevron-down icon-show"></i><img class="arrow" src="../../static/images/arrow.png" style="width:5%; justify-items:right;"></img></a>
               <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
                 <p>
                   You may be able to safely have children. Doctors can help you take steps to lower or remove the chance that you'll pass the virus to your partner during conception. If you're pregnant, your doctor will give you HIV drugs to protect you and your baby. The baby may also be given medication after birth.</p>
@@ -148,8 +152,30 @@
           </ul>
         </div>
     </div>
+
+  
   
 
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script>
+      function myFunction(){
+        var element = document.getElementById('support');
+        var value = element.innerHTML;
+        ++value;
+        console.log(value)
+        document.getElementById('support').innerHTML = value;
+        localStorage.setItem('support', value)
+      }
+
+      function myFunction2(){
+        document.getElementById('support').innerHTML = localStorage.getItem('mynumber');
+      }
+
+      $(document).ready(function(){
+        myFunction2();
+      })
+    </script>
 {% endblock content %}
 </body>

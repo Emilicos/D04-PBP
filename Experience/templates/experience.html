@@ -1,25 +1,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    body{
-        background-image:url(/static/images/background.png); 
-        object-fit: cover;
-        height: 100vh
-        background-position: center;
-        background-repeat:repeat-y;
-        background-size: cover;">
-    }
-</style>
 {% extends 'base.html' %}
 {% block content %}
-<div class="experience-container" style="text-align: center; background-image:url(/static/images/background.png); 
+<div class="experience-container" style="text-align: center; background-color:#eae7dc; 
 object-fit: cover;
 height: 100vh
 background-position: center;
 background-repeat:repeat-y;
 background-size: cover;">
-    <div class="experience-header" >
+    <div class="experience-header" style="background-color:white;" >
         <img src="/static/images/asset1.png" style="width:50%;"></img>
-        <h1 style="color:#e85a4f;"> Experience With HIV <h1>
+        <h1 style="color:#e85a4f; font-weight:bold;"> Experience With HIV <h1>
     </div>
     {% if user.is_authenticated %}
         <div class="container d-flex flex-wrap flex-row justify-content-center" id= "card-container" style="

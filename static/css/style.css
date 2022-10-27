@@ -121,7 +121,10 @@ html {
     box-shadow: 1px 1px 10px rgba(0,0,0,.3);
     cursor: pointer;
 }
-
+.center-block {
+    margin: auto;
+    display: block;
+}
 .text-center{text-align: center;}
 .font-bold{font-weight: bold;}
 .flex{display: flex;}
@@ -129,6 +132,7 @@ html {
 .items-center{align-items: center;}
 .bg-red-500{background-color: red;}
 .bg-main{background-color: #e98074;}
+.bg-white{background-color:white;}
 .relative{position: relative;}
 .h-100vh{min-height: max(100vh, 1000px); height: 100%; width: 100%;}
 .text-decoration-none{text-decoration: none;}
