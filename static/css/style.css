@@ -121,14 +121,18 @@ html {
     box-shadow: 1px 1px 10px rgba(0,0,0,.3);
     cursor: pointer;
 }
-
+.center-block {
+    margin: auto;
+    display: block;
+}
 .text-center{text-align: center;}
 .font-bold{font-weight: bold;}
 .flex{display: flex;}
 .flex-col{flex-direction: column;}
 .items-center{align-items: center;}
 .bg-red-500{background-color: red;}
-.bg-main{background-color: #37517e;}
+.bg-main{background-color: #e98074;}
+.bg-white{background-color:white;}
 .relative{position: relative;}
 .h-100vh{min-height: max(100vh, 1000px); height: 100%; width: 100%;}
 .text-decoration-none{text-decoration: none;}
@@ -169,7 +173,7 @@ html {
 .pb-4{padding-bottom: 1em;}
 .text-right{text-align: right;}
 .text-left{text-align: left;}
-.text-grey{color:grey}
+.text-grey{color:white; font-weight: thin;}
 .text-bluetext{color:#add8e6}
 .text-green{color:green}
 .text-white{color:white}
@@ -200,8 +204,8 @@ html {
 .w-4per5{width:80%}
 .bg-blue-500{background-color:blue;}
 .h-full{height:100%;}
-.bg-button{background-color: #47b2e4;}
-.border-button{border: 2px solid #47b2e4;}
+.bg-button{background-color: #8e8d8a;}
+.border-button{border: 2px solid #8e8d8a;}
 .border-50px{border-radius: 50px;}
 .btnabout{padding: 0.5em 1.5em; font-size: 22px;}
 .inline{display: inline-block;}
@@ -215,7 +219,8 @@ html {
 .center{object-position: center;}
 .image{object-fit: cover; object-position: center; position: relative; max-width: 400px; width: 100%;}
 .test{margin-top: 200px;}
-.color-blue{color: #47b2e4;}
+.color-blue{color: #8e8d8a;}
+.color-white{color:white;}
 
 .about{
     color: rgb(68, 68, 68);
@@ -228,7 +233,7 @@ html {
     padding-bottom: 20px;
     position: relative;
     color: #37517e;
-  }
+}
   
   .about h2::before {
     content: "";
@@ -247,9 +252,13 @@ html {
     display: block;
     width: 40px;
     height: 3px;
-    background: #47b2e4;
+    background: #8e8d8a;
     bottom: 0;
     left: calc(50% - 20px);
+  }
+
+  .about p{
+    font-size: 20px;
   }
 
   .about ul {
@@ -260,6 +269,7 @@ html {
   .about ul li {
     padding-left: 28px;
     position: relative;
+    font-size: 18px;
   }
 
   .about ul iconify-icon {
@@ -267,7 +277,7 @@ html {
     left: 0;
     top: 2px;
     font-size: 20px;
-    color: #47b2e4;
+    color: #e98074;
     line-height: 1;
   }
 
@@ -281,15 +291,15 @@ html {
     border-radius: 4px;
     transition: 0.3s;
     line-height: 1;
-    color: #47b2e4;
+    color: #e98074;
     -webkit-animation-delay: 0.8s;
     animation-delay: 0.8s;
     margin-top: 6px;
-    border: 2px solid #47b2e4;
+    border: 2px solid #e98074;
   }
 
   .about .btn-learn-more:hover {
-    background: #47b2e4;
+    background: #e98074;
     color: #fff;
     text-decoration: none;
   }
@@ -338,7 +348,7 @@ html {
 
 .btnabout:hover{
     color: #fff;
-    background: #31a9e1;
+    background: #e98074;
 }
 
 .animated {
@@ -426,3 +436,119 @@ html {
         width:40%;
     }
 }
+
+#faq{
+    background-color: #e98074;
+    padding-bottom: 10px;
+}
+
+#faq h2{
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-top:30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    color: white;
+}
+#faq h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+  }
+  
+  #faq h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #8e8d8a;
+    bottom: 0;
+    left: calc(50% - 20px);
+  }
+  .faq .faq-list {
+    padding: 0 100px;
+    margin-top: 50px;
+  }
+  
+  .faq .faq-list ul {
+    padding: 0;
+    list-style: none;
+  }
+  
+  .faq .faq-list li+li {
+    margin-top: 15px;
+  }
+  
+  .faq .faq-list li {
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+  }
+  
+  .faq .faq-list a {
+    display: block;
+    position: relative;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    padding: 0 30px;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+
+  }
+  
+  .faq .faq-list .icon-help {
+    font-size: 24px;
+    position: absolute;
+    right: 0;
+    left: 20px;
+    color: #47b2e4;
+  }
+  
+  .faq .faq-list .icon-show,
+  .faq .faq-list .icon-close {
+    font-size: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .faq .faq-list p {
+    margin-bottom: 0;
+    padding: 10px 0 0 0;
+  }
+  
+  .faq .faq-list .icon-show {
+    display: none;
+  }
+  
+  .faq .faq-list a.collapsed {
+    color: #37517e;
+    transition: 0.3s;
+  }
+  
+  .faq .faq-list a.collapsed:hover {
+    color: #47b2e4;
+  }
+  
+  .faq .faq-list a.collapsed .icon-show {
+    display: inline-block;
+  }
+  
+  .faq .faq-list a.collapsed .icon-close {
+    display: none;
+  }
+
+ 
