@@ -24,4 +24,5 @@ urlpatterns = [
     path('blogpost/', include('Blogpost.urls')),
     path("experience/", include("Experience.urls" , namespace="Experience")),
     path('feedback/', include('Feedback.urls')),
+    path('authentication/', include('Authentication.urls')),
 ]
