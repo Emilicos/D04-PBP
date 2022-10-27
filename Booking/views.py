@@ -10,8 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def show_booking(request):
     context = {
-        # "username": request.user,
-        "username": "BABI",
+        "username": request.user,
+        "daftar_dokter": Dokter.objects.all()
     }
     return render(request, "booking.html", context)
 
