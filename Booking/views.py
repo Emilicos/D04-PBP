@@ -6,11 +6,13 @@ from Booking.models import Appointment
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 from Authentication.models import User
 
 # Create your views here.
+@login_required(login_url='/authentication/login/')
 def show_booking(request):
     if request.user.get_role() == 1:
         context = {
