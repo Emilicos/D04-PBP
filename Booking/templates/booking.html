@@ -11,13 +11,13 @@
     min-height: 100vh;
     }
 
-    div{
+    div {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .background-div{
+    .background-div {
         background-color: #8e8d8a;
     }
 
@@ -220,11 +220,9 @@
                     <div class="">
                         <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
                         <select id="inputDoctor" class="form-select">
-                            <option value="Cakrabirawa Hidayanto, Sp.Kk">Cakrabirawa Hidayanto, Sp.Kk</option>
-                            <option value="Danial Intan, Sp.Kk">Danial Intan, Sp.Kk</option>
-                            <option value="Fatimah Ratu, Sp.Kk">Fatimah Ratu, Sp.Kk</option>
-                            <option value="Ida Puspita, Sp.Kk">Ida Puspita, Sp.Kk</option>
-                            <option value="Rahayu Purwanti, Sp.Kk">Rahayu Purwanti, Sp.Kk</option>
+                            { % for dokter in listDokter % }
+                                <option value="{{ dokter }}">{{ dokter.first_name }} {{ dokter.last_name }}</option>
+                            { % endfor % }
                         </select>
                     </div>
     

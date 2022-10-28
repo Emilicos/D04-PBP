@@ -1,3 +1,4 @@
+import imp
 from django.shortcuts import render
 
 from Booking.models import Appointment
@@ -7,12 +8,22 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from Authentication.models import User
+
 # Create your views here.
 def show_booking(request):
-    context = {
-        "username": request.user,
-    }
-    return render(request, "booking.html", context)
+    if request.user.get_role() == 1:
+        context = {
+            "username": request.user,
+            "listDokter": User.objects.filter(role=2),
+        }
+        return render(request, "booking.html", context)
+    else:
+        context = {
+            "username": request.user,
+            "appointmentList": Appointment.objects.filter(doctor="request.user")
+        }
+        return render(request, "doctor.html", context)
 
 def show_json(request):
     data = Appointment.objects.filter(user=request.user)

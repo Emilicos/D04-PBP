@@ -21,9 +21,9 @@ app_name="hivcenter"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('HIVCenter.urls')),
+    path('authentication/', include('Authentication.urls')),
     path('booking/', include('Booking.urls')),
     path('blogpost/', include('Blogpost.urls')),
     path("experience/", include("Experience.urls" , namespace="Experience")),
     path('feedback/', include('Feedback.urls')),
-    path('authentication/', include('Authentication.urls')),
 ]
