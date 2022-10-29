@@ -29,7 +29,7 @@ Fitur-fitur tersebut disediakan sebagai upaya penyuluhan dan tindakan preventif 
 ## Daftar modul yang akan diimplementasikan
 
 1. Login, Logout, Register dengan mengimplementasikan role pengguna, Navigation Bar, serta gamifikasi pada aplikasi HIVCenter berupa tombol untuk mengirimkan support pada ODHA.
-2. Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dan rumah sakit dapat (post, delete, update).
+2. Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dapat melakukan (post, delete, update).
 3. Forum pengalaman dimana pasien dapat menceritakan pengalaman mereka.
 4. Fitur feedback dimana pasien dapat memberikan feedback terhadap website HIV Center.
 5. Fitur booking agar pasien dapat reservasi dokter.
