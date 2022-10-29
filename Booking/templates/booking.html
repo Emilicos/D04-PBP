@@ -42,6 +42,11 @@
 {% block content %}
 
 <script>
+
+    function hideElement() {
+        var x = document.getElementById("bookingForm");
+        x.style.display = "none";
+    }
     
     // Append newly added task to card-collection
     function submitForm() {
@@ -221,44 +226,30 @@
         <h3 class="lead pt-5 mt-4 pb-2">Fill the form below to book an appointment <span id="typed_three"></span></h3>
         <div class="card  shadow-lg mb-0 d-flex justify-content-center" style="background-color: #eae7dc; width:500px;" >
             <div class="card-body">
-                <form method="POST" action="">
+
+                <form method="POST" action="" id="newForm">
+
                     {% csrf_token %}
 
-                    <!-- DATE -->
-                    <div class="">
-                        <label for="inputDate" class="mx-3 my-3">Appointment Date</label>
-                        <input type="date" id="inputDate" class="form-control">
-                    </div>
-    
-                    <!-- TIME -->
-                    <div class="">
-                        <label for="inputTime" class="mx-3 my-3">Appointment Time</label>
-                        <input type="time" id="inputTime" class="form-control">
-                    </div>
-    
-                    <!-- DOCTOR -->
-                    <div class="">
-                        <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
+                    {% for fm in form %}
 
-                        <select id="inputDoctor" class="form-select">
-                            {% for dokter in listDokter %}
-                                <option value="{{ dokter }}">{{ dokter }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-    
-                    <!-- BUTTON DAFTAR -->
+                        <div class="">
+                            <label class="my-3"> {{ fm.label }} </label>
+                            <p class="w-100"> {{ fm }} </p>
+                        </div>
+
+                    {% endfor %}
+
                     <div class="mb-3 mt-5 d-grid">
-                        <button type="submit" class="btn mx-2 mb-3" value="Book" onclick="submitForm()" style="background-color: #8e8d8a; color: #eae7dc">Book</button>
-                        <button type="button" class="btn mx-2" value="Close" id="closeButton" style="background-color: #8e8d8a; color: #eae7dc">Close</button>
+                        <input type="submit" class="btn mx-2 mb-3" value="Book" style="background-color: #8e8d8a; color: #eae7dc"/>
+                        <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
                     </div>
-    
+
                 </form>
+
             </div>
         </div>
     </div>
-
-    
     
     <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
         <div class="mt-0 flex-wrap flex-row justify-content-center">

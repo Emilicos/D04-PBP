@@ -2,7 +2,8 @@ import imp
 import pdb
 import sys
 from django.forms import model_to_dict
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from Booking.forms import AppointmentForm
 
 from Booking.models import Appointment
 
@@ -20,7 +21,7 @@ def show_booking(request):
 
     if request.user.role == 1:
 
-        list_dokter = User.objects.filter(is_staff = False)
+        list_dokter = User.objects.filter(role = 1)
 
         lst = []
 
@@ -59,6 +60,25 @@ def add_booking(request):
         booking = Appointment(user=user, doctor=doctor, date=date, time=time)
         booking.save()
         return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
+
+def create_booking(request):
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('Booking:create_booking')
+
+    else:
+        form = AppointmentForm()
+
+    context = {
+        "username": request.user,
+        "form": form,
+    }
+
+    return render(request, 'booking.html', context)
 
 @csrf_exempt
 def delete_booking(request, id):
