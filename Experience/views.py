@@ -5,14 +5,16 @@ from Experience.models import Experience
 from .forms import *
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core import serializers
-
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required(login_url='/authentication/login/')
 def show_experience(request):
     print(request.user)
     posts = Experience.objects.all()
-    if request.user.get("role") == 1:
+    if request.user.get_role() == 1:
         return render(request, 'experience.html', {'posts': posts})
     else:
         return render(request, 'experience-umum.html', {'posts': posts})
@@ -21,7 +23,8 @@ def show_experience(request):
 def show_experience_detail(request, id):
     post= Experience.objects.get(id=id)
     return render(request, 'experience_detail.html', {'posts': post})
-
+    
+@csrf_exempt
 def create_experience(request):
     form = ExperienceForm()
     new_task = None
