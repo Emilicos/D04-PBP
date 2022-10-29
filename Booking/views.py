@@ -18,7 +18,7 @@ from Authentication.models import User
 @login_required(login_url='/authentication/login/')
 def show_booking(request):
 
-    if request.user.get_is_staff() == True:
+    if request.user.role == 1:
 
         list_dokter = User.objects.filter(is_staff = False)
 
@@ -37,12 +37,12 @@ def show_booking(request):
         return render(request, "booking.html", context)
 
     else:
+        
         context = {
             "username": request.user,
             "appointmentList": Appointment.objects.filter(doctor=request.user)
         }
-        print(request.user)
-        print(Appointment.objects.all())
+
         return render(request, "doctor.html", context)
 
 def show_json(request):
