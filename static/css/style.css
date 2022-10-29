@@ -332,7 +332,7 @@ html {
     object-position: center;
 }
 
-.judulnav, .blogpostnav, .experiencenav, .bookingnav, .feedbacknav{
+.judulnav, .blogpostnav, .experiencenav, .bookingnav, .feedbacknav, .loginnav{
     display: none;
 }
 
@@ -340,11 +340,11 @@ html {
     display:block;
 }
 
-.hamblogpost, .hamexperience, .hambooking, .hamfeedback{
+.hamblogpost, .hamexperience, .hambooking, .hamfeedback, .hamlogin{
     padding: 0.5em 0.75em;
 }
 
-.hamblogpost:hover, .hamexperience:hover, .hambooking:hover, .hamfeedback:hover{
+.hamblogpost:hover, .hamexperience:hover, .hambooking:hover, .hamfeedback:hover, .hamlogin:hover{
     background-color: #eae7dc;
 } 
 
@@ -374,7 +374,7 @@ html {
         display:none;
     }
 
-    .blogpostnav, .experiencenav, .bookingnav, .feedbacknav{
+    .blogpostnav, .experiencenav, .bookingnav, .feedbacknav, .loginnav{
         display: flex;
     }
     .hamnav{
