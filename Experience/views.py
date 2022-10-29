@@ -1,5 +1,6 @@
+import re
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from Authentication.models import User
 from Experience.models import Experience
 from .forms import *
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
@@ -9,8 +10,13 @@ from django.core import serializers
 
 # Create your views here.
 def show_experience(request):
+    print(request.user)
     posts = Experience.objects.all()
-    return render(request, 'experience.html', {'posts': posts})
+    if request.user.get("role") == 1:
+        return render(request, 'experience.html', {'posts': posts})
+    else:
+        return render(request, 'experience-umum.html', {'posts': posts})
+
 
 def show_experience_detail(request, id):
     post= Experience.objects.get(id=id)
