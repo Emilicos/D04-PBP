@@ -53,6 +53,8 @@ html {
     align-items: center;
 }
 
+
+
 .experience-detail{
     display:flex;
     flex-direction:row;
@@ -111,7 +113,7 @@ html {
     background-color: #8e8d8a;
 }
 .card-experience{
-    background-color: white;
+    background-color: #eae7dc;
     border-radius: 12px;
 }
 .card-experience:hover{
