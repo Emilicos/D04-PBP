@@ -1,3 +1,7 @@
+import imp
+import pdb
+import sys
+from django.forms import model_to_dict
 from django.shortcuts import render
 
 from Booking.models import Appointment
@@ -5,14 +9,41 @@ from Booking.models import Appointment
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
+from Authentication.models import User
+
 # Create your views here.
+@login_required(login_url='/authentication/login/')
 def show_booking(request):
-    context = {
-        "username": request.user,
-    }
-    return render(request, "booking.html", context)
+
+    if request.user.get_is_staff() == True:
+
+        list_dokter = User.objects.filter(is_staff = False)
+
+        lst = []
+
+        for i in range (len(list_dokter)):
+            lst.append(model_to_dict(list_dokter[i]).get("username"))
+        
+        print(lst)
+
+        context = {
+            "username": request.user,
+            "listDokter": lst
+        }
+        
+        return render(request, "booking.html", context)
+
+    else:
+        context = {
+            "username": request.user,
+            "appointmentList": Appointment.objects.filter(doctor=request.user)
+        }
+        print(request.user)
+        print(Appointment.objects.all())
+        return render(request, "doctor.html", context)
 
 def show_json(request):
     data = Appointment.objects.filter(user=request.user)

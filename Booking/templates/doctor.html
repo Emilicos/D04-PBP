@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+<style>
+    body {
+    height: 100vh;
+    }
+
+    body {
+    min-height: 100vh;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .background-div {
+        background-color: #8e8d8a;
+    }
+
+    .zoom {
+      transition: transform .2s;
+    }
+    
+    .zoom:hover {
+      transform: scale(1.05);
+      box-shadow: 4px 4px 4px #cccccc;
+    }
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+{% endblock meta %}
+
+{% block content %}
+
+<script>
+
+    function deleteBooking(id) {
+        $.ajax({
+            type :"DELETE",
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            url :`/booking/delete/${id}`,
+            success: function()
+            {
+                $(`#${id}`).remove();
+                $.get("/booking/json", function(data) { showMessage(data) })
+            },
+            error: function(error){ alert("Error happened") },
+        })
+    }
+    
+    $(document).ready(function() {
+      
+        var typed = new Typed('#typed', {
+            strings: [`{{username}}`],
+            typeSpeed: 120,
+            backSpeed: 120,
+            backDelay: 2000,
+            startDelay: 500,
+            loop: true,
+            });
+
+    })
+
+</script>
+
+
+<div style="background-color:#d8c3a5; min-height: 100vh;">
+
+    <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
+        <div class="mt-4 flex-wrap flex-row justify-content-center">
+            
+            <div class="form-container-1" style="width:600px; text-align:center;">
+                <h1 class="display-4">Hello, <span id="typed"></span>!</h1>
+            </div>
+            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">
+                
+        </div>
+
+        
+        <p class="mb-0 text-light lead">HERE IS THE LIST OF YOUR UPCOMING APPOINTMENTS!</p>
+        
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center pb-4">
+            
+
+            {% for appointment in appointmentList %}
+                <div id="{{appointment.pk}}" class="card shadow mx-4 my-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
+                    <div class="card-header">Appointment with {{appointment.user}} ♡ </div>
+                    <div class="card-body">
+                        <p class="card-text lead">Date: {{appointment.date}}</p>
+                        <p class="card-text lead">Time: {{appointment.time}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <br>
+    </div>
+        
+</div>
+
+{% endblock content %}

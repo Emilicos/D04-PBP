@@ -34,7 +34,7 @@ def registerDokter(request):
             messages.success(request, 'Account was created for ' + username)
             return redirect('Authentication:login')
     context = {'form':form}
-    return render(request, 'registerpasien.html', context)
+    return render(request, 'registerdokter.html', context)
 
 def login_user(request):
     if request.method == 'POST':

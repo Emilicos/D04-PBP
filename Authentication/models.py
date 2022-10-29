@@ -16,3 +16,6 @@ class User(AbstractUser):
     )
 
     role = models.PositiveIntegerField(choices=ROLES, default=PASIEN)
+
+    def get_is_staff(self):
+        return self.is_staff

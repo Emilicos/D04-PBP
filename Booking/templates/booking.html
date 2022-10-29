@@ -11,13 +11,13 @@
     min-height: 100vh;
     }
 
-    div{
+    div {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    .background-div{
+    .background-div {
         background-color: #8e8d8a;
     }
 
@@ -111,15 +111,19 @@
                 if (data.length!=0) {
 
                     for (let appointment of data){
-                        temp += `<div id="${appointment.pk}" class="card shadow mx-4 my-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
+                        temp += `<div id="${appointment.pk}" class="card shadow mx-4 mb-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
                                     <div class="card-header">Appointment ${appointment.pk} ♡ </div>
                                     <div class="card-body">
-                                        <p class="card-title lead">${appointment.fields.doctor}</p>
+                                        <p class="card-title lead"><strong>${appointment.fields.doctor}</strong></p>
                                         <p class="card-text lead">Date: ${appointment.fields.date}</p>
                                         <p class="card-text lead">Time: ${appointment.fields.time}</p>
                                     </div>
-                                    <div class="d-flex justify-content-center mx-3 mb-4">
+                                    <div class="d-flex justify-content-center mx-3">
                                         <a onclick="deleteBooking(${appointment.pk})" class="text-underline" style="color: #e85a4f;">Cancel Appointment</a>
+                                    </div>
+                                    <h3 class="lead my-3">or</h3>
+                                    <div class="d-flex justify-content-center mx-3 mb-4">
+                                        <a onclick="deleteBooking(${appointment.pk})" class="text-underline" style="color: #87ab69;">Mark as Completed</a>
                                     </div>
                                 </div>`
                     }
@@ -219,12 +223,11 @@
                     <!-- DOCTOR -->
                     <div class="">
                         <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
+
                         <select id="inputDoctor" class="form-select">
-                            <option value="Cakrabirawa Hidayanto, Sp.Kk">Cakrabirawa Hidayanto, Sp.Kk</option>
-                            <option value="Danial Intan, Sp.Kk">Danial Intan, Sp.Kk</option>
-                            <option value="Fatimah Ratu, Sp.Kk">Fatimah Ratu, Sp.Kk</option>
-                            <option value="Ida Puspita, Sp.Kk">Ida Puspita, Sp.Kk</option>
-                            <option value="Rahayu Purwanti, Sp.Kk">Rahayu Purwanti, Sp.Kk</option>
+                            {% for dokter in listDokter %}
+                                <option value="{{ dokter }}">{{ dokter }}</option>
+                            {% endfor %}
                         </select>
                     </div>
     
@@ -242,7 +245,7 @@
     
     
     <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
-        <div class="my-4 flex-wrap flex-row justify-content-center">
+        <div class="mt-0 flex-wrap flex-row justify-content-center">
             
             <div class="form-container-1" style="width:600px; text-align:center;">
                 <h1 id="appointmentInfo" class="text-bold text-light display-5 pb-3"><span id="typed_two"></span></h1>
@@ -252,11 +255,10 @@
                     <button class="btn m-2 my-sm-0" onclick="searchDokter()" style="background-color: #8e8d8a; color: #eae7dc">Search</button>
                 </div>
             </div>
-            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">
-                
+            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">   
         </div>
         
-        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center"></div>
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center mt-0 pt-0"></div>
         <br>
     </div>
         
