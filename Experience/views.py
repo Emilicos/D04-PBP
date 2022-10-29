@@ -10,11 +10,24 @@ from django.core import serializers
 # Create your views here.
 def show_experience(request):
     posts = Experience.objects.all()
-    return render(request, 'experience.html', {'posts': posts})
+    if request.user.is_authenticated:
+        print(request.user.role)
+        if request.user.role == 1:
+            return render(request, 'experience.html', {'posts': posts})
+        else:
+            return render(request, 'experience-umum.html', {'posts': posts})
+    else:
+        return render(request, 'experience-umum.html', {'posts': posts})
+        
+    
 
 def show_experience_detail(request, id):
     post= Experience.objects.get(id=id)
-    return render(request, 'experience_detail.html', {'posts': post})
+    if request.user.is_authenticated:
+        return render(request, 'experience_detail.html', {'posts': post})
+    else:
+        return render(request, 'experience-detail-umum.html', {'posts': post})
+       
 
 def create_experience(request):
     form = ExperienceForm()
