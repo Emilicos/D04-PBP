@@ -42,6 +42,20 @@
 {% block content %}
 
 <script>
+
+    function deleteBooking(id) {
+        $.ajax({
+            type :"DELETE",
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            url :`/booking/delete/${id}`,
+            success: function()
+            {
+                $(`#${id}`).remove();
+                $.get("/booking/json", function(data) { showMessage(data) })
+            },
+            error: function(error){ alert("Error happened") },
+        })
+    }
     
     $(document).ready(function() {
       
@@ -62,27 +76,30 @@
 <div style="background-color:#d8c3a5; min-height: 100vh;">
 
     <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
-        <div class="my-4 flex-wrap flex-row justify-content-center">
+        <div class="mt-4 flex-wrap flex-row justify-content-center">
             
             <div class="form-container-1" style="width:600px; text-align:center;">
                 <h1 class="display-4">Hello, <span id="typed"></span>!</h1>
-                <small class="my-3 text-light">HERE IS THE LIST OF YOUR UPCOMING APPOINTMENTS!</small>
             </div>
             <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">
                 
         </div>
-        
-        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center">
 
-            { % for appointment in appointmentList % }
+        
+        <p class="mb-0 text-light lead">HERE IS THE LIST OF YOUR UPCOMING APPOINTMENTS!</p>
+        
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center pb-4">
+            
+
+            {% for appointment in appointmentList %}
                 <div id="{{appointment.pk}}" class="card shadow mx-4 my-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
-                    <div class="card-header">Appointment with {{appointment.user.first_name}} {{appointment.user.last_name}} ♡ </div>
+                    <div class="card-header">Appointment with {{appointment.user}} ♡ </div>
                     <div class="card-body">
                         <p class="card-text lead">Date: {{appointment.date}}</p>
                         <p class="card-text lead">Time: {{appointment.time}}</p>
                     </div>
                 </div>
-            { % endfor % }
+            {% endfor %}
 
         </div>
         <br>

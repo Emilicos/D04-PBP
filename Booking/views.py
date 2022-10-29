@@ -1,4 +1,7 @@
 import imp
+import pdb
+import sys
+from django.forms import model_to_dict
 from django.shortcuts import render
 
 from Booking.models import Appointment
@@ -14,17 +17,32 @@ from Authentication.models import User
 # Create your views here.
 @login_required(login_url='/authentication/login/')
 def show_booking(request):
-    if request.user.get_role() == 1:
+
+    if request.user.get_is_staff() == True:
+
+        list_dokter = User.objects.filter(is_staff = False)
+
+        lst = []
+
+        for i in range (len(list_dokter)):
+            lst.append(model_to_dict(list_dokter[i]).get("username"))
+        
+        print(lst)
+
         context = {
             "username": request.user,
-            "listDokter": User.objects.filter(role=2),
+            "listDokter": lst
         }
+        
         return render(request, "booking.html", context)
+
     else:
         context = {
             "username": request.user,
-            "appointmentList": Appointment.objects.filter(doctor="request.user")
+            "appointmentList": Appointment.objects.filter(doctor=request.user)
         }
+        print(request.user)
+        print(Appointment.objects.all())
         return render(request, "doctor.html", context)
 
 def show_json(request):
