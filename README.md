@@ -38,4 +38,4 @@ Fitur-fitur tersebut disediakan sebagai upaya penyuluhan dan tindakan preventif 
 
 1. Rumah sakit (superuser): user dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV
 2. Dokter: user dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV
-3. Pasien:  user dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website. 
+3. Pasien:  user dapat membagikan pengalamannya pada forum experience, reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website. 
