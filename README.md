@@ -8,13 +8,11 @@
 - Natania Deandra (2106633090)
 - Ravena Meilani (2106631923)
 
-<hr>
-
 ## 🌈 Tautan Aplikasi Heroku 🌈
 
-https://pbp-d04.herokuapp.com/ 
+**Nama Aplikasi:** `HIVCenter`
 
-<hr>
+**Link Aplikasi:** https://pbp-d04.herokuapp.com/ 
 
 ## ☄️ Cerita Aplikasi yang Diajukan Serta Manfaatnya ☄️
 
@@ -28,15 +26,32 @@ https://pbp-d04.herokuapp.com/
 
 ## 💫 Daftar Modul yang Diimplementasikan 💫
 
-1. Login, Logout, Register dengan mengimplementasikan role pengguna, Navigation Bar, serta gamifikasi pada aplikasi HIVCenter berupa tombol untuk mengirimkan support pada ODHA.
-2. Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dan rumah sakit dapat (post, delete, update).
-3. Forum pengalaman dimana pasien dapat menceritakan pengalaman mereka.
-4. Fitur feedback dimana pasien dapat memberikan feedback terhadap website HIVCenter.
-5. Fitur booking agar pasien dapat membuat janji dengan dokter dan dokter dapat melihat jadwal dari setiap janji yang ia miliki.
+1. **Homepage** <br>
+    Modul di atas merupakan halaman utama dari aplikasi `HIVCenter`. Pada halaman utama, terdapat informasi terkait HIV/AIDS, fakta, serta miskonsepsi yang banyak dipercayai oleh masyarakat awam. Pada halaman ini juga terdapat fitur gamifikasi di mana para pengguna dapat mengirimkan semangat kepada sesama penderita HIV.
+
+2. **Login, Logout, dan Register** <br>
+    Modul di atas mengimplementasikan fitur login, logout, pendaftaran akun, serta pembagian peran pengguna ke dalam beberapa kelompok, yaitu rumah sakit, dokter, dan pasien.
+    
+3. **Blogpost** <br>
+    Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dan rumah sakit dapat (post, delete, update).
+    
+4. **Booking** <br>
+    Fitur booking agar pasien dapat membuat janji dengan dokter dan dokter dapat melihat jadwal dari setiap janji yang ia miliki.
+    
+5. **Experience** <br>
+    Forum pengalaman dimana pasien dapat menceritakan pengalaman mereka.
+    
+6. **Feedback** <br>
+    Fitur feedback dimana pasien dapat memberikan feedback terhadap website `HIVCenter`.
 
 ## 🍀 Role Atau Peran Pengguna Beserta Deskripsinya 🍀
 
-1. Rumah sakit (superuser): user dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV
-2. Dokter: user dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV
-3. Pasien:  user dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website. 
+1. **Rumah sakit (superuser)** <br>
+    User dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV.
+    
+2. **Dokter**
+    User dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV.
+    
+3. **Pasien**
+    User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
 
