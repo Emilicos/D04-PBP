@@ -1,8 +1,7 @@
-import imp
-import pdb
-import sys
+
 from django.forms import model_to_dict
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from Booking.forms import AppointmentForm
 
 from Booking.models import Appointment
 
@@ -15,12 +14,14 @@ from django.views.decorators.csrf import csrf_exempt
 from Authentication.models import User
 
 # Create your views here.
+
+# apus ni func kl g perlu
 @login_required(login_url='/authentication/login/')
 def show_booking(request):
 
-    if request.user.get_is_staff() == True:
+    if request.user.role == 1:
 
-        list_dokter = User.objects.filter(is_staff = False)
+        list_dokter = User.objects.filter(role = 1)
 
         lst = []
 
@@ -30,6 +31,7 @@ def show_booking(request):
         print(lst)
 
         context = {
+            "form": AppointmentForm(),
             "username": request.user,
             "listDokter": lst
         }
@@ -37,18 +39,19 @@ def show_booking(request):
         return render(request, "booking.html", context)
 
     else:
+        
         context = {
             "username": request.user,
             "appointmentList": Appointment.objects.filter(doctor=request.user)
         }
-        print(request.user)
-        print(Appointment.objects.all())
+
         return render(request, "doctor.html", context)
 
 def show_json(request):
     data = Appointment.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+# apus
 @csrf_exempt
 def add_booking(request):
     if request.method == "POST":
@@ -61,6 +64,11 @@ def add_booking(request):
         return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
 
 @csrf_exempt
+def forms_ajax(request):
+    if request.method == 'POST' and AppointmentForm(request.POST).is_valid():
+        return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
+
+@csrf_exempt
 def delete_booking(request, id):
     booking = Appointment.objects.get(user=request.user, id=id)
     booking.delete()
@@ -69,4 +77,9 @@ def delete_booking(request, id):
 def get_dokter_json(request):
     dokter = request.GET.get('search')
     list_dokter = Appointment.objects.filter(doctor__icontains=dokter)
+    return HttpResponse(serializers.serialize('json', list_dokter)) 
+
+
+def get_all(request):
+    list_dokter = User.objects.filter(role = 2)
     return HttpResponse(serializers.serialize('json', list_dokter)) 

@@ -42,17 +42,21 @@
 {% block content %}
 
 <script>
+
+    function hideElement() {
+        var x = document.getElementById("bookingForm");
+        x.style.display = "none";
+    }
     
-    // Append newly added task to card-collection
-    function submitForm() {
+    function createBooking() {
         $.ajax({
             type: "POST",
-            url: `/booking/add/`,
+            url: `add/`,
             data:
             {
-                doctor: $("#inputDoctor").val(),
-                date: $("#inputDate").val(),
-                time: $("#inputTime").val(),
+                doctor: $("#post-doctor").val(),
+                date: $("#post-date").val(),
+                time: $("#post-time").val(),
                 csrfmiddlewaretoken: "{{ csrf_token }}",
             },
             dataType: "json",
@@ -186,10 +190,25 @@
 
 </script>
 
+<div class="row"><div class="col">
 
-<div style="background-color:#d8c3a5; min-height: 100vh;">
+        <div class="d-flex flex-column flex-md-row align-items-center py-2 px-2 border-bottom bg-white shadow-sm position-fixed w-100">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none px-5 py-0">
+            <span class="fs-4 fw-bold" style="color: #797875;">HIVCenter ♡</span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/authentication/login/">Login</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/blogpost/">Blogpost</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/booking/">Booking</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/experience/">Experience</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/feedback/">Feedback</a>
+            </nav>
+        </div></div></div>
+
+<div style="background-color:#d8c3a5; min-height: 100vh;" class="pt-5">
     
-    <div class="mb-3 flex-wrap flex-row justify-content-center" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
+    <div class="mb-0 flex-wrap flex-row justify-content-center" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
         <img src="/static/images/asset3.png" alt="" style="width:40%;" class="d-md-block img-fluid mt-5">
         
         <div class="form-container-1 mt-5 ml-0" style="width:50%; text-align:center;">
@@ -202,47 +221,33 @@
     </div>
     
     <div id="bookingForm" style="background-image: linear-gradient(#d8c3a5); width: 100%;" class="my-5 py-5">
-        <h3 class="lead pt-5 mt-4 pb-2">Fill this form down here to book an appointment <span id="typed_three"></span></h3>
-        <div class="card  shadow-lg mb-0 d-flex justify-content-center" style="background-color: #eae7dc; width:500px;" >
+        <h3 class="lead pt-4 mt-3 pb-2">Fill the form below to book an appointment <span id="typed_three"></span></h3>
+        <div class="shadow-lg pb-3 pt-2 d-flex justify-content-center" style="background-color: #eae7dc; width:500px; border-radius: 25px;" >
             <div class="card-body">
-                <form method="POST" action="">
+
+                <form method="POST" action="" id="post-form">
+
                     {% csrf_token %}
 
-                    <!-- DATE -->
-                    <div class="">
-                        <label for="inputDate" class="mx-3 my-3">Appointment Date</label>
-                        <input type="date" id="inputDate" class="form-control">
-                    </div>
-    
-                    <!-- TIME -->
-                    <div class="">
-                        <label for="inputTime" class="mx-3 my-3">Appointment Time</label>
-                        <input type="time" id="inputTime" class="form-control">
-                    </div>
-    
-                    <!-- DOCTOR -->
-                    <div class="">
-                        <label for="inputDoctor" class="mx-3 my-3">Doctor of Your Choice</label>
+                    {% for fm in form %}
 
-                        <select id="inputDoctor" class="form-select">
-                            {% for dokter in listDokter %}
-                                <option value="{{ dokter }}">{{ dokter }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-    
-                    <!-- BUTTON DAFTAR -->
+                        <div class="">
+                            <label class="my-3"> {{ fm.label }} </label>
+                            <p class="w-100"> {{ fm }} </p>
+                        </div>
+
+                    {% endfor %}
+
                     <div class="mb-3 mt-5 d-grid">
-                        <button type="submit" class="btn mx-2 mb-3" value="Book" onclick="submitForm()" style="background-color: #8e8d8a; color: #eae7dc">Book</button>
-                        <button type="button" class="btn mx-2" value="Close" id="closeButton" style="background-color: #8e8d8a; color: #eae7dc">Close</button>
+                        <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=createBooking() style="background-color: #8e8d8a; color: #eae7dc"/>
+                        <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
                     </div>
-    
+
                 </form>
+
             </div>
         </div>
     </div>
-
-    
     
     <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
         <div class="mt-0 flex-wrap flex-row justify-content-center">
