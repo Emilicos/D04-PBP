@@ -52,12 +52,12 @@
     function submitForm() {
         $.ajax({
             type: "POST",
-            url: `/booking/add/`,
+            url: `/forms-ajax/`,
             data:
             {
-                doctor: $("#inputDoctor").val(),
-                date: $("#inputDate").val(),
-                time: $("#inputTime").val(),
+                // doctor: $("#inputDoctor").val(),
+                // date: $("#inputDate").val(),
+                // time: $("#inputTime").val(),
                 csrfmiddlewaretoken: "{{ csrf_token }}",
             },
             dataType: "json",
@@ -241,7 +241,7 @@
                     {% endfor %}
 
                     <div class="mb-3 mt-5 d-grid">
-                        <input type="submit" class="btn mx-2 mb-3" value="Book" style="background-color: #8e8d8a; color: #eae7dc"/>
+                        <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=submitForm() style="background-color: #8e8d8a; color: #eae7dc"/>
                         <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
                     </div>
 

@@ -16,6 +16,8 @@ from django.views.decorators.csrf import csrf_exempt
 from Authentication.models import User
 
 # Create your views here.
+
+# apus ni func kl g perlu
 @login_required(login_url='/authentication/login/')
 def show_booking(request):
 
@@ -50,6 +52,7 @@ def show_json(request):
     data = Appointment.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+# apus
 @csrf_exempt
 def add_booking(request):
     if request.method == "POST":
@@ -63,23 +66,35 @@ def add_booking(request):
 
 @login_required(login_url='/authentication/login/')
 def create_booking(request):
-    if request.method == 'POST':
-        form = AppointmentForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.user = request.user
-            instance.save()
-            return redirect('Booking:create_booking')
+    print(request.user.role)
+    if request.user.role == 1:
+        if request.method == 'POST':
+            form = AppointmentForm(request.POST)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.save()
+                return redirect('Booking:create_booking')
+        else:
+            form = AppointmentForm()
+
+        context = {
+            "username": request.user,
+            "form": form
+        }
+        return render(request, 'booking.html', context)
 
     else:
-        form = AppointmentForm()
+        context = {
+            "username": request.user,
+            "appointmentList": Appointment.objects.filter(doctor=request.user)
+        }
+        return render(request, 'doctor.html', context)
 
-    context = {
-        "username": request.user,
-        "form": form,
-    }
-
-    return render(request, 'booking.html', context)
+@csrf_exempt
+def forms_ajax(request):
+    if request.method == 'POST' and AppointmentForm(request.POST).is_valid():
+        return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
 
 @csrf_exempt
 def delete_booking(request, id):
