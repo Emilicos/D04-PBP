@@ -628,7 +628,9 @@ html {
   display: block;
 }
 
-
+.hidden{
+  display:none;
+}
 #faq{
     background-color: #e98074;
     padding-bottom: 10px;
