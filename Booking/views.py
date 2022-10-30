@@ -1,6 +1,4 @@
-import imp
-import pdb
-import sys
+
 from django.forms import model_to_dict
 from django.shortcuts import redirect, render
 from Booking.forms import AppointmentForm
@@ -33,6 +31,7 @@ def show_booking(request):
         print(lst)
 
         context = {
+            "form": AppointmentForm(),
             "username": request.user,
             "listDokter": lst
         }
@@ -64,33 +63,6 @@ def add_booking(request):
         booking.save()
         return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
 
-@login_required(login_url='/authentication/login/')
-def create_booking(request):
-    print(request.user.role)
-    if request.user.role == 1:
-        if request.method == 'POST':
-            form = AppointmentForm(request.POST)
-            if form.is_valid():
-                instance = form.save(commit=False)
-                instance.user = request.user
-                instance.save()
-                return redirect('Booking:create_booking')
-        else:
-            form = AppointmentForm()
-
-        context = {
-            "username": request.user,
-            "form": form
-        }
-        return render(request, 'booking.html', context)
-
-    else:
-        context = {
-            "username": request.user,
-            "appointmentList": Appointment.objects.filter(doctor=request.user)
-        }
-        return render(request, 'doctor.html', context)
-
 @csrf_exempt
 def forms_ajax(request):
     if request.method == 'POST' and AppointmentForm(request.POST).is_valid():
@@ -105,4 +77,9 @@ def delete_booking(request, id):
 def get_dokter_json(request):
     dokter = request.GET.get('search')
     list_dokter = Appointment.objects.filter(doctor__icontains=dokter)
+    return HttpResponse(serializers.serialize('json', list_dokter)) 
+
+
+def get_all(request):
+    list_dokter = User.objects.filter(role = 2)
     return HttpResponse(serializers.serialize('json', list_dokter)) 

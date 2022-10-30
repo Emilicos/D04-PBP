@@ -48,16 +48,15 @@
         x.style.display = "none";
     }
     
-    // Append newly added task to card-collection
-    function submitForm() {
+    function createBooking() {
         $.ajax({
             type: "POST",
-            url: `/forms-ajax/`,
+            url: `add/`,
             data:
             {
-                // doctor: $("#inputDoctor").val(),
-                // date: $("#inputDate").val(),
-                // time: $("#inputTime").val(),
+                doctor: $("#post-doctor").val(),
+                date: $("#post-date").val(),
+                time: $("#post-time").val(),
                 csrfmiddlewaretoken: "{{ csrf_token }}",
             },
             dataType: "json",
@@ -227,7 +226,7 @@
         <div class="card  shadow-lg mb-0 d-flex justify-content-center" style="background-color: #eae7dc; width:500px;" >
             <div class="card-body">
 
-                <form method="POST" action="" id="newForm">
+                <form method="POST" action="" id="post-form">
 
                     {% csrf_token %}
 
@@ -241,7 +240,7 @@
                     {% endfor %}
 
                     <div class="mb-3 mt-5 d-grid">
-                        <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=submitForm() style="background-color: #8e8d8a; color: #eae7dc"/>
+                        <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=createBooking() style="background-color: #8e8d8a; color: #eae7dc"/>
                         <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
                     </div>
 
