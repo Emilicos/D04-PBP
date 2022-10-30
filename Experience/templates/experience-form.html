@@ -23,7 +23,7 @@ background-size: cover;">
                     </div>
                 {%endfor%}
                 <div class="tombol flex-col ">
-                    <input class="btn" type="submit" name="submit" value="Submit"/>
+                    <input class="btn" type="submit" name="submit" value="Submit" onclick="submitForm()"/>
                     <input class="btn" type="button" value="Go back!" onclick="history.back()">
                 </div>
             </form>
@@ -32,6 +32,28 @@ background-size: cover;">
         </div>
     </div>
 </div>
+<script>
+    function submitForm(){
+        $.ajax({
+            type: "POST",
+            url:"{%url 'Experience:create_experience'%}",
+            data: {
+                title: $('input[name="title"]').val();
+                experience: $('input[name="experience"]').val();
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            }
+            dataType:"json",
+            success: function(){
+                window.location="experience.html"
+            },
+            error: function(error){
+                alert("error")
+            }
+
+        })
+        return false;
+    }
+</script>
 {% endblock content %}
 
 
