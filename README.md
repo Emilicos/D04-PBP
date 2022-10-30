@@ -49,9 +49,9 @@
 1. **Rumah sakit (superuser)** <br>
     User dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV.
     
-2. **Dokter**
+2. **Dokter** <br>
     User dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV.
     
-3. **Pasien**
+3. **Pasien** <br>
     User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
 
