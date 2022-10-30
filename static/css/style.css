@@ -123,10 +123,7 @@ html {
     box-shadow: 1px 1px 10px rgba(0,0,0,.3);
     cursor: pointer;
 }
-.center-block {
-    margin: auto;
-    display: block;
-}
+.text-blue{color:blue}
 .text-center{text-align: center;}
 .font-bold{font-weight: bold;}
 .flex{display: flex;}
@@ -223,7 +220,7 @@ html {
 .test{margin-top: 200px;}
 .color-blue{color: #8e8d8a;}
 .color-white{color:white;}
-
+.top-25{top:100px;}
 .about{
     color: rgb(68, 68, 68);
 }
@@ -362,6 +359,175 @@ html {
     padding: 0 2em;
 }
 
+.btn-addblog {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 4px;
+    transition: 0.3s;
+    line-height: 1;
+    color: #41b36a;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    margin-top: 6px;
+    border: 2px solid #41b36a;
+    text-decoration: none;
+    cursor:pointer;
+  }
+
+  .btn-addblog:hover {
+    background: #41b36a;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .btn-addblogform{
+    padding: 0.75em 1.25em;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    color: #41b36a;
+    border-radius: 4px;
+    -webkit-animation-delay: 0.8s;
+    transition: 0.3s;
+    animation-delay: 0.8s;
+    line-height: 1;
+    margin-top: 6px;
+    border: 2px solid #41b36a;
+    text-decoration: none;
+    cursor:pointer;
+    background-color: white;
+}
+
+.btn-addblogform:hover {
+    background: #41b36a;
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+
+
+  .container-blog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1400px;
+    width: 100%;
+    gap: 2rem;
+  }
+  
+  .blogpost img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .cardblog {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    max-width: 25rem;
+    overflow: hidden;
+    box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 1em;
+    background: #ECE9E6;
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  margin: 2em 0.5em;
+
+  }
+  
+  
+  
+  .cardblog__body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  
+  
+  .tagblog {
+    align-self: flex-start;
+    padding: .25em .75em;
+    border-radius: 1em;
+    font-size: .75rem;
+  }
+  
+  .tagblog + .tagblog {
+    margin-left: .5em;
+  }
+  
+  .tag-green {
+    background: #41b36a;
+  background: linear-gradient(to bottom, rgb(57, 163, 96), #EED202);
+    color: #fafafa;
+  }
+  
+  .tag-yellow {
+    background: #D1913C;
+  background: linear-gradient(to bottom, #ffe900, #D1913C);
+    color: #fafafa;
+  }
+  
+  .tag-red {
+    background: #cb2d3e;
+  background: linear-gradient(to bottom, #ef473a, #cb2d3e);
+    color: #fafafa;
+  }
+  
+  .cardblog__body h4 {
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+  
+    
+  .cardblog__body p {
+    font-size: 0.75rem;
+  }
+
+  .cardblog__footer {
+    display: flex;
+    padding: 1rem;
+    margin-top: auto;
+  }
+  
+  .userblog {
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+    width: 100%;
+  }
+  
+  .userblog img{
+    object-fit: cover;
+    object-position: center;
+  }
+  .userblog__image {
+    border-radius: 100%;
+  }
+  
+  .userblog__info{
+    display: flex;
+    column-gap: 1em;
+  }
+  .userblog__info > small {
+    color: #666;
+  }
+
+  .text-left{
+    text-align: left;
+  }
+
+  .line-height{
+    line-height: 2;
+  }
+  
 @media screen and (min-width: 1000px) {
     .judulnav{
         display: initial;
@@ -382,6 +548,7 @@ html {
         padding: 0 0;
     }
 }
+
 @media screen and (min-width: 768px){
     .div1{
         display:flex;
@@ -437,8 +604,33 @@ html {
         align-items: flex-start;
         width:40%;
     }
+
+    .blog{
+        flex-direction: row;
+    }
+
+    .cardblog{
+        margin: 2em;
+    }
+    .cardblog__body h4 {
+        font-size: 1.5rem;
+        text-transform: capitalize;
+      }
+
+    .cardblog__body p {
+        font-size: 1rem;
+    }
+
 }
 
+.center-block {
+  margin: auto;
+  display: block;
+}
+
+.hidden{
+  display:none;
+}
 #faq{
     background-color: #e98074;
     padding-bottom: 10px;
