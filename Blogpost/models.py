@@ -1,9 +1,8 @@
-from datetime import datetime
 from django.db import models
-
+from Authentication.models import User
 # Create your models here.
 
-class Importance(models.Model):
+class BlogpostModel(models.Model):
     LOW = "LW"
     INTERMEDIATE = "IM"
     HIGH = "HH"
@@ -12,17 +11,16 @@ class Importance(models.Model):
         (INTERMEDIATE, 'Intermediate'),
         (HIGH, 'High'),
     ]
-    status = models.CharField(
+
+    importance = models.CharField(
         max_length = 2, 
         choices = IMPORTANCE_CHOICES,
         default = LOW
     )
 
-    def __str__(self):
-        return self.status
-            
-class Blogpost(models.Model):
-    importance = models.ForeignKey(Importance, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     time = models.DateTimeField(auto_now_add = True)
-    title = models.TextField()
-    description = models.TextField()
+    title = models.CharField(max_length = 100)
+    opening = models.TextField()
+    main = models.TextField()
+    closing = models.TextField()
