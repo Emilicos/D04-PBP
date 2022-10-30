@@ -61,6 +61,7 @@ def add_booking(request):
         booking.save()
         return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
 
+@login_required(login_url='/authentication/login/')
 def create_booking(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
