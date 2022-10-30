@@ -16,9 +16,13 @@
 <div class = "blogpost relative top-25 flex items-center justify-center flex-col">
   <div class= "blog px-8 flex flex-col justify-between max-w-1080px w-full text-center">
       <h1 class = "text-center font-bold"> Blogpost </h1>
-        <div class = "text-center">
-            <a class="btn-addblog widthmin" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add blog </a>
-        </div>
+      {% if request.user.is_authenticated %}
+        {% if request.user.role == 2 %}
+          <div class = "text-center">
+              <a class="btn-addblog widthmin" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add blog </a>
+          </div>
+        {% endif %}
+      {% endif %}
   </div>
 
   <div class = "flex">
