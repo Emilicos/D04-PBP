@@ -1,6 +1,5 @@
-from collections import OrderedDict
 import datetime
-from django.test import RequestFactory, TestCase, Client
+from django.test import TestCase
 from django.urls import resolve, reverse
 from Booking.models import Appointment
 
@@ -87,7 +86,7 @@ class BookingTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     # --------------------- Model ---------------------------- #
-    
+
     def test_model_blogpost(self):
         patient = User.objects.create(
             username = "testpatient",
