@@ -4,6 +4,7 @@
 <head>
     {% block meta %}
       <title> Blogpost </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
     {% endblock meta %}
 </head>
 
@@ -13,383 +14,733 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 
-<div class = "blogpost relative top-25 flex items-center justify-center flex-col">
-  <div class= "blog px-8 flex flex-col justify-between max-w-1080px w-full text-center">
-      <h1 class = "text-center font-bold"> Blogpost </h1>
-      {% if request.user.is_authenticated %}
-        {% if request.user.role == 2 %}
-          <div class = "text-center">
-              <a class="btn-addblog widthmin" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add blog </a>
-          </div>
-        {% endif %}
-      {% endif %}
-  </div>
-
-  <div class = "flex">
-    <select id = "importanceFilter" class="form-select" aria-label="Default select example">
-      <option value="DT"> Default </option>
-      <option value="LW"> Low </option>
-      <option value="IM"> Intermediate </option>
-      <option value="HH"> High </option>
-    </select>
-  </div>
-
-  <div class="container-blog" id = "containerBlog">
-  
-  </div>
-
-</div>
-
-<!-- Modal -->
-<form method="POST" action="/blogpost/create/" id = "idForm">
-  {% csrf_token %}
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header flex items-center">
-            <h5 class="modal-title" id="exampleModalLabel">Create Blog</h5>
-              <span data-bs-dismiss="modal" aria-hidden="true" class = "text-2xl cursor-pointer">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <div class = "p-4">
-              {% for field in form %}
-                <label class="font-bold" for="{{ field.auto_id }}"> {{ field.label}}</label>
-                {{ field }}
-              {% endfor %}
-            </div>
-
-            <!-- <div class = "px-8">
-              <div class = "my-4">
-                  <p class = "font-bold">Title </p>
-                  <input type="text" name="title" placeholder="Title" class="form-control" id = "title" required> </input>
-              
-              </div>
-                      
-              <div class = "my-4">
-                  <p class = "font-bold"> Opening Text </p>
-                  <textarea id = "opening" name="opening" placeholder="Opening text ..." class="form-control" required></textarea>
-              </div>
-              
-              <div class = "my-4">
-                <p class = "font-bold"> Main Text </p>
-                <textarea id = "main" name="main" placeholder="Main text ..." class="form-control" required></textarea>
-              </div>
-
-              <div class = "my-4">
-                <p class = "font-bold"> Closing Text </p>
-                <textarea id = "closing" name="closing" placeholder="Closing text ..." class="form-control" required></textarea>
-              </div>
-
-              <div class = "my-4">
-                <p class = "font-bold"> Importance </p>
-                <select id = "importance" class="form-select" aria-label="Default select example">
-                  <option value="LW"> Low </option>
-                  <option value="IM"> Intermediate </option>
-                  <option value="HH"> High </option>
-                </select>
-              </div> -->
-              <div class = "text-center">
-                <button type="submit" class="btn-addblogform"> Add </button>
-              </div>
-            </div>
-          </div>
+{% if is_authenticated %}
+  <div class = "relative top-0 flex justify-center">
+    <div style = "background-color: #f8f9fa;"class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
+      <div class = "hamnav flex items-center w-full">
+        <div class = "flex items-center">
+          <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
+          <a class = "text-decoration-none" href = "/"> <h1 class = "judulnav text-black font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
         </div>
+        {% if not is_authenticated %}
+          <div class = "flex list-none gap-x-8 items-center text-black font-bold text-2xl">
+        {% else %}
+          <div class = "flex list-none gap-x-4 items-center text-white font-bold text-2xl">
+        {% endif %}
+          <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-black"> Blogpost </a>
+          <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-black"> Experience </a>
+
+          {% if is_authenticated %}
+            <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-black"> Booking </a>
+          {% endif %}
+
+          <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-black"> Feedback </a>
+
+          {% if not is_authenticated %}
+          <a class = "text-black font-bold text-decoration-none btn-login widthmin" href="/authentication/login/"> Login </a>
+          {% endif %}
+
+          {% if is_authenticated %}
+          <a class = "text-black font-bold text-decoration-none btn-logout2 widthmin" href="/authentication/logout/"> Logout </a>
+          {% endif %}
+              <button class="navbar-toggler text-black hamburgernav cursor-pointer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                  <iconify-icon icon="fa-solid:bars"></iconify-icon></span>
+              </button>
+            </div>
+          </div>
       </div>
+    </div>
   </div>
-</form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+    <div class="bg-light shadow-3 p-4 box-shadow text-black flex flex-col gap-y-8">
+      <a href = "/blogpost/" class = "hamblogpost cursor-pointer text-decoration-none text-black font-bold"> Blogpost </a>
+      <a href = "/experience/"  class = "hamexperience cursor-pointer text-decoration-none text-black font-bold"> Experience </a>
+      {% if is_authenticated %}
+        <a href = "/booking/" class = "hambooking cursor-pointer text-decoration-none text-black font-bold"> Booking </a>
+      {% endif %}
+      <a href = "/feedback/" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Feedback </a>        
+      {% if not is_authenticated %}
+        <a href = "/authentication/login/" class = "hamfeedback cursor-pointer text-decoration-none font-bold" style = "color: #41b36a; "> Login </a>  
+      {% endif %}  
 
-<script>
+      {% if is_authenticated %}
+        <a href = "/authentication/logout/" class = "hamfeedback cursor-pointer text-decoration-none font-bold" style = "color: #cb2d3e; "> Logout </a>  
+      {% endif %} 
 
-    function getCookie(c_name)
-    {
-        if (document.cookie.length > 0)
-        {
-            c_start = document.cookie.indexOf(c_name + "=");
-            if (c_start != -1)
-            {
-                c_start = c_start + c_name.length + 1;
-                c_end = document.cookie.indexOf(";", c_start);
-                if (c_end == -1) c_end = document.cookie.length;
-                return unescape(document.cookie.substring(c_start,c_end));
-            }
-        }
-        return "";
-    }
+    </div>
+  </div>
 
-    function addCard(title, opening, importance, date, id, main, closing, image, username){
+  <div class = "blogpost relative top-25 flex items-center justify-center flex-col">
+    <div class= "blog px-8 flex flex-col justify-between max-w-1080px w-full text-center">
+        <h1 class = "text-center font-bold"> Blogpost </h1>
+        {% if is_authenticated %}
+          {% if role == 2 %}
+            <div class = "text-center">
+                <a class="btn-addblog widthmin" data-bs-toggle="modal" data-bs-target="#exampleModal"> Add blog </a>
+            </div>
+          {% endif %}
+        {% endif %}
+    </div>
 
-      var openingCard = opening.slice(0, 100) + (opening.length > 100 ? "..." : ""); 
+    <div class = "flex">
+      <select id = "importanceFilter" class="form-select" aria-label="Default select example">
+        <option value="DT"> Default </option>
+        <option value="LW"> Low </option>
+        <option value="IM"> Intermediate </option>
+        <option value="HH"> High </option>
+      </select>
+    </div>
 
-      var card = `
-        <div class="cardblog">
-          <div class="cardblog__header">
-            <img src= ${image} alt="cardblog__image" class="cardblog__image" width="600">
-          </div>
-          <div class="cardblog__body">
-            ${importance == "LW" ? '<span class="tagblog tag-green"> Low </span>' : ''}
-            ${importance == "IM" ? '<span class="tagblog tag-yellow"> Intermediate </span>' : ''}
-            ${importance == "HH" ? '<span class="tagblog tag-red"> High </span>' : ''}
-            <a href = "${id}/" class = "cursor-pointer text-decoration-none text-black font-bold"> <h4>${title}</h4> </a>
-            <p> ${openingCard} </p>
-          </div>
-          <div class="cardblog__footer">
-            <div class="userblog">
-              <div class="userblog__info">
-                <img src="https://img.lovepik.com/element/45000/4103.png_860.png" alt="userblog__image" class="userblog__image" width = "50px" height = "50px">
-                <div style = "max-width: 150px; width: 100%;">
-                  <h5 class = "capitalize"> ${username} </h5>
-                  <small> ${date} </small>
+    <div class="container-blog animation-blog" id = "containerBlog">
+    
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <form method="POST" action="/blogpost/create/" id = "idForm">
+    {% csrf_token %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header flex items-center">
+              <h5 class="modal-title" id="exampleModalLabel">Create Blog</h5>
+                <span data-bs-dismiss="modal" aria-hidden="true" class = "text-2xl cursor-pointer">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class = "p-4">
+                {% for field in form %}
+                  <label class="font-bold" for="{{ field.auto_id }}"> {{ field.label}}</label>
+                  {{ field }}
+                {% endfor %}
+              </div>
+
+              <!-- <div class = "px-8">
+                <div class = "my-4">
+                    <p class = "font-bold">Title </p>
+                    <input type="text" name="title" placeholder="Title" class="form-control" id = "title" required> </input>
+                
+                </div>
+                        
+                <div class = "my-4">
+                    <p class = "font-bold"> Opening Text </p>
+                    <textarea id = "opening" name="opening" placeholder="Opening text ..." class="form-control" required></textarea>
+                </div>
+                
+                <div class = "my-4">
+                  <p class = "font-bold"> Main Text </p>
+                  <textarea id = "main" name="main" placeholder="Main text ..." class="form-control" required></textarea>
+                </div>
+
+                <div class = "my-4">
+                  <p class = "font-bold"> Closing Text </p>
+                  <textarea id = "closing" name="closing" placeholder="Closing text ..." class="form-control" required></textarea>
+                </div>
+
+                <div class = "my-4">
+                  <p class = "font-bold"> Importance </p>
+                  <select id = "importance" class="form-select" aria-label="Default select example">
+                    <option value="LW"> Low </option>
+                    <option value="IM"> Intermediate </option>
+                    <option value="HH"> High </option>
+                  </select>
+                </div> -->
+                <div class = "text-center">
+                  <button type="submit" class="btn-addblogform"> Add </button>
                 </div>
               </div>
-              <div>
-                <iconify-icon icon="typcn:edit" style = "color: #41b36a; font-size:32px; cursor:pointer;" onclick = "handleUpdateModal(${id})"></iconify-icon>
-                <iconify-icon icon="typcn:trash" style = "color:#cb2d3e; font-size: 32px; cursor:pointer;" onclick = "handleDelete(${id})"></iconify-icon>
-              </div>
             </div>
           </div>
         </div>
+    </div>
+  </form>
 
-        <form method="PUT" action="/blogpost/update/" id = "idForm2-${id}">
-          {% csrf_token %}
-          <div class="modal fade" id="exampleModal2-${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header flex items-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Blog</h5>
-                      <span data-bs-dismiss="modal" aria-hidden="true" class = "text-2xl cursor-pointer">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class = "px-8">
-                      <div class = "my-4">
-                          <p class = "font-bold">Title </p>
-                          <input type="text" placeholder="Title" class="form-control" id = "title2-${id}" required> </input>
-                      
-                      </div>
-                              
-                      <div class = "my-4">
-                          <p class = "font-bold"> Opening Text </p>
-                          <textarea id = "opening2-${id}" placeholder="Opening text ..." class="form-control" required></textarea>
-                      </div>
-                      
-                      <div class = "my-4">
-                        <p class = "font-bold"> Main Text </p>
-                        <textarea id = "main2-${id}" placeholder="Main text ..." class="form-control" required></textarea>
-                      </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  {% if role == 2 %}
+    <script>
 
-                      <div class = "my-4">
-                        <p class = "font-bold"> Closing Text </p>
-                        <textarea id = "closing2-${id}" placeholder="Closing text ..." class="form-control" required></textarea>
-                      </div>
+        function getCookie(c_name)
+        {
+            if (document.cookie.length > 0)
+            {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1)
+                {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start,c_end));
+                }
+            }
+            return "";
+        }
 
-                      <div class = "my-4">
-                        <p class = "font-bold"> Importance </p>
-                        <select id = "importance2-${id}" class="form-select" aria-label="Default select example">
-                          <option value="LW"> Low </option>
-                          <option value="IM"> Intermediate </option>
-                          <option value="HH"> High </option>
-                        </select>
-                      </div>
+        function addCard(title, opening, importance, date, id, main, closing, image, username){
 
+          var openingCard = opening.slice(0, 100) + (opening.length > 100 ? "..." : ""); 
+
+          var card = `
+            <div class="cardblog">
+              <div class="cardblog__header">
+                <img src= ${image} alt="cardblog__image" class="cardblog__image" width="600">
+              </div>
+              <div class="cardblog__body">
+                ${importance == "LW" ? '<span class="tagblog tag-green"> Low </span>' : ''}
+                ${importance == "IM" ? '<span class="tagblog tag-yellow"> Intermediate </span>' : ''}
+                ${importance == "HH" ? '<span class="tagblog tag-red"> High </span>' : ''}
+                <a href = "${id}/" class = "cursor-pointer text-decoration-none text-black font-bold"> <h4>${title}</h4> </a>
+                <p> ${openingCard} </p>
+              </div>
+              <div class="cardblog__footer">
+                <div class="userblog">
+                  <div class="userblog__info">
+                    <img src="https://img.lovepik.com/element/45000/4103.png_860.png" alt="userblog__image" class="userblog__image" width = "50px" height = "50px">
+                    <div style = "max-width: 150px; width: 100%;">
+                      <h5 class = "capitalize"> ${username} </h5>
+                      <small> ${date} </small>
                     </div>
                   </div>
-                  <div class="modal-footer flex flex-col items-center">
-                    <button type="submit" class="btn-addblogform"> Add </button>
+                  <div>
+                    <iconify-icon icon="typcn:edit" style = "color: #41b36a; font-size:32px; cursor:pointer;" onclick = "handleUpdateModal(${id})"></iconify-icon>
+                    <iconify-icon icon="typcn:trash" style = "color:#cb2d3e; font-size: 32px; cursor:pointer;" onclick = "handleDelete(${id})"></iconify-icon>
                   </div>
                 </div>
               </div>
-          </div>
-        </form>
-      `
-      return card
-    }
+            </div>
 
-    function getUsername(id){
-      $.ajax({
-        type: "GET",
-        url: `/blogpost/user/${id}`,
-        async: false,  
-        headers: { "X-CSRFToken": getCookie("csrftoken") },
-        success: function(data){
-          username = data.user
-        }  
-      })
+            <form method="PUT" action="/blogpost/update/" id = "idForm2-${id}">
+              {% csrf_token %}
+              <div class="modal fade" id="exampleModal2-${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header flex items-center">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Blog</h5>
+                          <span data-bs-dismiss="modal" aria-hidden="true" class = "text-2xl cursor-pointer">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class = "px-8">
+                          <div class = "my-4">
+                              <p class = "font-bold">Title </p>
+                              <input type="text" placeholder="Title" class="form-control" id = "title2-${id}" required> </input>
+                          
+                          </div>
+                                  
+                          <div class = "my-4">
+                              <p class = "font-bold"> Opening Text </p>
+                              <textarea id = "opening2-${id}" placeholder="Opening text ..." class="form-control" required></textarea>
+                          </div>
+                          
+                          <div class = "my-4">
+                            <p class = "font-bold"> Main Text </p>
+                            <textarea id = "main2-${id}" placeholder="Main text ..." class="form-control" required></textarea>
+                          </div>
 
-      return username
-    }
+                          <div class = "my-4">
+                            <p class = "font-bold"> Closing Text </p>
+                            <textarea id = "closing2-${id}" placeholder="Closing text ..." class="form-control" required></textarea>
+                          </div>
 
-    function showData(){
-      var importance = document.getElementById("importanceFilter").value;
+                          <div class = "my-4">
+                            <p class = "font-bold"> Importance </p>
+                            <select id = "importance2-${id}" class="form-select" aria-label="Default select example">
+                              <option value="LW"> Low </option>
+                              <option value="IM"> Intermediate </option>
+                              <option value="HH"> High </option>
+                            </select>
+                          </div>
 
-      $.ajax({
-        type: "GET",
-        url: '/blogpost/json/',
-        data:{
-          importance:importance,
-        },
-        headers: { "X-CSRFToken": getCookie("csrftoken") },
-        success: function(data){
-          $('#containerBlog').html("");
-          for(let i = 0; i < data.length ; i++){
-              title = data[i].fields.title
-              opening = data[i].fields.opening
-              main = data[i].fields.main
-              closing = data[i].fields.closing
-              importance = data[i].fields.importance
-              date = data[i].fields.time.substring(0, 10)
-              user = data[i].fields.user
-              id = data[i].pk
-              username = getUsername(user)
-              image = `https://source.unsplash.com/600x400/?$hiv/${id}`
-              console.log(username)
-              var card = addCard(title, opening, importance, date, id, main, closing, image, username)
-              $(card).appendTo("#containerBlog")
-          }
+                        </div>
+                      </div>
+                      <div class="modal-footer flex flex-col items-center">
+                        <button type="submit" class="btn-addblogform"> Add </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          `
+          return card
         }
-      })
-    }
 
-    function handleUpdateModal(id){
-      $(`#exampleModal2-${id}`).modal('toggle')
-      $(`#idForm2-${id}`).submit(function(e){
-        
-        e.preventDefault()
-        var form = $(this);
-        var actionUrl = form.attr("action") + id + "/";
-        var importance = document.getElementById(`importance2-${id}`).value;
-        var title = $(`#title2-${id}`).val()
-        var opening = $(`#opening2-${id}`).val()
-        var main = $(`#main2-${id}`).val()
-        var closing = $(`#closing2-${id}`).val()
-
-        if(title.length > 100){
-          alert("Title jangan panjang-panjang")
-        }else{
+        function getUsername(id){
           $.ajax({
-            type: "PUT",
-            url: actionUrl,
+            type: "GET",
+            url: `/blogpost/user/${id}`,
+            async: false,  
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data){
+              username = data.user
+            }  
+          })
+
+          return username
+        }
+
+        function showData(){
+          var importance = document.getElementById("importanceFilter").value;
+
+          $.ajax({
+            type: "GET",
+            url: '/blogpost/json/',
             data:{
-              title: title,
-              opening: opening,
-              main: main,
-              closing: closing,
-              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
               importance:importance,
             },
             headers: { "X-CSRFToken": getCookie("csrftoken") },
             success: function(data){
-              showData()
-              showAttr()
-              $(`#exampleModal2-${id}`).modal('hide')
-            }, 
-            error: function(error){
-              console.log(error.responseJSON.message)
-              alert(error.responseJSON.message)
+              $('#containerBlog').html("");
+              for(let i = 0; i < data.length ; i++){
+                  title = data[i].fields.title
+                  opening = data[i].fields.opening
+                  main = data[i].fields.main
+                  closing = data[i].fields.closing
+                  importance = data[i].fields.importance
+                  date = data[i].fields.time.substring(0, 10)
+                  user = data[i].fields.user
+                  id = data[i].pk
+                  username = getUsername(user)
+                  image = `https://source.unsplash.com/600x400/?$hiv/${id}`
+                  var card = addCard(title, opening, importance, date, id, main, closing, image, username)
+                  $(card).appendTo("#containerBlog")
+              }
             }
           })
         }
-      })
-    }
-    
-    function handleDelete(id){
-      actionUrl = `/blogpost/delete/${id}`
-      $.ajax({
-        type: "DELETE",
-        url: actionUrl, 
-        success: function(data){
-          $('#div').html("");
-          showData()
-        },  
-        headers: { "X-CSRFToken": getCookie("csrftoken") },
-        error: function(error){
-          alert(error.responseJSON.error)
+
+        function handleUpdateModal(id){
+          $(`#exampleModal2-${id}`).modal('toggle')
+          $(`#idForm2-${id}`).submit(function(e){
+            
+            e.preventDefault()
+            var form = $(this);
+            var actionUrl = form.attr("action") + id + "/";
+            var importance = document.getElementById(`importance2-${id}`).value;
+            var title = $(`#title2-${id}`).val()
+            var opening = $(`#opening2-${id}`).val()
+            var main = $(`#main2-${id}`).val()
+            var closing = $(`#closing2-${id}`).val()
+
+            if(title.length > 100){
+              alert("Title jangan panjang-panjang")
+            }else{
+              $.ajax({
+                type: "PUT",
+                url: actionUrl,
+                data:{
+                  title: title,
+                  opening: opening,
+                  main: main,
+                  closing: closing,
+                  csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  importance:importance,
+                },
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                success: function(data){
+                  showData()
+                  showAttr()
+                  $(`#exampleModal2-${id}`).modal('hide')
+                }, 
+                error: function(error){
+                  alert(error.responseJSON.message)
+                }
+              })
+            }
+          })
         }
-      })
-    }
+        
+        function handleDelete(id){
+          actionUrl = `/blogpost/delete/${id}`
+          $.ajax({
+            type: "DELETE",
+            url: actionUrl, 
+            success: function(data){
+              $('#div').html("");
+              showData()
+            },  
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            error: function(error){
+              alert(error.responseJSON.error)
+            }
+          })
+        }
 
-    $(document).ready(function(){
-        showData()
-        showAttr()
-    })
-
-    $("#idForm").submit(function(e){
-      e.preventDefault()
-      var form = $(this);
-      var actionUrl = form.attr("action");
-      var importance = document.getElementById("importance").value;
-      var title = $('#title').val()
-      var opening = $("#opening").val()
-      var main = $("#main").val()
-      var closing = $("#closing").val()
-
-      if(title.length > 50){
-        alert("Title jangan panjang-panjang")
-      }else{
-        $.ajax({
-          type: "POST",
-          url: actionUrl,
-          data:{
-            title: title,
-            opening: opening,
-            main: main,
-            closing: closing,
-            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-            importance:importance,
-          },
-          headers: { "X-CSRFToken": getCookie("csrftoken") },
-          success: function(data){
+        $(document).ready(function(){
             showData()
-            $("#exampleModal").modal('hide')
-            $("#title").val("");
-            $("#opening").val("");
-            $("#main").val("");
-            $("#closing").val("");
-            $("#importance").val("LW");
-          }, 
-          error: function(error){
-            alert(error.responseJSON.error)
+            showAttr()
+        })
+
+        $("#idForm").submit(function(e){
+          e.preventDefault()
+          var form = $(this);
+          var actionUrl = form.attr("action");
+          var importance = document.getElementById("importance").value;
+          var title = $('#title').val()
+          var opening = $("#opening").val()
+          var main = $("#main").val()
+          var closing = $("#closing").val()
+
+          if(title.length > 50){
+            alert("Title jangan panjang-panjang")
+          }else{
+            $.ajax({
+              type: "POST",
+              url: actionUrl,
+              data:{
+                title: title,
+                opening: opening,
+                main: main,
+                closing: closing,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                importance:importance,
+              },
+              headers: { "X-CSRFToken": getCookie("csrftoken") },
+              success: function(data){
+                showData()
+                $("#exampleModal").modal('hide')
+                $("#title").val("");
+                $("#opening").val("");
+                $("#main").val("");
+                $("#closing").val("");
+                $("#importance").val("LW");
+              }, 
+              error: function(error){
+                alert(error.responseJSON.error)
+              }
+            })
           }
         })
-      }
-    })
-    
-    function showAttr(){
-      var importance = document.getElementById("importanceFilter").value;
-      $.ajax({
-        type: "GET",
-        url: '/blogpost/json/',
-        data:{
-          importance:importance,
-        },
-        headers: { "X-CSRFToken": getCookie("csrftoken") },
-        success: function(data){
-          for(let i = 0; i < data.length ; i++){
-              title = data[i].fields.title
-              opening = data[i].fields.opening
-              main = data[i].fields.main
-              closing = data[i].fields.closing
-              importance = data[i].fields.importance
-              date = data[i].fields.time.substring(0, 10)
-              id = data[i].pk
+        
+        function showAttr(){
+          var importance = document.getElementById("importanceFilter").value;
+          $.ajax({
+            type: "GET",
+            url: '/blogpost/json/',
+            data:{
+              importance:importance,
+            },
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data){
+              for(let i = 0; i < data.length ; i++){
+                  title = data[i].fields.title
+                  opening = data[i].fields.opening
+                  main = data[i].fields.main
+                  closing = data[i].fields.closing
+                  importance = data[i].fields.importance
+                  date = data[i].fields.time.substring(0, 10)
+                  id = data[i].pk
 
-              $(`#importance2-${id}`).val(importance);
-              $(`#title2-${id}`).val(title)
-              $(`#opening2-${id}`).val(opening)
-              $(`#main2-${id}`).val(main)
-              $(`#closing2-${id}`).val(closing)
-          }
+                  $(`#importance2-${id}`).val(importance);
+                  $(`#title2-${id}`).val(title)
+                  $(`#opening2-${id}`).val(opening)
+                  $(`#main2-${id}`).val(main)
+                  $(`#closing2-${id}`).val(closing)
+              }
+            }
+          })
         }
-      })
-    }
 
-    $('#importanceFilter').change(function () {  
-      showData() 
-    })
+        $('#importanceFilter').change(function () {  
+          showData() 
+        })
 
-</script>
+    </script>
+  {% else %}
+    <script>
+
+        function getCookie(c_name)
+        {
+            if (document.cookie.length > 0)
+            {
+                c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1)
+                {
+                    c_start = c_start + c_name.length + 1;
+                    c_end = document.cookie.indexOf(";", c_start);
+                    if (c_end == -1) c_end = document.cookie.length;
+                    return unescape(document.cookie.substring(c_start,c_end));
+                }
+            }
+            return "";
+        }
+
+        function addCard(title, opening, importance, date, id, main, closing, image, username){
+
+          var openingCard = opening.slice(0, 100) + (opening.length > 100 ? "..." : ""); 
+
+          var card = `
+            <div class="cardblog">
+              <div class="cardblog__header">
+                <img src= ${image} alt="cardblog__image" class="cardblog__image" width="600">
+              </div>
+              <div class="cardblog__body">
+                ${importance == "LW" ? '<span class="tagblog tag-green"> Low </span>' : ''}
+                ${importance == "IM" ? '<span class="tagblog tag-yellow"> Intermediate </span>' : ''}
+                ${importance == "HH" ? '<span class="tagblog tag-red"> High </span>' : ''}
+                <a href = "${id}/" class = "cursor-pointer text-decoration-none text-black font-bold"> <h4>${title}</h4> </a>
+                <p> ${openingCard} </p>
+              </div>
+              <div class="cardblog__footer">
+                <div class="userblog">
+                  <div class="userblog__info">
+                    <img src="https://img.lovepik.com/element/45000/4103.png_860.png" alt="userblog__image" class="userblog__image" width = "50px" height = "50px">
+                    <div style = "max-width: 150px; width: 100%;">
+                      <h5 class = "capitalize"> ${username} </h5>
+                      <small> ${date} </small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <form method="PUT" action="/blogpost/update/" id = "idForm2-${id}">
+              {% csrf_token %}
+              <div class="modal fade" id="exampleModal2-${id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header flex items-center">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Blog</h5>
+                          <span data-bs-dismiss="modal" aria-hidden="true" class = "text-2xl cursor-pointer">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class = "px-8">
+                          <div class = "my-4">
+                              <p class = "font-bold">Title </p>
+                              <input type="text" placeholder="Title" class="form-control" id = "title2-${id}" required> </input>
+                          
+                          </div>
+                                  
+                          <div class = "my-4">
+                              <p class = "font-bold"> Opening Text </p>
+                              <textarea id = "opening2-${id}" placeholder="Opening text ..." class="form-control" required></textarea>
+                          </div>
+                          
+                          <div class = "my-4">
+                            <p class = "font-bold"> Main Text </p>
+                            <textarea id = "main2-${id}" placeholder="Main text ..." class="form-control" required></textarea>
+                          </div>
+
+                          <div class = "my-4">
+                            <p class = "font-bold"> Closing Text </p>
+                            <textarea id = "closing2-${id}" placeholder="Closing text ..." class="form-control" required></textarea>
+                          </div>
+
+                          <div class = "my-4">
+                            <p class = "font-bold"> Importance </p>
+                            <select id = "importance2-${id}" class="form-select" aria-label="Default select example">
+                              <option value="LW"> Low </option>
+                              <option value="IM"> Intermediate </option>
+                              <option value="HH"> High </option>
+                            </select>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="modal-footer flex flex-col items-center">
+                        <button type="submit" class="btn-addblogform"> Add </button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </form>
+          `
+          return card
+        }
+
+        function getUsername(id){
+          $.ajax({
+            type: "GET",
+            url: `/blogpost/user/${id}`,
+            async: false,  
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data){
+              username = data.user
+            }  
+          })
+
+          return username
+        }
+
+        function showData(){
+          var importance = document.getElementById("importanceFilter").value;
+
+          $.ajax({
+            type: "GET",
+            url: '/blogpost/json/',
+            data:{
+              importance:importance,
+            },
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data){
+              $('#containerBlog').html("");
+              for(let i = 0; i < data.length ; i++){
+                  title = data[i].fields.title
+                  opening = data[i].fields.opening
+                  main = data[i].fields.main
+                  closing = data[i].fields.closing
+                  importance = data[i].fields.importance
+                  date = data[i].fields.time.substring(0, 10)
+                  user = data[i].fields.user
+                  id = data[i].pk
+                  username = getUsername(user)
+                  image = `https://source.unsplash.com/600x400/?$hiv/${id}`
+                  var card = addCard(title, opening, importance, date, id, main, closing, image, username)
+                  $(card).appendTo("#containerBlog")
+              }
+            }
+          })
+        }
+
+        function handleUpdateModal(id){
+          $(`#exampleModal2-${id}`).modal('toggle')
+          $(`#idForm2-${id}`).submit(function(e){
+            
+            e.preventDefault()
+            var form = $(this);
+            var actionUrl = form.attr("action") + id + "/";
+            var importance = document.getElementById(`importance2-${id}`).value;
+            var title = $(`#title2-${id}`).val()
+            var opening = $(`#opening2-${id}`).val()
+            var main = $(`#main2-${id}`).val()
+            var closing = $(`#closing2-${id}`).val()
+
+            if(title.length > 100){
+              alert("Title jangan panjang-panjang")
+            }else{
+              $.ajax({
+                type: "PUT",
+                url: actionUrl,
+                data:{
+                  title: title,
+                  opening: opening,
+                  main: main,
+                  closing: closing,
+                  csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                  importance:importance,
+                },
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                success: function(data){
+                  showData()
+                  showAttr()
+                  $(`#exampleModal2-${id}`).modal('hide')
+                }, 
+                error: function(error){
+                  alert(error.responseJSON.message)
+                }
+              })
+            }
+          })
+        }
+        
+        function handleDelete(id){
+          actionUrl = `/blogpost/delete/${id}`
+          $.ajax({
+            type: "DELETE",
+            url: actionUrl, 
+            success: function(data){
+              $('#div').html("");
+              showData()
+            },  
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            error: function(error){
+              alert(error.responseJSON.error)
+            }
+          })
+        }
+
+        $(document).ready(function(){
+            showData()
+            showAttr()
+        })
+
+        $("#idForm").submit(function(e){
+          e.preventDefault()
+          var form = $(this);
+          var actionUrl = form.attr("action");
+          var importance = document.getElementById("importance").value;
+          var title = $('#title').val()
+          var opening = $("#opening").val()
+          var main = $("#main").val()
+          var closing = $("#closing").val()
+
+          if(title.length > 50){
+            alert("Title jangan panjang-panjang")
+          }else{
+            $.ajax({
+              type: "POST",
+              url: actionUrl,
+              data:{
+                title: title,
+                opening: opening,
+                main: main,
+                closing: closing,
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                importance:importance,
+              },
+              headers: { "X-CSRFToken": getCookie("csrftoken") },
+              success: function(data){
+                showData()
+                $("#exampleModal").modal('hide')
+                $("#title").val("");
+                $("#opening").val("");
+                $("#main").val("");
+                $("#closing").val("");
+                $("#importance").val("LW");
+              }, 
+              error: function(error){
+                alert(error.responseJSON.error)
+              }
+            })
+          }
+        })
+        
+        function showAttr(){
+          var importance = document.getElementById("importanceFilter").value;
+          $.ajax({
+            type: "GET",
+            url: '/blogpost/json/',
+            data:{
+              importance:importance,
+            },
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            success: function(data){
+              for(let i = 0; i < data.length ; i++){
+                  title = data[i].fields.title
+                  opening = data[i].fields.opening
+                  main = data[i].fields.main
+                  closing = data[i].fields.closing
+                  importance = data[i].fields.importance
+                  date = data[i].fields.time.substring(0, 10)
+                  id = data[i].pk
+
+                  $(`#importance2-${id}`).val(importance);
+                  $(`#title2-${id}`).val(title)
+                  $(`#opening2-${id}`).val(opening)
+                  $(`#main2-${id}`).val(main)
+                  $(`#closing2-${id}`).val(closing)
+              }
+            }
+          })
+        }
+
+        $('#importanceFilter').change(function () {  
+          showData() 
+        })
+
+    </script>
+  {% endif %}
+{% else %}
+  <div class = "position-center">
+    <h1 class = "font-bold"> Login to View All Blogpost </h1>
+    <div class = "text-center">
+      <a href = "/authentication/login/" class="btn-addblog widthmin"> Login </a>
+    </div>
+  </div>
+{% endif %} 
 {% endblock content %}
 </body>

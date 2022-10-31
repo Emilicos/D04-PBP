@@ -1,24 +1,26 @@
-import enum
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from Blogpost.forms import BlogpostForm
 from Blogpost.models import BlogpostModel
 from django.core import serializers
 from datetime import date
-from django.core.exceptions import PermissionDenied
 from Authentication.models import User
+
 # Create your views here.
 def show_blogpost(request):
     form = BlogpostForm()
     context = {
+        "is_authenticated": request.user.is_authenticated,
         "user": request.user,
+        "role": request.user.role if request.user.is_authenticated else None,
         "form": form
     }
-
+    
     return render(request, 'blogpost.html', context)
 
 def show_user(request, id):
     username = User.objects.filter(pk = id)
+    hasil = ""
     for index, item in enumerate(username):
         data = item
         hasil = item.__str__()
@@ -42,6 +44,7 @@ def show_blogpost_json_by_id(request, id):
 
 def show_blogpost_by_id(request, id):
     context = {
+        "is_authenticated": request.user.is_authenticated,
         "user": request.user,
         "id": id,
     }

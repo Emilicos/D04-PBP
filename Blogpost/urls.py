@@ -1,6 +1,6 @@
 from django.urls import path
 from Blogpost.views import create_blogpost, delete_blogpost, show_blogpost, show_blogpost_by_id, show_blogpost_json, show_blogpost_json_by_id, show_user, update_blogpost
-app_name = "Blogpost"
+app_name = "blogpost"
 
 urlpatterns = [
     path("", show_blogpost, name = "show_blogpost"),

@@ -3,82 +3,149 @@
 <head>
     {% block meta %}
     <title> Blogpost </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
     {% endblock meta %}
 </head>
 
 <body>
 {% block content %}  
+{% if is_authenticated %}
+
+    <div class = "relative top-0 flex justify-center">
+        <div style = "background-color: #f8f9fa;"class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
+            <div class = "hamnav flex items-center w-full">
+                <div class = "flex items-center">
+                <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
+                <a class = "text-decoration-none" href = "/"> <h1 class = "judulnav text-black font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
+                </div>
+                {% if not is_authenticated %}
+                <div class = "flex list-none gap-x-8 items-center text-black font-bold text-2xl">
+                {% else %}
+                <div class = "flex list-none gap-x-4 items-center text-white font-bold text-2xl">
+                {% endif %}
+                <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-black"> Blogpost </a>
+                <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-black"> Experience </a>
+
+                {% if is_authenticated %}
+                    <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-black"> Booking </a>
+                {% endif %}
+
+                <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-black"> Feedback </a>
+
+                {% if not is_authenticated %}
+                <a class = "text-black font-bold text-decoration-none btn-login widthmin" href="/authentication/login/"> Login </a>
+                {% endif %}
+
+                {% if is_authenticated %}
+                <a class = "text-black font-bold text-decoration-none btn-logout2 widthmin" href="/authentication/logout/"> Logout </a>
+                {% endif %}
+                    <button class="navbar-toggler text-black hamburgernav cursor-pointer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent3" aria-controls="navbarSupportedContent3" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                        <iconify-icon icon="fa-solid:bars"></iconify-icon></span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent3">
+        <div class="bg-light shadow-3 p-4 box-shadow text-black flex flex-col gap-y-8">
+          <a href = "/blogpost/" class = "hamblogpost cursor-pointer text-decoration-none text-black font-bold"> Blogpost </a>
+          <a href = "/experience/"  class = "hamexperience cursor-pointer text-decoration-none text-black font-bold"> Experience </a>
+          {% if is_authenticated %}
+            <a href = "/booking/" class = "hambooking cursor-pointer text-decoration-none text-black font-bold"> Booking </a>
+          {% endif %}
+          <a href = "/feedback/" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Feedback </a>        
+          {% if not is_authenticated %}
+            <a href = "/authentication/login/" class = "hamfeedback cursor-pointer text-decoration-none font-bold" style = "color: #41b36a; "> Login </a>  
+          {% endif %}  
+    
+          {% if is_authenticated %}
+            <a href = "/authentication/logout/" class = "hamfeedback cursor-pointer text-decoration-none font-bold" style = "color: #cb2d3e; "> Logout </a>  
+          {% endif %} 
+    
+        </div>
+      </div>
+
     <div class = "flex justify-center">
         <div id = "artikelBlog" class = "relative top-25 flex-col flex text-center max-w-1080px text-left gap-y-8 mx-8">
         </div>
     </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
+    <script>
 
-    function getUsername(id){
-      $.ajax({
-        type: "GET",
-        url: `/blogpost/user/${id}`,
-        async: false,  
-        success: function(data){
-          username = data.user
-        }  
-      })
-
-      return username
-    }
-
-    function showData(id){
+        function getUsername(id){
         $.ajax({
             type: "GET",
-            url: `/blogpost/json/${id}`,
+            url: `/blogpost/user/${id}`,
+            async: false,  
             success: function(data){
-                console.log(data)
-                $('#artikelBlog').html("");
-                title = data[0].fields.title
-                $('title').html(title);
-                opening = data[0].fields.opening
-                main = data[0].fields.main
-                closing = data[0].fields.closing
-                importance = data[0].fields.importance
-                user = data[0].fields.user
-                username = getUsername(user)
-                let importanceIndicator
-                if(importance == "HH"){
-                    importanceIndicator = "High"
-                }else if(importance == "IM"){
-                    importanceIndicator = "Intermediate"
-                }else{
-                    importanceIndicator = "Low"
-                }
-                date = data[0].fields.time.substring(0, 10)
-
-                var artikel = `
-                    <h1 class = "text-4xl font-bold"> ${title} </h1>
-                    <div class = "flex justify-between">
-                        <h2 class = "text-xl font-bold" style = "color:#GBGE70;"> ${date} </h2>
-                        <h2 class = "text-xl font-bold" style = "color:${importance == "HH" ? "#cb2d3e" : ""} ${importance == "IM" ? "#D1913C" : ""} ${importance == "LW" ? "#41b36a" : ""} ;"> ${importanceIndicator} </h2>
-                    </div>
-                    <h2 class = "text-left"> Made by: ${username} </h2>
-                    <p class = "text-2xl text-left line-height"> ${opening} </p>
-                    <p class = "text-2xl text-left line-height"> ${main} </p>
-                    <p class = "text-2xl text-left line-height"> ${closing} </p>
-                `
-
-                $(artikel).appendTo("#artikelBlog")
-
-            }
+            username = data.user
+            }  
         })
-    }
 
-    $(document).ready(function(){
-        url = window.location.pathname
-        const urls = url.split("/");
-        showData(Number(urls[urls.length - 2]))
-    })
+        return username
+        }
 
-</script>
+        function showData(id){
+            $.ajax({
+                type: "GET",
+                url: `/blogpost/json/${id}`,
+                success: function(data){
+                    console.log(data)
+                    $('#artikelBlog').html("");
+                    title = data[0].fields.title
+                    $('title').html(title);
+                    opening = data[0].fields.opening
+                    main = data[0].fields.main
+                    closing = data[0].fields.closing
+                    importance = data[0].fields.importance
+                    user = data[0].fields.user
+                    username = getUsername(user)
+                    let importanceIndicator
+                    if(importance == "HH"){
+                        importanceIndicator = "High"
+                    }else if(importance == "IM"){
+                        importanceIndicator = "Intermediate"
+                    }else{
+                        importanceIndicator = "Low"
+                    }
+                    date = data[0].fields.time.substring(0, 10)
 
+                    var artikel = `
+                        <h1 class = "text-4xl font-bold"> ${title} </h1>
+                        <div class = "flex justify-between">
+                            <h2 class = "text-xl font-bold" style = "color:#GBGE70;"> ${date} </h2>
+                            <h2 class = "text-xl font-bold" style = "color:${importance == "HH" ? "#cb2d3e" : ""} ${importance == "IM" ? "#D1913C" : ""} ${importance == "LW" ? "#41b36a" : ""} ;"> ${importanceIndicator} </h2>
+                        </div>
+                        <h2 class = "text-left"> Made by: ${username} </h2>
+                        <p class = "text-2xl text-left line-height"> ${opening} </p>
+                        <p class = "text-2xl text-left line-height"> ${main} </p>
+                        <p class = "text-2xl text-left line-height"> ${closing} </p>
+                    `
+
+                    $(artikel).appendTo("#artikelBlog")
+
+                }
+            })
+        }
+
+        $(document).ready(function(){
+            url = window.location.pathname
+            const urls = url.split("/");
+            showData(Number(urls[urls.length - 2]))
+        })
+
+    </script>
+{% else %}
+    <div class = "position-center">
+        <h1 class = "font-bold"> Login to View Article </h1>
+        <div class = "text-center">
+        <a href = "/authentication/login/" class="btn-addblog widthmin"> Login </a>
+        </div>
+    </div>
+{% endif %}
 {% endblock content %}
 </body>
