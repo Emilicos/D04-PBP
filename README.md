@@ -56,4 +56,26 @@
     User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
 
 ## Bonus (Pipeline Status)
-![Pipeline Status](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg)
+<label> Pipeline status </label>
+ ![Pipeline Status](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg)
+
+<label> Pipeline status main</label>
+![Pipeline Status main](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=main)
+
+<label> Pipeline status branch alvaro/homepage </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=alvaro/homepage)
+
+<label> Pipeline status branch alvaro/blogposts </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=alvaro/blogposts)
+
+<label> Pipeline status branch carlene/experience </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlene/experience)
+
+<label> Pipeline status branch carlenee/Experience </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlenee/Experience)
+
+<label> Pipeline status branch natania/booking </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=natania/booking)
+
+<label> Pipeline status branch tio </label>
+![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=tio)
