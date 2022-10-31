@@ -52,20 +52,21 @@ def show_blogpost_by_id(request, id):
 
 def create_blogpost(request):
     if(request.method == "POST" and request.user.is_authenticated):
-        #if(request.user.role == 2):
+        if(request.user.role == 2):
             form = BlogpostForm(request.POST)
             if(form.is_valid()):
                 form.instance.user = request.user
                 form_id = form.save()
                 return JsonResponse({
+                    "status_code": 200,
                     "data": form.data,
                     "date": date.today(),
                     "id": form_id.id,
                 })
-        #else:
-            # response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat membuat Blog"})
-            # response.status_code = 403 # To announce that the user isn't allowed to publish
-            # return response
+        else:
+            response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat membuat Blog"})
+            response.status_code = 403 # To announce that the user isn't allowed to publish
+            return response
             #raise PermissionDenied()
     else:
         response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method POST"})
@@ -74,8 +75,9 @@ def create_blogpost(request):
 
 def update_blogpost(request, id):
     if(request.method == "PUT" and request.user.is_authenticated):
-        #if(request.user.role == 2):
+        if(request.user.role == 2):
             blogpost = BlogpostModel.objects.get(pk = id)
+            print(request.body)
             items = request.body.decode("utf-8").split("&")
             if(blogpost.user == request.user):
                 blogpost.user = request.user
@@ -112,12 +114,12 @@ def update_blogpost(request, id):
                 response.status_code = 403 # To announce that the user isn't allowed to publish
                 return response
                 # raise PermissionDenied("Anda bukan user yang membuat blog")
-        #else:
-            # response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat mengubah Blog"})
-            # response.status_code = 403 # To announce that the user isn't allowed to publish
-            # return response
+        else:
+            response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat mengubah Blog"})
+            response.status_code = 403 # To announce that the user isn't allowed to publish
+            return response
     else:
-        # response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method PUT"})
+        response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method PUT"})
         status_code = 403 # To announce that the user isn't allowed to publish
         return JsonResponse({'message':"Anda belum terautentikasi atau tidak melakukan method PUT" }, status=status_code)
 
@@ -125,7 +127,7 @@ def update_blogpost(request, id):
 
 def delete_blogpost(request, id):
     if(request.method == "DELETE" and request.user.is_authenticated):
-        #if(request.user.role == 2):
+        if(request.user.role == 2):
             blogpost = BlogpostModel.objects.get(pk = id)
             if(blogpost.user == request.user):
                 blogpost.delete()
@@ -136,10 +138,10 @@ def delete_blogpost(request, id):
                 response = JsonResponse({"error": "Anda bukan user yang membuat blog"})
                 response.status_code = 403 # To announce that the user isn't allowed to publish
                 return response
-        #else:
-            # response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat menghapus Blog"})
-            # response.status_code = 403 # To announce that the user isn't allowed to publish
-            # return response
+        else:
+            response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat menghapus Blog"})
+            response.status_code = 403 # To announce that the user isn't allowed to publish
+            return response
     else:
         response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method DELETE"})
         response.status_code = 403 # To announce that the user isn't allowed to publish
