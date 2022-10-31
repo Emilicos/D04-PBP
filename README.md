@@ -27,13 +27,13 @@
 ## 💫 Daftar Modul yang Diimplementasikan 💫
 
 1. **Homepage** <br>
-    Modul di atas merupakan halaman utama dari aplikasi `HIVCenter`. Pada halaman utama, terdapat informasi terkait HIV/AIDS, fakta, serta miskonsepsi yang banyak dipercayai oleh masyarakat awam. Pada halaman ini juga terdapat fitur gamifikasi di mana para pengguna dapat mengirimkan semangat kepada sesama penderita HIV.
+    Modul di atas merupakan halaman utama dari aplikasi `HIVCenter`. Pada halaman utama, terdapat informasi terkait HIV/AIDS, fakta, serta miskonsepsi yang banyak dipercayai oleh masyarakat awam. Pada halaman ini juga terdapat fitur gamifikasi di mana para pengguna dapat mengirimkan semangat kepada sesama penderita HIV. Pada bagian ini juga diperlihatkan preview blogpost yang paling terbaru dibuat.
 
 2. **Login, Logout, dan Register** <br>
     Modul di atas mengimplementasikan fitur login, logout, pendaftaran akun, serta pembagian peran pengguna ke dalam beberapa kelompok, yaitu rumah sakit, dokter, dan pasien.
     
 3. **Blogpost** <br>
-    Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dan rumah sakit dapat (post, delete, update).
+    Forum blogpost dimana pasien hanya memiliki view (read-only) sedangkan dokter dapat (post, delete, update).
     
 4. **Booking** <br>
     Fitur booking agar pasien dapat membuat janji dengan dokter dan dokter dapat melihat jadwal dari setiap janji yang ia miliki.
