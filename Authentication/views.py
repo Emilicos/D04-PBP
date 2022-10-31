@@ -49,7 +49,7 @@ def login_user(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                response =  redirect('HIVCenter:show_homepage')
+                response =  redirect('hivcenter:show_homepage')
                 response.set_cookie("last_login", str(datetime.now()))
                 return response
             else:
