@@ -55,3 +55,5 @@
 3. **Pasien** <br>
     User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
 
+## Bonus (Pipeline Status)
+![Pipeline Status](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg)
