@@ -229,7 +229,8 @@
             blogs = data.reverse()
             var card = ""
             if(blogs.length == 0){
-                card += `<h1> Belum ada </h1>`
+                card = `<h1> Belum ada </h1>`
+                $(card).appendTo("#containerBlog")
             }else if(blogs.length == 1){
                 title = data[0].fields.title
                 opening = data[0].fields.opening
