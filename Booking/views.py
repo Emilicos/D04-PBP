@@ -1,6 +1,5 @@
 
 from django.forms import model_to_dict
-from django.shortcuts import redirect, render
 from Booking.forms import AppointmentForm
 
 from Booking.models import Appointment
@@ -15,43 +14,45 @@ from Authentication.models import User
 
 # Create your views here.
 
-# apus ni func kl g perlu
+# Show HTML based on role, either booking.html (if patient) or doctor.html (if doctor) will show up
 @login_required(login_url='/authentication/login/')
 def show_booking(request):
 
     if request.user.role == 1:
-
         list_dokter = User.objects.filter(role = 1)
-
         lst = []
-
         for i in range (len(list_dokter)):
             lst.append(model_to_dict(list_dokter[i]).get("username"))
-        
-        print(lst)
-
         context = {
             "form": AppointmentForm(),
             "username": request.user,
             "listDokter": lst
         }
-        
         return render(request, "booking.html", context)
-
-    else:
-        
+    else: 
         context = {
             "username": request.user,
             "appointmentList": Appointment.objects.filter(doctor=request.user)
         }
-
         return render(request, "doctor.html", context)
 
+# Show ALL appointments booked by logged in user
+@login_required(login_url='/authentication/login/')
 def show_json(request):
     data = Appointment.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-# apus
+# Show appointments based on string on the 'search' input AND currently logged in user
+@login_required(login_url='/authentication/login/')
+def get_dokter_json(request):
+    dokter = request.GET.get('search')
+    if not dokter:
+        dokter = ''
+    list_dokter = Appointment.objects.filter(user=request.user, doctor__icontains=dokter)
+    return HttpResponse(serializers.serialize('json', list_dokter), content_type="application/json")
+
+# Add an appointmnet
+@login_required(login_url='/authentication/login/')
 @csrf_exempt
 def add_booking(request):
     if request.method == "POST":
@@ -63,23 +64,11 @@ def add_booking(request):
         booking.save()
         return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
 
-@csrf_exempt
-def forms_ajax(request):
-    if request.method == 'POST' and AppointmentForm(request.POST).is_valid():
-        return JsonResponse({ "Message": "Appointment Successfully Booked" }, status=200)
-
+# Delete an appointment
+@login_required(login_url='/authentication/login/')
 @csrf_exempt
 def delete_booking(request, id):
-    booking = Appointment.objects.get(user=request.user, id=id)
-    booking.delete()
-    return JsonResponse({ "Message": "Appointment Cancelled" }, status=200)
-
-def get_dokter_json(request):
-    dokter = request.GET.get('search')
-    list_dokter = Appointment.objects.filter(doctor__icontains=dokter)
-    return HttpResponse(serializers.serialize('json', list_dokter)) 
-
-
-def get_all(request):
-    list_dokter = User.objects.filter(role = 2)
-    return HttpResponse(serializers.serialize('json', list_dokter)) 
+    if request.method == 'DELETE':
+        booking = Appointment.objects.get(user=request.user, id=id)
+        booking.delete()
+        return JsonResponse({ "Message": "Appointment Cancelled" }, status=200)
