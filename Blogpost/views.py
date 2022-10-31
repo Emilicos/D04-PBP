@@ -77,7 +77,6 @@ def update_blogpost(request, id):
     if(request.method == "PUT" and request.user.is_authenticated):
         if(request.user.role == 2):
             blogpost = BlogpostModel.objects.get(pk = id)
-            print(request.body)
             items = request.body.decode("utf-8").split("&")
             if(blogpost.user == request.user):
                 blogpost.user = request.user
@@ -92,7 +91,6 @@ def update_blogpost(request, id):
                     item[1] = item[1].replace('%2F', "/")
                     item[1] = item[1].replace("%E2%80%94", "-")
                     item[1] = item[1].replace("%22", '"')
-                    print(item[1])
                     if(item[0] == "title"):
                         blogpost.title = item[1]
                     elif(item[0] == "opening"):
