@@ -31,4 +31,32 @@
     
     <input type="submit" name="Create User">
 </form>
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+        <li>{{message}}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        $("#id_username").change(function () {
+        var username = $(this).val();
+    
+        $.ajax({
+            url: 'validate_username/',
+            data: {
+            'username': username
+            },
+            dataType: 'json',
+            success: function (data) {
+            if (data.is_taken) {
+                alert("A user with this username already exists.");
+            }
+            }
+        });
+        });
+    });
+</script>
 {% endblock content %}

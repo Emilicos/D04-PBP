@@ -3,6 +3,7 @@
 {% block meta %}
 <title>Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock meta %}
 
 {% block content %}
@@ -11,7 +12,7 @@
 
     <h1>Login</h1>
 
-    <form method="POST" action="">
+    <form method="POST" id="login_form">
         {% csrf_token %}
         <table>
             <tr>
@@ -43,5 +44,37 @@
     Belum mempunyai akun? <a href="{% url 'Authentication:chooseregisteras' %}">Buat Akun</a>
 
 </div>
+<script>
+    $(document).ready(function(){
+        $("#login_form").submit(function(e){
+            e.preventDefault();
+            var form = $(this);
+            $.ajax(
+                {
+                    url : 'validate_login/',
+                    type : 'POST',
+                    dataType : 'json',
+                    data : 
+                        form.serialize(),
+                        csrfmiddlewaretoken : '{{ csrf_token }}',
+                        success: function(data){
+                            if (data.is_login){
+                                alert("Login Berhasil");
+                            } else {
+                                alert("Login gagal");
+                            }
+                            // if (data == "Valid"){
+                            //     alert("Login berhasil")
+                            //     window.location.href = "{% url 'hivcenter:show_homepage' %}"
+                            // } else {
+                            //     alert("Wrong Username/Password")
+                            // }
+                        },
+                }
+            );
+        });
+    });
+</script>
+
 
 {% endblock content %}
