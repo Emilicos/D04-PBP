@@ -11,7 +11,7 @@
     min-height: 100vh;
     }
 
-    div {
+    .div-booking {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -42,158 +42,12 @@
 
 {% block content %}
 
-<script>
+<script src = "../../static/js/booking.js"> </script>
 
-    function hideElement() {
-        var x = document.getElementById("bookingForm");
-        x.style.display = "none";
-    }
-    
-    function createBooking() {
-        $.ajax({
-            type: "POST",
-            url: `add/`,
-            data:
-            {
-                doctor: $("#post-doctor").val(),
-                date: $("#post-date").val(),
-                time: $("#post-time").val(),
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-            },
-            dataType: "json",
-            success: function()
-            {
-                $.get("/booking/json", function(data) { showMessage(data) })
-            },
-            error: function(error) { alert("Error happened") },
-        })
-        return false;   
-    }
+<div class="row div-booking">
+    <div class="col div-booking">
 
-    // Delete (cancel) previously booked appointment
-    function deleteBooking(id) {
-        $.ajax({
-            type :"DELETE",
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            url :`/booking/delete/${id}`,
-            success: function()
-            {
-                $(`#${id}`).remove();
-                $.get("/booking/json", function(data) { showMessage(data) })
-            },
-            error: function(error){ alert("Error happened") },
-        })
-    }
-
-    // Show message on how many appointments user have booked
-    function showMessage(data) {
-        if (data.length == 0) {
-            $("#messageInfo").html("It seems like you haven't booked any appointment yet!");
-            $("#bookingButton").html("START BOOKING HERE");
-            $("#appointmentList").hide();
-            $(".viewBooking").hide();
-
-        } else {
-            $("#messageInfo").html("You have " + data.length + " appointment(s) booked!");
-            $("#bookingButton").html("BOOK MORE APPOINTMENTS HERE");
-            $("#appointmentList").show();
-            $(".viewBooking").show();   
-        }
-    }
-
-    function searchDokter(){
-        getSearchDokter();
-        window.scrollTo(0, $(".card-collection").offset().top);
-    }
-
-    function getSearchDokter(){
-        let temp = "";
-        $.ajax({
-            url: `/booking/all/?search=${$("#search").val()}`,
-            type: "GET",
-            dataType: "json",
-            success: function(data){
-                if (data.length!=0) {
-
-                    for (let appointment of data){
-                        temp += `<div id="${appointment.pk}" class="card shadow mx-4 mb-5 zoom" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
-                                    <div class="card-header">Appointment ${appointment.pk} ♡ </div>
-                                    <div class="card-body">
-                                        <p class="card-title lead"><strong>${appointment.fields.doctor}</strong></p>
-                                        <p class="card-text lead">Date: ${appointment.fields.date}</p>
-                                        <p class="card-text lead">Time: ${appointment.fields.time}</p>
-                                    </div>
-                                    <div class="d-flex justify-content-center mx-3">
-                                        <a onclick="deleteBooking(${appointment.pk})" class="text-underline" style="color: #e85a4f;">Cancel Appointment</a>
-                                    </div>
-                                    <h3 class="lead my-3">or</h3>
-                                    <div class="d-flex justify-content-center mx-3 mb-4">
-                                        <a onclick="deleteBooking(${appointment.pk})" class="text-underline" style="color: #87ab69;">Mark as Completed</a>
-                                    </div>
-                                </div>`
-                    }
-
-                } else {
-                    temp = `<h1 class="text-bold lead pb-3">No appointment with this doctor is found :(</h1>`
-                }
-
-                $('.card-collection').html(temp);
-            },
-
-            error: function(data){ alert('Error Detected'); }
-        })
-    }
-
-    $(document).ready(function() {
-      
-        $("#appointmentList").hide();
-
-        $("#bookingButton").click(function() {
-            $("#bookingForm").show();
-        })
-
-        $("#closeButton").click(function() {
-            $("#bookingForm").hide();
-        })
-
-        $.get("/booking/json", function(data){ showMessage(data) })
-        searchDokter();
-
-        var typed = new Typed('#typed', {
-            strings: [`{{username}}`],
-            typeSpeed: 120,
-            backSpeed: 120,
-            backDelay: 2000,
-            startDelay: 500,
-            loop: true,
-            });
-
-        var typed_two = new Typed('#typed_two', {
-            strings: ["Here is the list of your upcoming appointments!"],
-            typeSpeed: 120,
-            backSpeed: 120,
-            backDelay: 2000,
-            startDelay: 500,
-            loop: true,
-            });
-
-        var typed_three = new Typed('#typed_three', {
-            strings: ["♡ ♡"],
-            typeSpeed: 200,
-            backSpeed: 200,
-            backDelay: 200,
-            startDelay: 200,
-            loop: true,
-            });
-
-
-    })
-
-</script>
-
-<div class="row"><div class="col">
-
-        <div class="d-flex flex-column flex-md-row align-items-center py-2 px-2 border-bottom bg-white shadow-sm position-fixed w-100">
+        <div class="d-flex flex-column flex-md-row align-items-center py-2 px-2 border-bottom bg-white shadow-sm position-fixed w-100 div-booking">
             <a href="/" class="d-flex align-items-center text-dark text-decoration-none px-5 py-0">
             <span class="fs-4 fw-bold" style="color: #797875;">HIVCenter ♡</span>
             </a>
@@ -205,15 +59,17 @@
             <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/feedback/">Feedback</a>
             <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/authentication/logout/">Logout</a>
             </nav>
-        </div></div></div>
+        </div>
+    </div>
+</div>
 
-<div style="background-color:#d8c3a5; min-height: 100vh;" class="pt-5">
+<div style="background-color:#d8c3a5; min-height: 100vh;" class="pt-5 div-booking">
     
-    <div class="mb-0 flex-wrap flex-row justify-content-center" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
+    <div class="mb-0 flex-wrap flex-row justify-content-center div-booking" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
         <img src="/static/images/asset3.png" alt="" style="width:40%;" class="d-md-block img-fluid mt-5">
         
-        <div class="form-container-1 mt-5 ml-0" style="width:50%; text-align:center;">
-            <h1 class="display-4">Hello, <span id="typed"></span>!</h1>
+        <div class="form-container-1 mt-5 ml-0 div-booking" style="width:50%; text-align:center;">
+            <h1 class="display-4">Hello, {{username}} <span id="typed"></span></h1>
             <p id="messageInfo" class="py-2 lead">It seems like you haven't booked any appointment yet!</p>
             <button id="bookingButton" type="button" class="btn px-5 mb-2 shadow-sm" style="background-color: #8e8d8a; color: #eae7dc" onClick="document.getElementById('bookingForm').scrollIntoView();">START BOOKING HERE</button>
             <h3 class="viewBooking lead mb-2">or</h3>
@@ -221,10 +77,10 @@
         </div>
     </div>
     
-    <div id="bookingForm" style="background-image: linear-gradient(#d8c3a5); width: 100%;" class="my-5 py-5">
+    <div id="bookingForm" style="background-image: linear-gradient(#d8c3a5); width: 100%;" class="my-5 py-5 div-booking">
         <h3 class="lead pt-4 mt-3 pb-2">Fill the form below to book an appointment <span id="typed_three"></span></h3>
-        <div class="shadow-lg pb-3 pt-2 d-flex justify-content-center" style="background-color: #eae7dc; width:500px; border-radius: 25px;" >
-            <div class="card-body">
+        <div class="shadow-lg pb-3 pt-2 d-flex justify-content-center div-booking" style="background-color: #eae7dc; width:500px; border-radius: 25px;" >
+            <div class="card-body div-booking">
 
                 <form method="POST" action="" id="post-form">
 
@@ -232,14 +88,14 @@
 
                     {% for fm in form %}
 
-                        <div class="">
+                        <div class="div-booking">
                             <label class="my-3"> {{ fm.label }} </label>
                             <p class="w-100"> {{ fm }} </p>
                         </div>
 
                     {% endfor %}
 
-                    <div class="mb-3 mt-5 d-grid">
+                    <div class="mb-3 mt-5 d-grid div-booking">
                         <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=createBooking() style="background-color: #8e8d8a; color: #eae7dc"/>
                         <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
                     </div>
@@ -250,13 +106,13 @@
         </div>
     </div>
     
-    <div id="appointmentList" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
-        <div class="mt-0 flex-wrap flex-row justify-content-center">
+    <div id="appointmentList" class="div-booking" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
+        <div class="mt-0 flex-wrap flex-row justify-content-center div-booking">
             
-            <div class="form-container-1" style="width:600px; text-align:center;">
+            <div class="form-container-1 div-booking" style="width:600px; text-align:center;">
                 <h1 id="appointmentInfo" class="text-bold text-light display-5 pb-3"><span id="typed_two"></span></h1>
                 <small class="my-3 text-light">WANT TO SEARCH FOR A SPECIFIC DOCTOR?</small>
-                <div id="search-form" class="form-inline my-2 d-flex flex-row" >
+                <div id="search-form div-booking" class="form-inline my-2 d-flex flex-row" >
                     <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn m-2 my-sm-0" onclick="searchDokter()" style="background-color: #8e8d8a; color: #eae7dc">Search</button>
                 </div>
@@ -264,7 +120,7 @@
             <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">   
         </div>
         
-        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center mt-0 pt-0"></div>
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center mt-0 pt-0 div-booking"></div>
         <br>
     </div>
         
