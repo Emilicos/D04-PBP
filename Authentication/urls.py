@@ -13,4 +13,5 @@ urlpatterns = [
     path('logout/', views.logout_user, name="logout"),
     path("showjson/", views.show_json, name="show_json"),
     path('registerpasien/validate_username/', views.validate_username, name='validate_username'),
+    path('registerdokter/validate_username/', views.validate_username, name='validate_username'),
 ]

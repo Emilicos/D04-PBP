@@ -9,6 +9,7 @@ from urllib3 import Retry
 from .forms import CreatePasienForm, CreateDokterForm
 from django.contrib.auth import authenticate, login, logout
 from .models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def chooseRegisterAs(request):
@@ -56,12 +57,14 @@ def login_user(request):
         return redirect('hivcenter:show_homepage')
     return render(request, 'login.html')
 
+@csrf_exempt
 def validate_login(request):
     data = {}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             data['is_login'] = True
@@ -70,6 +73,7 @@ def validate_login(request):
             data['is_login'] = False
             return JsonResponse(data)
     return JsonResponse(data)
+
 def logout_user(request):
     logout(request)
     return redirect('hivcenter:show_homepage')
@@ -92,5 +96,5 @@ def validate_username(request):
         'is_taken': User.objects.filter(username=username).exists()
     }
     if data['is_taken']:
-        data['error_message'] = 'A user with this username already exists.'
+        pass
     return JsonResponse(data)
