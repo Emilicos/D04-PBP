@@ -4,9 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 {% endblock meta %}
 {% block content %}
-<div class = "relative top-0 flex justify-center">
+<div class = "relative top-0 flex justify-center" style="background-color:#d8c3a5">
     <div class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
-      <div class = "hamnav flex items-center w-full" style="background-color:#d8c3a5">
+      <div class = "hamnav flex items-center w-full " style="background-color:#d8c3a5; height: 90px">
         <div class = "flex items-center">
           <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
           <a href = "/"> </a><h1 class = "judulnav text-white font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
@@ -17,13 +17,13 @@
             <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-white"> Experience </a>
             <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-white"> Booking </a>
             <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Feedback </a>
-            <a href = "/authentication/logout/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Logout </a>
+            <a href = "authentication/logout" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Logout </a>
             {%else%}
             <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-white"> Blogpost </a>
             <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-white"> Experience </a>
             <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-white"> Booking </a>
             <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Feedback </a>
-            <a href = "/authentication/login/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Login </a>
+            <a href = "/authentication/login" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Login </a>
             {%endif%}
 
           <button  class="navbar-toggler text-white hamburgernav cursor-pointer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
