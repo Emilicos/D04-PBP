@@ -4,13 +4,59 @@
 {% endblock meta %}
 
 {% block content %}
+<div class = "relative top-0 flex justify-center" style="background-color:#d8c3a5">
+    <div class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
+      <div class = "hamnav flex items-center w-full " style="background-color:#d8c3a5; height: 90px">
+        <div class = "flex items-center">
+          <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
+          <a href = "/"> </a><h1 class = "judulnav text-white font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
+        </div>
+        <div class = "flex list-none gap-x-8 items-center text-white font-bold text-2xl">
+            {%if user.is_authenticated %}
+            <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-white"> Blogpost </a>
+            <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-white"> Experience </a>
+            <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-white"> Booking </a>
+            <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Feedback </a>
+            <a href = "authentication/logout" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Logout </a>
+            {%else%}
+            <a href = "/blogpost/" class = "blogpostnav cursor-pointer text-decoration-none text-white"> Blogpost </a>
+            <a href = "/experience/"  class = "experiencenav cursor-pointer text-decoration-none text-white"> Experience </a>
+            <a href = "/booking/" class = "bookingnav cursor-pointer text-decoration-none text-white"> Booking </a>
+            <a href = "/feedback/" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Feedback </a>
+            <a href = "/authentication/login" class = "feedbacknav cursor-pointer text-decoration-none text-white"> Login </a>
+            {%endif%}
 
-<div class="experience-detail" style="align-items:center; margin-top:40px; margin-left:60px;">
-    <div class="experience-image flex-row">
-        <img src="/static/images/hivtos.png" style="min-width:50%;max-width:100%; margin-top:70px"></img>
+          <button  class="navbar-toggler text-white hamburgernav cursor-pointer" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon navbar-dark" >
+              <iconify-icon icon="fa-solid:bars"></iconify-icon></span>
+          </button>
+        </div>
+        
+      </div>
     </div>
-    <div class= "detail-container flex-row">
-        <div class="detail" style="align-items: center; margin:10px; max-width:600px; margin-top:30px;">
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="bg-light shadow-3 p-4 box-shadow text-black flex flex-col gap-y-8 mt-3">
+        {%if user.is_authenticated %}
+        <a href = "/blogpost/" class = "hamblogpost cursor-pointer text-decoration-none text-black font-bold"> Blogpost </a>
+        <a href = "/experience/"  class = "hamexperience cursor-pointer text-decoration-none text-black font-bold"> Experience </a>
+        <a href = "/booking/" class = "hambooking cursor-pointer text-decoration-none text-black font-bold"> Booking </a>
+        <a href = "/feedback/" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Feedback </a>       
+        <a href = "/authentication/logout" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Logout </a>       
+        {%else%} 
+        <a href = "/blogpost/" class = "hamblogpost cursor-pointer text-decoration-none text-black font-bold"> Blogpost </a>
+        <a href = "/experience/"  class = "hamexperience cursor-pointer text-decoration-none text-black font-bold"> Experience </a>
+        <a href = "/booking/" class = "hambooking cursor-pointer text-decoration-none text-black font-bold"> Booking </a>
+        <a href = "/feedback/" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Feedback </a>       
+        <a href = "/authentication/login" class = "hamfeedback cursor-pointer text-decoration-none text-black font-bold"> Login </a>       
+        {%endif%}    
+    </div>
+</div>
+
+<div class="experience-detail h-100 d-flex align-items-center justify-content-center">
+    <div class= "detail-container">
+        <div class="detail" style="align-items: center; margin:10px; max-width:100%; margin-top:30px;">
             <h1 class="pb-3"> {{posts.title}} </h2>
             <h8 class="mb-3"> by {{posts.user}} </h8>
             <p class="mbr-text mb-0 mbr-fonts-style display-7" style="font-size:15px">{{ posts.experience }}</p>

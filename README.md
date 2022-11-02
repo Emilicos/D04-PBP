@@ -16,6 +16,8 @@
 
 ## ☄️ Cerita Aplikasi yang Diajukan Serta Manfaatnya ☄️
 
+<p align="justify"> Sebagaimana yang tertulis pada website resmi <strong>G20</strong> terkait <strong>Arsitektur Kesehatan Global</strong> sebagai berikut, "Indonesia akan mendorong penguatan ketahanan kesehatan dunia serta membantu mewujudkan sistem kesehatan global lebih inklusif, berkeadilan, dan responsif terhadap krisis," kami memiliki visi untuk menambah pengetahuan, mengedukasi, memberi semangat serta kesempatan untuk berobat sekaligus menghilangkan stigma dan miskonsepsi terhadap mereka yang mengidap penyakit menular seksual. Dengan adanya HIVCenter, kami juga berharap masyarakat menjadi lebih sadar terhadap masalah di sekitar mereka serta mampu mewujudkan suatu lingkungan yang inklusif serta mampu merangkul semua anggota masyarakat terutama mereka yang paling membutuhkannya. <p>
+
 <p align="justify"> Rendahnya pengetahuan masyarakat Indonesia akan HIV berakibat pada kenaikan kasus HIV di Indonesia. Berdasarkan data yang diperoleh Kemenkes, pada tahun 2021, sebanyak 36.902 kasus HIV tersebar di penjuru tanah air. Relatif sedikit apabila dibandingkan dengan jumlah kasus HIV pada tahun 2022 yaitu sebanyak 519.158 kasus.  HIV dikenal sebagai penyakit menular yang tidak bisa disembuhkan karena hal tersebut muncullah banyak stigma negatif terhadap pasien-pasien HIV. Oleh karena itu, diperlukan adanya suatu upaya pencegahan pada masyarakat di segala usia, salah satunya adalah pemberian pengetahuan akan HIV kepada masyarakat. Ada banyak upaya untuk melakukan penyuluhan tentang HIV. Salah satu upaya untuk memberikan penyuluhan tentang HIV kepada masyarakat adalah melalui HIVCenter. </p>
 
 <p align="justify"> HIVCenter memiliki visi untuk menghilangkan stereotip yang melekat pada sebagian besar masyarakat Indonesia mengenai ODHA sekaligus meningkatkan kesadaran akan pentingnya pencegahan penyakit menular seksual. Selain itu, HIVCenter juga berharap dengan adanya aplikasi ini, ODHA dapat merasa lebih diterima tanpa adanya stereotip dari masyarakat pada umumnya. </p>
@@ -46,14 +48,14 @@
 
 ## 🍀 Role Atau Peran Pengguna Beserta Deskripsinya 🍀
 
-1. **Rumah sakit (superuser)** <br>
-    User dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV.
-    
-2. **Dokter** <br>
+1. **Dokter** <br>
     User dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV.
     
-3. **Pasien** <br>
-    User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
+2. **Pasien** <br>
+    User dapat membagikan pengalamannya pada forum experience serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website. Pasien juga dapat melihat blogpost
+
+3. **Visitor** <br>
+    Non user yang dapat melihat homepage namun tidak dapat mengakses banyak fitur yang diinginkan. Ini artinya visitor tidak dapat melihat blogpost maupun fitur-fitur lain seperti experience dan booking.
 
 ## Bonus (Pipeline Status)
 <label> Pipeline status </label>
@@ -68,8 +70,6 @@
 <label> Pipeline status branch alvaro/blogposts </label>
 ![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=alvaro/blogposts)
 
-<label> Pipeline status branch carlene/experience </label>
-![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlene/experience)
 
 <label> Pipeline status branch carlenee/Experience </label>
 ![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlenee/Experience)

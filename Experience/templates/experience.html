@@ -6,9 +6,9 @@
 {% endblock meta %}
 
 {% block content %}
-<div class = "relative top-0 flex justify-center">
+<div class = "relative top-0 flex justify-center" style="background-color:#d8c3a5">
     <div class = "h-24 flex flex-col w-full justify-center items-center max-w-1500px">
-      <div class = "hamnav flex items-center w-full" style="background-color:#d8c3a5">
+      <div class = "hamnav flex items-center w-full " style="background-color:#d8c3a5; height: 90px">
         <div class = "flex items-center">
           <a href = "/"> <img class= "logonav cover center cursor-pointer block" src = "../../static/images/logo.png"/> </a>
           <a href = "/"> </a><h1 class = "judulnav text-white font-bold w-1/5 cursor-pointer"> HIVCenter </h1> </a>
@@ -55,7 +55,7 @@
         {%endif%}    
     </div>
 </div>
-<div class="experience-container" style="text-align: center;
+<div class="experience-container " style="text-align: center;
 margin-top:80px; 
 object-fit: cover;
 height: 100vh;
@@ -81,8 +81,7 @@ background-size: cover;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header
-                            ">
+                <div class="modal-header">
                     <button type="button" class="close" data-bs-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
@@ -194,29 +193,6 @@ background-size: cover;">
         })
         return false;
     
-}
-
-
-    {% comment %} function submitForm(){
-        $.ajax({
-            type: "POST",
-            url:"{%url 'Experience:create_experience_ajax'%}",
-            data: {
-                title: $('#id_title').val();
-                experience: $('#id_experience').val();
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-            }
-            dataType:"json",
-            success: function(){
-                $("#modalForm").modal('hide')
-                makeCards()
-            },
-            error: function(error){
-                alert("error")
-            }
-
-        })
-        return false;
-    } {% endcomment %}
+    }
 </script>
 {% endblock content %}
