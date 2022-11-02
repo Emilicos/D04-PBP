@@ -194,46 +194,5 @@ background-size: cover;">
         return false;
     
     }
-
-{% comment %} function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-  
-    for (var i = 0; i < reveals.length; i++) {
-      var windowHeight = window.innerHeight;
-      var elementTop = reveals[i].getBoundingClientRect().top;
-      var elementVisible = 150;
-  
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add("active");
-      } else {
-        reveals[i].classList.remove("active");
-      }
-    }
-  }
-  
-  window.addEventListener("scroll", reveal); {% endcomment %}
-
-
-    {% comment %} function submitForm(){
-        $.ajax({
-            type: "POST",
-            url:"{%url 'Experience:create_experience_ajax'%}",
-            data: {
-                title: $('#id_title').val();
-                experience: $('#id_experience').val();
-                csrfmiddlewaretoken: "{{ csrf_token }}",
-            }
-            dataType:"json",
-            success: function(){
-                $("#modalForm").modal('hide')
-                makeCards()
-            },
-            error: function(error){
-                alert("error")
-            }
-
-        })
-        return false;
-    } {% endcomment %}
 </script>
 {% endblock content %}
