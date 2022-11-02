@@ -1,19 +1,26 @@
 from datetime import datetime
 import re
+from django import http
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
+from urllib3 import Retry
 from .forms import CreatePasienForm, CreateDokterForm
 from django.contrib.auth import authenticate, login, logout
+from .models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def chooseRegisterAs(request):
+    if request.method == 'GET' and request.user.is_authenticated:
+        return redirect('hivcenter:show_homepage')
     return render(request, 'registeras.html')
 
 def registerPasien(request):
     form = CreatePasienForm()
-
+    if request.method == 'GET' and request.user.is_authenticated:
+        return redirect('hivcenter:show_homepage')
     if request.method == 'POST':
         form = CreatePasienForm(request.POST)
         if form.is_valid():
@@ -21,13 +28,16 @@ def registerPasien(request):
             username = form.cleaned_data.get('username')
             messages.success(request, 'Account was created for ' + username)
             return redirect('Authentication:login')
+        else:
+            messages.error(request, form.errors)
             
     context = {'form':form}
     return render(request, 'registerpasien.html', context)
 
 def registerDokter(request):
     form = CreateDokterForm()
-
+    if request.method == 'GET' and request.user.is_authenticated:
+        return redirect('hivcenter:show_homepage')
     if request.method == 'POST':
         form = CreateDokterForm(request.POST)
         if form.is_valid():
@@ -36,30 +46,37 @@ def registerDokter(request):
             username = form.cleaned_data.get('username')
             messages.success(request, 'Account was created for ' + username)
             return redirect('Authentication:login')
+        else:
+            messages.error(request, form.errors)
+
     context = {'form':form}
     return render(request, 'registerdokter.html', context)
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('hivcenter:show_homepage')
+    return render(request, 'login.html')
+
+@csrf_exempt
+def validate_login(request):
+    data = {}
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        if request.user.is_authenticated:
-            messages.info(request, 'Anda sedang login!')
+        user = authenticate(request, username=username, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            data['is_login'] = True
+            return JsonResponse(data)
         else:
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                response =  redirect('hivcenter:show_homepage')
-                response.set_cookie("last_login", str(datetime.now()))
-                return response
-            else:
-                messages.info(request, 'Username atau Password Salah!')
-    context = {}
-    return render(request, 'login.html', context)
+            data['is_login'] = False
+            return JsonResponse(data)
+    return JsonResponse(data)
 
 def logout_user(request):
     logout(request)
-    return redirect('Authentication:chooseregisteras')
+    return redirect('hivcenter:show_homepage')
 
 def show_json(request):
     return JsonResponse(
@@ -72,3 +89,12 @@ def show_json(request):
         },
         status=200,
     )
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username=username).exists()
+    }
+    if data['is_taken']:
+        pass
+    return JsonResponse(data)
