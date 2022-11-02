@@ -68,8 +68,6 @@
 <label> Pipeline status branch alvaro/blogposts </label>
 ![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=alvaro/blogposts)
 
-<label> Pipeline status branch carlene/experience </label>
-![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlene/experience)
 
 <label> Pipeline status branch carlenee/Experience </label>
 ![Pipeline Status Branch](https://github.com/Emilicos/D04-PBP/actions/workflows/dpl.yml/badge.svg?branch=carlenee/Experience)
