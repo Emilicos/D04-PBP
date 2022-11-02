@@ -48,7 +48,7 @@ def show_experience_detail(request, id):
 #     return render(request, 'experience-form.html', context)
 
 def create_experience_ajax(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         title = request.POST.get('title')
         experience = request.POST.get('experience')
         user = request.user
@@ -56,6 +56,10 @@ def create_experience_ajax(request):
         item = Experience(user = user, username=user.username, posted=date, title=title,preview="", experience=experience)
         item.save()
         return JsonResponse({"Message": "Task Success"},status=200)
+    else:
+        response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method POST"})
+        response.status_code = 403 # To announce that the user isn't allowed to publish
+        return response
 
 def show_experience_json(request):
     experience = Experience.objects.all()
