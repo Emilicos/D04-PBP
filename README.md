@@ -46,14 +46,14 @@
 
 ## 🍀 Role Atau Peran Pengguna Beserta Deskripsinya 🍀
 
-1. **Rumah sakit (superuser)** <br>
-    User dapat memposting, menghapus, ataupun mengupdate informasi-informasi terkait HIV.
-    
-2. **Dokter** <br>
+1. **Dokter** <br>
     User dapat memposting, menghapus, serta mengupdate informasi pada forum blogpost terkait HIV.
     
-3. **Pasien** <br>
-    User dapat membagikan pengalamannya pada forum experience, melihat maps rumah sakit terdekat, serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website.
+2. **Pasien** <br>
+    User dapat membagikan pengalamannya pada forum experience serta reservasi kepada dokter untuk melakukan konsultasi atau pemeriksaan dan melakukan feedback terhadap website. Pasien juga dapat melihat blogpost
+
+3. **Visitor** <br>
+    Non user yang dapat melihat homepage namun tidak dapat mengakses banyak fitur yang diinginkan. Ini artinya visitor tidak dapat melihat blogpost maupun fitur-fitur lain seperti experience dan booking.
 
 ## Bonus (Pipeline Status)
 <label> Pipeline status </label>
