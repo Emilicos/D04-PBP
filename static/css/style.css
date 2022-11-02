@@ -40,17 +40,28 @@ html {
     }
   }
 
-.detail{
-    display:flex;
-    flex-direction:column;
-    align-items: center;
-    margin-top: 2em;
+.card-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  background-position: center;
+  background-size: cover; 
 }
 
-.experience-container{
-    display:flex;
-    flex-direction:column;
-    align-items: center;
+.card {
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-rows: 200px 200px 70px;
+  grid-template-areas: "images" "text" "button";
+  margin: 20px;
+  font-family : 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+  text-align: center;
+  cursor: pointer;
 }
 
 .btn-login {
@@ -177,14 +188,42 @@ html {
     margin-left:10em;
 }
 
-.btn-create{
-    border: none;
-    outline: none;
-    margin:10px;
-    width:200px;
-    height: 40px;
-    background-color: #8e8d8a;
+.card-text .name {
+  color: #e98074;
+  font-size: 15px;
+  font-family: garet;
 }
+
+.card-text .title {
+  margin-top: 2px;
+  font-size: 30px;
+  font-family: codec pro;
+  font-weight: bold;
+}
+
+.card-text .description {
+  color: rgb(68, 68, 68);
+  font-size: 20px;
+  font-weight: 350;
+  font-family: cardo;
+}
+
+
+.card-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+#penampung {
+  display: flex;
+  flex-direction: row;
+  gap: -100px;
+}
+
+
 .card-experience{
     background-color: #eae7dc;
     border-radius: 12px;
