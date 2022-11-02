@@ -1,11 +1,11 @@
 from django.urls import path
-from Experience.views import show_experience, create_experience, show_experience_detail, show_experience_json
+from Experience.views import create_experience_ajax, show_experience, show_experience_detail, show_experience_json
 
 app_name = "Experience"
 
 urlpatterns = [
     path('', show_experience, name='show_experience'),
-    path('experience-form/', create_experience, name='create_experience'),
+    path('create-experience/', create_experience_ajax, name='create_experience_ajax'),
     path('experience-detail/<int:id>/', show_experience_detail, name='show_experience_detail'),
     path('json/', show_experience_json, name='show_experience_json'),
 ]

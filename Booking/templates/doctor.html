@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+{% endblock meta %}
+
+{% block content %}
+
+<script src = "../../static/js/doctor.js"> </script>
+
+<div class="d-flex flex-column flex-md-row align-items-center py-2 px-2 border-bottom bg-white shadow-sm position-fixed w-100 div-booking">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none px-5 py-0">
+    <span class="fs-4 fw-bold" style="color: #797875;">HIVCenter ♡</span>
+    </a>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/blogpost/">Blogpost</a>
+    <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/booking/">Booking</a>
+    <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/experience/">Experience</a>
+    <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/feedback/">Feedback</a>
+    <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/authentication/logout/">Logout</a>
+    </nav>
+</div>
+
+<div class="div-booking" style="background-color:#d8c3a5; min-height: 100vh;">
+
+    <div id="appointmentList" class="div-booking" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
+        <div class="mt-4 flex-wrap flex-row justify-content-center div-booking">
+            
+            <div class="form-container-1 div-booking" style="width:600px; text-align:center;">
+                <h1 class="display-4">Hello, {{username}} <span id="typed"></span></h1>
+            </div>
+            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">
+                
+        </div>
+
+        
+        <p class="mb-0 text-light lead">HERE IS THE LIST OF YOUR UPCOMING APPOINTMENTS!</p>
+        
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center pb-4 div-booking">
+            
+
+            {% for appointment in appointmentList %}
+                <div id="{{appointment.pk}}" class="card shadow mx-4 my-5 zoom div-booking" style="background-color: #eae7dc; color: #8e8d8a; max-width: 18rem;">
+                    <div class="card-header div-booking">Appointment with {{appointment.user}} ♡ </div>
+                    <div class="card-body div-booking">
+                        <p class="card-text lead">Date: {{appointment.date}}</p>
+                        <p class="card-text lead">Time: {{appointment.time}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <br>
+    </div>
+        
+</div>
+
+{% endblock content %}

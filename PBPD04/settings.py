@@ -12,11 +12,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+PRODUCTION = os.getenv('DATABASE_URL') is not None
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -29,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+AUTH_USER_MODEL = 'Authentication.User'
 
 # Application definition
 
@@ -109,6 +112,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if PRODUCTION:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600, ssl_require=True
+    )
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -133,7 +140,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
     directory.mkdir(exist_ok=True)
@@ -142,3 +149,7 @@ for directory in [*STATICFILES_DIRS, STATIC_ROOT]:
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/json", ".json", True)

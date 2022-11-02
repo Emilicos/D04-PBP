@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Registrasi Akun</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+{% endblock meta %}
+
+{% block content %}
+    <section class="vh-100" style="background-color: #e98074;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row d-flex justify-content-center">
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register Sebagai Pasien</p>
+                                </div>
+                                <a href="registerpasien/"><img src="../../static/images/asset2.png" class="image-fluid"/></a>
+                            </div>
+                            <div class="col">
+                                <div class="row d-flex justify-content-center">
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register Sebagai Dokter</p>
+                                </div>
+                                <a href="registerdokter/"><img src="../../static/images/asset3.png" class="image-fluid"/></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

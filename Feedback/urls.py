@@ -5,6 +5,7 @@ from Feedback.views import show_feedback_json
 from Feedback.views import delete
 
 app_name = "feedback"
+
 urlpatterns = [
     path('', show_feedback, name = 'show_feedback'),
     path('create/', create_feedback, name = 'create_feedback'),

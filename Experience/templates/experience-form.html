@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
+{% block meta %}
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+{% endblock meta %}
 {% block content %}
 
-<div class= "experience-form-container p-5">
-    <div class="form-container-1" style="width:400px; text-align:center;">
+<div class= "experience-form-container flex-wrap flex-row justify-content-center"  style="text-align: center; background-color:#eae7dc;
+height: 100vh;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
+    <img src="/static/images/asset2.png" style="width:35%;" class="d-md-block img-fluid"></img>
+
+    <div class="form-container-1 mt-5 ml-0" style="width:400px; text-align:center;">
         <div class="header m-3">
             <h3>Experience Form</h3>
         </div>
@@ -17,7 +26,7 @@
                     </div>
                 {%endfor%}
                 <div class="tombol flex-col ">
-                    <input class="btn" type="submit" name="submit" value="Submit"/>
+                    <input class="btn" type="submit" name="submit" value="Submit" onclick="submitForm()"/>
                     <input class="btn" type="button" value="Go back!" onclick="history.back()">
                 </div>
             </form>
@@ -26,6 +35,28 @@
         </div>
     </div>
 </div>
+<script>
+    function submitForm(){
+        $.ajax({
+            type: "POST",
+            url:"{%url 'Experience:create_experience'%}",
+            data: {
+                title: $('input[name="title"]').val();
+                experience: $('input[name="experience"]').val();
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+            }
+            dataType:"json",
+            success: function(){
+                window.location="experience.html"
+            },
+            error: function(error){
+                alert("error")
+            }
+
+        })
+        return false;
+    }
+</script>
 {% endblock content %}
 
 

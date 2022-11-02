@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+<style>
+    body {
+    height: 100vh;
+    }
+
+    body {
+    min-height: 100vh;
+    }
+
+    .div-booking {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .background-div {
+        background-color: #8e8d8a;
+    }
+
+    .zoom {
+      transition: transform .2s;
+    }
+    
+    .zoom:hover {
+      transform: scale(1.05);
+      box-shadow: 4px 4px 4px #cccccc;
+    }
+
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+
+{% endblock meta %}
+
+{% block content %}
+
+<script src = "../../static/js/booking.js"> </script>
+
+<div class="row div-booking">
+    <div class="col div-booking">
+
+        <div class="d-flex flex-column flex-md-row align-items-center py-2 px-2 border-bottom bg-white shadow-sm position-fixed w-100 div-booking">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none px-5 py-0">
+            <span class="fs-4 fw-bold" style="color: #797875;">HIVCenter ♡</span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/blogpost/">Blogpost</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/booking/">Booking</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/experience/">Experience</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/feedback/">Feedback</a>
+            <a class="me-3 py-2 text-decoration-none" style="color: #8e8d8a;" href="/authentication/logout/">Logout</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div style="background-color:#d8c3a5; min-height: 100vh;" class="pt-5 div-booking">
+    
+    <div class="mb-0 flex-wrap flex-row justify-content-center div-booking" style="background-image: linear-gradient( #eae7dc, #d8c3a5); width: 100%;">
+        <img src="/static/images/asset3.png" alt="" style="width:40%;" class="d-md-block img-fluid mt-5">
+        
+        <div class="form-container-1 mt-5 ml-0 div-booking" style="width:50%; text-align:center;">
+            <h1 class="display-4">Hello, {{username}} <span id="typed"></span></h1>
+            <p id="messageInfo" class="py-2 lead">It seems like you haven't booked any appointment yet!</p>
+            <button id="bookingButton" type="button" class="btn px-5 mb-2 shadow-sm" style="background-color: #8e8d8a; color: #eae7dc" onClick="document.getElementById('bookingForm').scrollIntoView();">START BOOKING HERE</button>
+            <h3 class="viewBooking lead mb-2">or</h3>
+            <button id="viewButton" type="button" class="btn px-5 mb-2 shadow-sm viewBooking" style="background-color: #8e8d8a; color: #eae7dc" onClick="document.getElementById('appointmentList').scrollIntoView();">VIEW MY UPCOMING APPOINTMENTS</button>
+        </div>
+    </div>
+    
+    <div id="bookingForm" style="background-image: linear-gradient(#d8c3a5); width: 100%;" class="my-5 py-5 div-booking">
+        <h3 class="lead pt-4 mt-3 pb-2">Fill the form below to book an appointment <span id="typed_three"></span></h3>
+        <div class="shadow-lg pb-3 pt-2 d-flex justify-content-center div-booking" style="background-color: #eae7dc; width:500px; border-radius: 25px;" >
+            <div class="card-body div-booking">
+
+                <form method="POST" action="" id="post-form">
+
+                    {% csrf_token %}
+
+                    {% for fm in form %}
+
+                        <div class="div-booking">
+                            <label class="my-3"> {{ fm.label }} </label>
+                            <p class="w-100"> {{ fm }} </p>
+                        </div>
+
+                    {% endfor %}
+
+                    <div class="mb-3 mt-5 d-grid div-booking">
+                        <input type="submit" class="btn mx-2 mb-3" value="Book" onclick=createBooking() style="background-color: #8e8d8a; color: #eae7dc"/>
+                        <input type="button" class="btn mx-2" value="Close" id="hideEl" onclick=hideElement() style="background-color: #8e8d8a; color: #eae7dc"/>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    <div id="appointmentList" class="div-booking" style="background-image: linear-gradient( #d8c3a5, #eae7dc); width: 100%;">
+        <div class="mt-0 flex-wrap flex-row justify-content-center div-booking">
+            
+            <div class="form-container-1 div-booking" style="width:600px; text-align:center;">
+                <h1 id="appointmentInfo" class="text-bold text-light display-5 pb-3"><span id="typed_two"></span></h1>
+                <small class="my-3 text-light">WANT TO SEARCH FOR A SPECIFIC DOCTOR?</small>
+                <div id="search-form div-booking" class="form-inline my-2 d-flex flex-row" >
+                    <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn m-2 my-sm-0" onclick="searchDokter()" style="background-color: #8e8d8a; color: #eae7dc">Search</button>
+                </div>
+            </div>
+            <img src="/static/images/asset4.png" alt="" style="width:40%;" class="d-md-block img-fluid">   
+        </div>
+        
+        <div id="cardAjax" class="card-collection d-flex flex-wrap flex-row justify-content-center mt-0 pt-0 div-booking"></div>
+        <br>
+    </div>
+        
+</div>
+
+{% endblock content %}
