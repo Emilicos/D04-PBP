@@ -5,6 +5,7 @@ from Feedback.models import FeedbackModel
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 # Create your views here.
 def show_feedback(request):
@@ -35,3 +36,7 @@ def create_feedback(request): # submit feedback
 def show_feedback_json(request):
     feedbacks = FeedbackModel.objects.all()
     return HttpResponse(serializers.serialize("json", feedbacks), content_type="application/json")
+
+def delete(request, pk):
+    FeedbackModel.objects.filter(id=pk).delete()
+    return redirect('feedback:show_feedback')
