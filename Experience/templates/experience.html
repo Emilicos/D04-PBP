@@ -55,7 +55,7 @@
         {%endif%}    
     </div>
 </div>
-<div class="experience-container reveal" style="text-align: center;
+<div class="experience-container " style="text-align: center;
 margin-top:80px; 
 object-fit: cover;
 height: 100vh;
@@ -81,8 +81,7 @@ background-size: cover;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
-                <div class="modal-header
-                            ">
+                <div class="modal-header">
                     <button type="button" class="close" data-bs-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
@@ -194,9 +193,9 @@ background-size: cover;">
         })
         return false;
     
-}
+    }
 
-function reveal() {
+{% comment %} function reveal() {
     var reveals = document.querySelectorAll(".reveal");
   
     for (var i = 0; i < reveals.length; i++) {
@@ -212,7 +211,7 @@ function reveal() {
     }
   }
   
-  window.addEventListener("scroll", reveal);
+  window.addEventListener("scroll", reveal); {% endcomment %}
 
 
     {% comment %} function submitForm(){
