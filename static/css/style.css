@@ -858,4 +858,13 @@ html {
     opacity: 1;
   }
 
+  .btn-create-experience{
+    border: none;
+    outline: none;
+    margin:10px;
+    width:200px;
+    height: 40px;
+    background-color: #8e8d8a;
+}
+
  
