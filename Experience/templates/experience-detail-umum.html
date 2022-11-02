@@ -4,18 +4,9 @@
 {% endblock meta %}
 {% block content %}
 
-<div class="experience-detail" style="align-items:center; position: absolute;
-left: 50%;
-top: 50%;
-height: 200px;
-margin-top: -100px;
-width: 100vh;
-margin-left: -200px ;">
-    <div class="experience-image flex-row">
-        <img src="/static/images/hivtos.png" style="min-width:50%;max-width:100%; margin-top:70px"></img>
-    </div>
-    <div class= "detail-container flex-row">
-        <div class="detail" style="align-items: center; margin:10px; max-width:600px; margin-top:30px;">
+<div class="experience-detail h-100 d-flex align-items-center justify-content-center">
+    <div class= "detail-container">
+        <div class="detail" style="align-items: center; margin:10px; max-width:100%; margin-top:30px;">
             <h1 class="pb-3"> {{posts.title}} </h2>
             <h8 class="mb-3"> by anonymous </h8>
             <p class="mbr-text mb-0 mbr-fonts-style display-7" style="font-size:15px">{{ posts.experience }}</p>
