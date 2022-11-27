@@ -1,2 +1,2 @@
 release: sh -c 'python manage.py migrate'
-web: gunicorn PBPD04.wsgi --log-file -
+web: python manage.py migrate && gunicorn PBPD04.wsgi
