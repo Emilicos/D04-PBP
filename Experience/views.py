@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from Experience.models import Experience
 from .forms import *
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect
 from django.core import serializers
 import datetime  
+import json
+from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -64,3 +67,13 @@ def create_experience_ajax(request):
 def show_experience_json(request):
     experience = Experience.objects.all()
     return HttpResponse(serializers.serialize("json", experience), content_type="application/json")
+
+@csrf_exempt
+def add_experience_flutter(request):
+    body_unicode = request.body.decode('utf-8')
+    data = json.loads(body_unicode)
+    new_experience = Experience(**data)
+    new_experience.save()
+    return JsonResponse({
+        "success": "New experience added"
+    })
