@@ -56,6 +56,7 @@ def create_blogpost(request):
             form = BlogpostForm(request.POST)
             if(form.is_valid()):
                 form.instance.user = request.user
+                form.instance.username = request.user.username
                 form_id = form.save()
                 return JsonResponse({
                     "status_code": 200,

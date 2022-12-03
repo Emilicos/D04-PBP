@@ -19,6 +19,7 @@ class BlogpostModel(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete = models.CASCADE)
+    username = models.TextField()
     time = models.DateTimeField(auto_now_add = True)
     title = models.CharField(max_length = 100)
     opening = models.TextField()
