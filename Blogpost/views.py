@@ -5,6 +5,7 @@ from Blogpost.models import BlogpostModel
 from django.core import serializers
 from datetime import date
 from Authentication.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def show_blogpost(request):
@@ -50,29 +51,46 @@ def show_blogpost_by_id(request, id):
     }
     return render(request, 'blogpost_item.html', context)
 
+# def create_blogpost(request):
+#     if(request.method == "POST" and request.user.is_authenticated):
+#         if(request.user.role == 2):
+#             form = BlogpostForm(request.POST)
+#             if(form.is_valid()):
+#                 form.instance.user = request.user
+#                 form.instance.username = request.user.username
+#                 form_id = form.save()
+#                 return JsonResponse({
+#                     "status_code": 200,
+#                     "data": form.data,
+#                     "date": date.today(),
+#                     "id": form_id.id,
+#                 })
+#         else:
+#             response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat membuat Blog"})
+#             response.status_code = 403 # To announce that the user isn't allowed to publish
+#             return response
+#             #raise PermissionDenied()
+#     else:
+#         response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method POST"})
+#         response.status_code = 403 # To announce that the user isn't allowed to publish
+#         return response
+
+@csrf_exempt
 def create_blogpost(request):
-    if(request.method == "POST" and request.user.is_authenticated):
-        if(request.user.role == 2):
-            form = BlogpostForm(request.POST)
-            if(form.is_valid()):
-                form.instance.user = request.user
-                form.instance.username = request.user.username
-                form_id = form.save()
-                return JsonResponse({
-                    "status_code": 200,
-                    "data": form.data,
-                    "date": date.today(),
-                    "id": form_id.id,
-                })
-        else:
-            response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat membuat Blog"})
-            response.status_code = 403 # To announce that the user isn't allowed to publish
-            return response
-            #raise PermissionDenied()
-    else:
-        response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method POST"})
-        response.status_code = 403 # To announce that the user isn't allowed to publish
-        return response
+    if(request.method == "POST"):
+        print(request.body)
+        form = BlogpostForm(request.POST)
+        print(request.POST)
+        if(form.is_valid()):
+            form.instance.user = request.user
+            form.instance.username = request.user.username
+            form_id = form.save()
+            return JsonResponse({
+                "status_code": 200,
+                "data": form.data,
+                "date": date.today(),
+                "id": form_id.id,
+            })
 
 def update_blogpost(request, id):
     if(request.method == "PUT" and request.user.is_authenticated):
@@ -124,24 +142,33 @@ def update_blogpost(request, id):
 
 
 
+# def delete_blogpost(request, id):
+#     if(request.method == "DELETE" and request.user.is_authenticated):
+#         if(request.user.role == 2):
+#             blogpost = BlogpostModel.objects.get(pk = id)
+#             if(blogpost.user == request.user):
+#                 blogpost.delete()
+#                 return JsonResponse({
+#                     "message": "Delete berhasil"
+#                 })
+#             else:
+#                 response = JsonResponse({"error": "Anda bukan user yang membuat blog"})
+#                 response.status_code = 403 # To announce that the user isn't allowed to publish
+#                 return response
+#         else:
+#             response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat menghapus Blog"})
+#             response.status_code = 403 # To announce that the user isn't allowed to publish
+#             return response
+#     else:
+#         response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method DELETE"})
+#         response.status_code = 403 # To announce that the user isn't allowed to publish
+#         return response
+
+@csrf_exempt
 def delete_blogpost(request, id):
-    if(request.method == "DELETE" and request.user.is_authenticated):
-        if(request.user.role == 2):
-            blogpost = BlogpostModel.objects.get(pk = id)
-            if(blogpost.user == request.user):
-                blogpost.delete()
-                return JsonResponse({
-                    "message": "Delete berhasil"
-                })
-            else:
-                response = JsonResponse({"error": "Anda bukan user yang membuat blog"})
-                response.status_code = 403 # To announce that the user isn't allowed to publish
-                return response
-        else:
-            response = JsonResponse({"error": "Anda bukan dokter, sehingga anda tidak dapat menghapus Blog"})
-            response.status_code = 403 # To announce that the user isn't allowed to publish
-            return response
-    else:
-        response = JsonResponse({"error": "Anda belum terautentikasi atau tidak melakukan method DELETE"})
-        response.status_code = 403 # To announce that the user isn't allowed to publish
-        return response
+    if(request.method == "DELETE"):
+        blogpost = BlogpostModel.objects.get(pk = id)
+        blogpost.delete()
+        return JsonResponse({
+            "message": "Delete berhasil"
+        })
