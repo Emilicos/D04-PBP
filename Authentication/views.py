@@ -79,7 +79,9 @@ def validate_login(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('hivcenter:show_homepage')
+    return JsonResponse({
+        "message": "successfully logged out"
+    })
 
 def show_json(request):
     return JsonResponse(
