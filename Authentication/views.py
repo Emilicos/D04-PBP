@@ -68,6 +68,9 @@ def validate_login(request):
         if user is not None:
             login(request, user)
             data['is_login'] = True
+            data['username'] = user.username
+            data['role'] = user.role
+            print(data)
             return JsonResponse(data)
         else:
             data['is_login'] = False
