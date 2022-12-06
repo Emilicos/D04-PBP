@@ -60,10 +60,11 @@ def login_user(request):
 @csrf_exempt
 def validate_login(request):
     data = {}
+    print("kalo ada", request.user)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(username=username, password=password)
         print(user)
         if user is not None:
             login(request, user)
@@ -77,6 +78,7 @@ def validate_login(request):
             return JsonResponse(data)
     return JsonResponse(data)
 
+@csrf_exempt
 def logout_user(request):
     logout(request)
     return JsonResponse({
