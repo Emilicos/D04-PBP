@@ -1,5 +1,4 @@
 
-import json
 from django.forms import model_to_dict
 from Booking.forms import AppointmentForm
 
@@ -77,3 +76,7 @@ def delete_booking(request, id):
         booking = Appointment.objects.get(user=request.user, id=id)
         booking.delete()
         return JsonResponse({ "Message": "Appointment Cancelled" }, status=200)
+
+def get_appointment(request):
+    list_appointment = Appointment.objects.filter(doctor=request.user)
+    return HttpResponse(serializers.serialize('json', list_appointment), content_type="application/json")
