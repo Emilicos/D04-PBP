@@ -168,10 +168,11 @@ def update_blogpost(request, id):
 
 @csrf_exempt
 def delete_blogpost(request, id):
+    print("masuk delete")
     if(request.method == "DELETE"):
         try:
             blogpost = BlogpostModel.objects.get(pk = id)
-            if(blogpost.user == request.user):
+            if(blogpost.user == request.user.id):
                 blogpost.delete()
                 return JsonResponse({
                     "message": "Delete berhasil"
