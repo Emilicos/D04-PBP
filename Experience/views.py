@@ -50,6 +50,7 @@ def show_experience_detail(request, id):
 #     context = {'form': form}
 #     return render(request, 'experience-form.html', context)
 
+@csrf_exempt
 def create_experience_ajax(request):
     if request.method == 'POST' and request.user.is_authenticated:
         title = request.POST.get('title')
