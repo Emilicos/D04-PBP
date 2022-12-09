@@ -1,4 +1,5 @@
 
+import json
 from django.forms import model_to_dict
 from Booking.forms import AppointmentForm
 
@@ -49,6 +50,10 @@ def get_dokter_json(request):
     if not dokter:
         dokter = ''
     list_dokter = Appointment.objects.filter(user=request.user, doctor__icontains=dokter)
+    return HttpResponse(serializers.serialize('json', list_dokter), content_type="application/json")
+
+def list_nama_dokter(request):
+    list_dokter = User.objects.filter(role = 2)
     return HttpResponse(serializers.serialize('json', list_dokter), content_type="application/json")
 
 # Add an appointmnet
