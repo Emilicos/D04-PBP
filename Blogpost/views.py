@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from Blogpost.forms import BlogpostForm
 from Blogpost.models import BlogpostModel
 from django.core import serializers
 from datetime import date
 from Authentication.models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def show_blogpost(request):
@@ -168,8 +169,14 @@ def update_blogpost(request, id):
 @csrf_exempt
 def delete_blogpost(request, id):
     if(request.method == "DELETE"):
-        blogpost = BlogpostModel.objects.get(pk = id)
-        blogpost.delete()
-        return JsonResponse({
-            "message": "Delete berhasil"
-        })
+        try:
+            blogpost = BlogpostModel.objects.get(pk = id)
+            if(blogpost.user == request.user):
+                blogpost.delete()
+                return JsonResponse({
+                    "message": "Delete berhasil"
+                })
+            else:
+                raise PermissionDenied()
+        except BlogpostModel.DoesNotExist:
+            return Http404
