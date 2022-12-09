@@ -177,6 +177,8 @@ def delete_blogpost(request, id):
                     "message": "Delete berhasil"
                 })
             else:
-                raise PermissionDenied()
+                return JsonResponse({
+                    "message": "Anda bukan user yang membuat!"
+                })
         except BlogpostModel.DoesNotExist:
             return Http404
