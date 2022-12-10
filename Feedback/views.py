@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def show_feedback(request):
@@ -14,6 +15,7 @@ def show_feedback(request):
     }
     return render(request, 'feedback.html', context)
 
+@csrf_exempt
 def create_feedback(request): # submit feedback
     # if(request.method == "POST" and request.user.isPasien == true):
     if(request.method == "POST" ):
