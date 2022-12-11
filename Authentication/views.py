@@ -17,6 +17,7 @@ def chooseRegisterAs(request):
         return redirect('hivcenter:show_homepage')
     return render(request, 'registeras.html')
 
+@csrf_exempt
 def registerPasien(request):
     form = CreatePasienForm()
     if request.method == 'GET' and request.user.is_authenticated:
@@ -34,6 +35,7 @@ def registerPasien(request):
     context = {'form':form}
     return render(request, 'registerpasien.html', context)
 
+@csrf_exempt
 def registerDokter(request):
     form = CreateDokterForm()
     if request.method == 'GET' and request.user.is_authenticated:
