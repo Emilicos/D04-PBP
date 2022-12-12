@@ -14,4 +14,6 @@ urlpatterns = [
     path("showjson/", views.show_json, name="show_json"),
     path('registerpasien/validate_username/', views.validate_username, name='validate_username'),
     path('registerdokter/validate_username/', views.validate_username, name='validate_username'),
+    path('registerpasien/registerFlutterPasien/', views.registerFlutterPasien, name='register_flutter_pasien'),
+    path('registerdokter/registerFlutterDokter/', views.registerFlutterDokter, name='register_flutter_dokter'),
 ]

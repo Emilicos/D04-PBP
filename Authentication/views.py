@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 import re
 from django import http
@@ -17,6 +18,65 @@ def chooseRegisterAs(request):
         return redirect('hivcenter:show_homepage')
     return render(request, 'registeras.html')
 
+@csrf_exempt
+def registerFlutterPasien(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        username = data["username"]
+        email = data["email"]
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        password1 = data["password1"]
+        password2 = data["password2"]
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({"status": "isTaken"}, status=403)
+
+        newUser = User.objects.create_user(
+            username = username, 
+            email = email,
+            first_name = first_name,
+            last_name = last_name,
+            password = password1,
+        )
+        
+        newUser.save()
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
+def registerFlutterDokter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        username = data["username"]
+        email = data["email"]
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        password1 = data["password1"]
+        password2 = data["password2"]
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({"status": "isTaken"}, status=403)
+
+        newUser = User.objects.create_user(
+            username = username, 
+            email = email,
+            first_name = first_name,
+            last_name = last_name,
+            password = password1,
+        )
+
+        newUser.role = 2
+        
+        newUser.save()
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+@csrf_exempt
 def registerPasien(request):
     form = CreatePasienForm()
     if request.method == 'GET' and request.user.is_authenticated:
@@ -34,6 +94,7 @@ def registerPasien(request):
     context = {'form':form}
     return render(request, 'registerpasien.html', context)
 
+@csrf_exempt
 def registerDokter(request):
     form = CreateDokterForm()
     if request.method == 'GET' and request.user.is_authenticated:
@@ -97,6 +158,7 @@ def show_json(request):
         status=200,
     )
 
+@csrf_exempt
 def validate_username(request):
     username = request.GET.get('username', None)
     data = {
